@@ -130,6 +130,9 @@
 
 	<!-- 构建配置 -->
     <build>
+        <finalName>
+            ${project.artifactId}
+        </finalName>
         <!-- 配置资源目录  -->
     	<resources>
 			<resource>
