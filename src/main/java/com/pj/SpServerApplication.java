@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement // 启动注解事务管理
 public class SpServerApplication {
 
+	
 	public static void main(String[] args) {
 		SpringApplication.run(SpServerApplication.class, args);
 	}
