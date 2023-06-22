@@ -1,10 +1,12 @@
 package com.pj.project.admin4acc;
 
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 
+import cn.hutool.core.date.LocalDateTimeUtil;
 import cn.hutool.core.util.ObjectUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -85,7 +87,7 @@ public class SpAccAdminService {
         }
         String md5Password = SystemObject.getPasswordMd5(admin.getId(), password);
         if(admin.getPassword2().equals(md5Password) == false){
-        	return AjaxJson.getError("密码错误");	
+        	return AjaxJson.getError("密码错误");
         }
         
         // 4、是否禁用
@@ -121,7 +123,7 @@ public class SpAccAdminService {
 		int line = spAdminMapper.updateLoginLog(s.getId(), loginIp);
 		if(line > 0) {
 	        s.setLoginIp(loginIp);
-	        s.setLoginTime(new Date());
+	        s.setLoginTime(LocalDateTime.now().toString());
 	        s.setLoginCount(s.getLoginCount() + 1);
 		}
 		

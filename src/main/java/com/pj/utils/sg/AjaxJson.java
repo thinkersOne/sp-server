@@ -203,6 +203,9 @@ public class AjaxJson extends LinkedHashMap<String, Object> implements Serializa
 		}
 		return getError("error").setData(line); 
 	}
+	public static AjaxJson getByLine(){
+		return getSuccess("ok");
+	}
 
 	/** 返回，根据布尔值来确定最终结果的  (true=ok，false=error)  */
 	public static AjaxJson getByBoolean(boolean b){

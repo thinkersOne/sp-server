@@ -63,6 +63,13 @@ public final class AuthConst {
 	// --------------- 其它常量 --------------- 
 	
 	/** 在 SaSession 上存储 角色id 使用的key */
-	public static final String ROLE_ID_KEY = "ROLE_ID";		   
-	
+	public static final String ROLE_ID_KEY = "ROLE_ID";
+
+	public static final String SP_VEDIO_ADD = "spVedio-add";
+	public static final String SP_VEDIO_DELETE = "spVedio-delete";
+	public static final String SP_VEDIO_DELETE_BY_IDS = "spVedio-deleteByIds";
+	public static final String SP_VEDIO_UPDATE = "spVedio-update";
+	public static final String SP_VEDIO_GETBY＿ID = "spVedio-getById";
+	public static final String SP_VEDIO_GETLIST = "spVedio-list";
+	public static final String SP_VEDIO_INFO = "spVedio-info";
 }
