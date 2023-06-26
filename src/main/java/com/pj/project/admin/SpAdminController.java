@@ -178,7 +178,7 @@ public class SpAdminController {
 	@SaCheckPermission({AuthConst.ADMIN_LIST, AuthConst.DEV})
 	AjaxJson runAs(long adminId) {
 		// 如果不存在这个账号 
-		if(SpAdminUtil.spAdminMapper.getById(adminId) == null) {
+		if(spAdminMapper.getById(adminId) == null) {
 			return AjaxJson.getError("未找到账号：" + adminId);
 		}
 		// 如果要模拟的账号就是当前账号 

@@ -1,6 +1,7 @@
 package com.pj.project.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import com.pj.utils.sg.AjaxError;
@@ -24,7 +25,6 @@ public class SpAdminUtil {
 		SpAdminUtil.spAdminMapper = spAdminMapper;
 	}
 	
-	
 	/**
 	 * 当前admin
 	 * @return
@@ -44,9 +44,9 @@ public class SpAdminUtil {
 		if(NbUtil.isNull(name)) {
 			throw AjaxError.get("账号名称不能为空");
 		}
-		if(NbUtil.isNumber(name)) {
-			throw AjaxError.get("账号名称不能为纯数字");
-		}
+//		if(NbUtil.isNumber(name)) {
+//			throw AjaxError.get("账号名称不能为纯数字");
+//		}
 //		if(name.startsWith("a")) {
 //			throw AjaxException.get("账号名称不能以字母a开头");
 //		}

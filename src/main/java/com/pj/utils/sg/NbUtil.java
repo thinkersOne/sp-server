@@ -83,7 +83,7 @@ public class NbUtil {
 	 * 该字符串是否为null或者空串
 	 */
 	public static boolean isNull(String str) {
-		return (str == null || str.equals(""));
+		return (str == null || "".equals(str));
 	}
 	/**
 	 * 指定字符串是否含有null或者空串

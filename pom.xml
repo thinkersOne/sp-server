@@ -50,6 +50,7 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
+            <version>8.0.23</version> <!-- 根据你的需求选择合适的版本 -->
 		</dependency>
 		
 		<!-- 阿里 druid 连接池  -->
