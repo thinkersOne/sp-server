@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pj.project.sp_order.SpOrderMapper">
+
+	<!-- 增 [G] -->
+	<insert id="add">
+		insert into 
+		sp_order (id, code, pay_type, pay_amount, order_source, drawee, order_pay_time, order_code, create_time, create_by, update_time, update_by) 
+		values (#{id}, #{code}, #{payType}, #{payAmount}, #{orderSource}, #{drawee}, #{orderPayTime}, #{orderCode}, #{createTime}, #{createBy}, #{updateTime}, #{updateBy}) 
+	</insert>
+
+	<!-- 删 -->
+	<delete id="delete">
+		delete from sp_order 
+		where id = #{id}
+	</delete>
+
+	<!-- 改 [G] -->
+	<update id="update">
+		update sp_order set
+		id = #{id}, 
+		code = #{code}, 
+		pay_type = #{payType}, 
+		pay_amount = #{payAmount}, 
+		order_source = #{orderSource}, 
+		drawee = #{drawee}, 
+		order_pay_time = #{orderPayTime}, 
+		order_code = #{orderCode}, 
+		create_time = #{createTime}, 
+		create_by = #{createBy}, 
+		update_time = #{updateTime}, 
+		update_by = #{updateBy}
+		where id = #{id}
+	</update>
+
+
+	<!-- ================================== 查询相关 ================================== -->
+	<!-- select id, code, pay_type, pay_amount, order_source, drawee, order_pay_time, order_code, create_time, create_by, update_time, update_by from sp_order  -->
+	
+	<!-- 通用映射：手动模式 -->
+	<resultMap id="model" type="com.pj.project.sp_order.SpOrder">
+		<result property="id" column="id" />
+		<result property="code" column="code" />
+		<result property="payType" column="pay_type" />
+		<result property="payAmount" column="pay_amount" />
+		<result property="orderSource" column="order_source" />
+		<result property="drawee" column="drawee" />
+		<result property="orderPayTime" column="order_pay_time" />
+		<result property="orderCode" column="order_code" />
+		<result property="createTime" column="create_time" />
+		<result property="createBy" column="create_by" />
+		<result property="updateTime" column="update_time" />
+		<result property="updateBy" column="update_by" />
+	</resultMap>
+	
+	<!-- 公共查询sql片段 -->
+	<sql id="select_sql">
+		select * 
+		from sp_order 
+	</sql>
+	
+	<!-- 查 - 根据id -->
+	<select id="getById" resultMap="model">
+		<include refid="select_sql"></include>
+		where id = #{id}
+	</select>
+	
+	<!-- 查集合 - 根据条件（参数为空时代表忽略指定条件） [G] -->
+	<select id="getList" resultMap="model">
+		<include refid="select_sql"></include>
+		<where>
+			<if test=' this.has("id") '> and id = #{id} </if>
+			<if test=' this.has("code") '> and code = #{code} </if>
+			<if test=' this.has("payType") '> and pay_type = #{payType} </if>
+			<if test=' this.has("payAmount") '> and pay_amount = #{payAmount} </if>
+			<if test=' this.has("orderSource") '> and order_source = #{orderSource} </if>
+			<if test=' this.has("drawee") '> and drawee = #{drawee} </if>
+			<if test=' this.has("orderPayTime") '> and order_pay_time = #{orderPayTime} </if>
+			<if test=' this.has("orderCode") '> and order_code = #{orderCode} </if>
+			<if test=' this.has("createTime") '> and create_time = #{createTime} </if>
+			<if test=' this.has("createBy") '> and create_by = #{createBy} </if>
+			<if test=' this.has("updateTime") '> and update_time = #{updateTime} </if>
+			<if test=' this.has("updateBy") '> and update_by = #{updateBy} </if>
+		</where>
+		order by
+		<choose>
+			<when test='sortType == 1'> id desc </when>
+			<when test='sortType == 2'> code desc </when>
+			<when test='sortType == 3'> pay_type desc </when>
+			<when test='sortType == 4'> pay_amount desc </when>
+			<when test='sortType == 5'> order_source desc </when>
+			<when test='sortType == 6'> drawee desc </when>
+			<when test='sortType == 7'> order_pay_time desc </when>
+			<when test='sortType == 8'> order_code desc </when>
+			<when test='sortType == 9'> create_time desc </when>
+			<when test='sortType == 10'> create_by desc </when>
+			<when test='sortType == 11'> update_time desc </when>
+			<when test='sortType == 12'> update_by desc </when>
+			<otherwise> id desc </otherwise>
+		</choose>
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+</mapper>

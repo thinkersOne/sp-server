@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pj.project.sp_product.SpProductMapper">
+
+	<!-- 增 [G] -->
+	<insert id="add">
+		insert into 
+		sp_product (id, name, type, create_time, create_by, update_time, update_by) 
+		values (#{id}, #{name}, #{type}, #{createTime}, #{createBy}, #{updateTime}, #{updateBy}) 
+	</insert>
+
+	<!-- 删 -->
+	<delete id="delete">
+		delete from sp_product 
+		where id = #{id}
+	</delete>
+
+	<!-- 改 [G] -->
+	<update id="update">
+		update sp_product set
+		id = #{id}, 
+		name = #{name}, 
+		type = #{type}, 
+		create_time = #{createTime}, 
+		create_by = #{createBy}, 
+		update_time = #{updateTime}, 
+		update_by = #{updateBy}
+		where id = #{id}
+	</update>
+
+
+	<!-- ================================== 查询相关 ================================== -->
+	<!-- select id, name, type, create_time, create_by, update_time, update_by from sp_product  -->
+	
+	<!-- 通用映射：手动模式 -->
+	<resultMap id="model" type="com.pj.project.sp_product.SpProduct">
+		<result property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="type" column="type" />
+		<result property="createTime" column="create_time" />
+		<result property="createBy" column="create_by" />
+		<result property="updateTime" column="update_time" />
+		<result property="updateBy" column="update_by" />
+	</resultMap>
+	
+	<!-- 公共查询sql片段 -->
+	<sql id="select_sql">
+		select * 
+		from sp_product 
+	</sql>
+	
+	<!-- 查 - 根据id -->
+	<select id="getById" resultMap="model">
+		<include refid="select_sql"></include>
+		where id = #{id}
+	</select>
+	
+	<!-- 查集合 - 根据条件（参数为空时代表忽略指定条件） [G] -->
+	<select id="getList" resultMap="model">
+		<include refid="select_sql"></include>
+		<where>
+			<if test=' this.has("id") '> and id = #{id} </if>
+			<if test=' this.has("name") '> and name = #{name} </if>
+			<if test=' this.has("type") '> and type = #{type} </if>
+			<if test=' this.has("createTime") '> and create_time = #{createTime} </if>
+			<if test=' this.has("createBy") '> and create_by = #{createBy} </if>
+			<if test=' this.has("updateTime") '> and update_time = #{updateTime} </if>
+			<if test=' this.has("updateBy") '> and update_by = #{updateBy} </if>
+		</where>
+		order by
+		<choose>
+			<when test='sortType == 1'> id desc </when>
+			<when test='sortType == 2'> name desc </when>
+			<when test='sortType == 3'> type desc </when>
+			<when test='sortType == 4'> create_time desc </when>
+			<when test='sortType == 5'> create_by desc </when>
+			<when test='sortType == 6'> update_time desc </when>
+			<when test='sortType == 7'> update_by desc </when>
+			<otherwise> id desc </otherwise>
+		</choose>
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+</mapper>

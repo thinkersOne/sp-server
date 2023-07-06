@@ -72,4 +72,27 @@ public final class AuthConst {
 	public static final String SP_VEDIO_GETBY＿ID = "spVedio-getById";
 	public static final String SP_VEDIO_GETLIST = "spVedio-list";
 	public static final String SP_VEDIO_INFO = "spVedio-info";
+
+	/**
+	 * 商品
+	 */
+	public static final String SP_PRODUCT_ADD = "spProduct-add";
+	public static final String SP_PRODUCT_DELETE = "spProduct-delete";
+	public static final String SP_PRODUCT_DELETE_BY_IDS = "spProduct-deleteByIds";
+	public static final String SP_PRODUCT_UPDATE = "spProduct-update";
+	public static final String SP_PRODUCT_GETBY＿ID = "spProduct-getById";
+	public static final String SP_PRODUCT_GETLIST = "spProduct-list";
+	public static final String SP_PRODUCT_INFO = "spProduct-info";
+
+	/**
+	 * 订单
+	 */
+	public static final String SP_ORDER_ADD = "spOrder-add";
+	public static final String SP_ORDER_DELETE = "spOrder-delete";
+	public static final String SP_ORDER_DELETE_BY_IDS = "spOrder-deleteByIds";
+	public static final String SP_ORDER_UPDATE = "spOrder-update";
+	public static final String SP_ORDER_GETBY＿ID = "spOrder-getById";
+	public static final String SP_ORDER_GETLIST = "spOrder-list";
+	public static final String SP_ORDER_INFO = "spOrder-info";
+
 }
