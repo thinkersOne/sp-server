@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pj.project.sys_user.SysUserMapper">
+
+	<!-- 增 [G] -->
+	<insert id="add">
+		insert into 
+		sys_user (id, name, phone, password) 
+		values (#{id}, #{name}, #{phone}, #{password}) 
+	</insert>
+	<select id="existsAccount" resultType="int">
+		select count(*) from sys_user where name = #{name} or phone = #{phone};
+	</select>
+	<!-- 删 -->
+	<delete id="delete">
+		delete from sys_user 
+		where id = #{id}
+	</delete>
+	<!-- 查询，根据名称 -->
+	<select id="getByName" resultMap="model">
+		<include refid="select_sql"></include>
+		where name = #{name}
+	</select>
+
+	<!-- 查询，根据名称 -->
+	<select id="getByPhone" resultMap="model">
+		<include refid="select_sql"></include>
+		where phone = #{phone}
+	</select>
+	<!-- 改 [G] -->
+	<update id="update">
+		update sys_user set
+		id = #{id}, 
+		name = #{name}, 
+		phone = #{phone}, 
+		password = #{password}
+		where id = #{id}
+	</update>
+
+
+	<!-- ================================== 查询相关 ================================== -->
+	<!-- select id, name, phone, password from sys_user  -->
+	
+	<!-- 通用映射：手动模式 -->
+	<resultMap id="model" type="com.pj.project.sys_user.SysUser">
+		<result property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="phone" column="phone" />
+		<result property="password" column="password" />
+	</resultMap>
+	
+	<!-- 公共查询sql片段 -->
+	<sql id="select_sql">
+		select * 
+		from sys_user 
+	</sql>
+	
+	<!-- 查 - 根据id -->
+	<select id="getById" resultMap="model">
+		<include refid="select_sql"></include>
+		where id = #{id}
+	</select>
+	
+	<!-- 查集合 - 根据条件（参数为空时代表忽略指定条件） [G] -->
+	<select id="getList" resultMap="model">
+		<include refid="select_sql"></include>
+		<where>
+			<if test=' this.has("id") '> and id = #{id} </if>
+			<if test=' this.has("name") '> and name = #{name} </if>
+			<if test=' this.has("phone") '> and phone = #{phone} </if>
+			<if test=' this.has("password") '> and password = #{password} </if>
+		</where>
+		order by
+		<choose>
+			<when test='sortType == 1'> id desc </when>
+			<when test='sortType == 2'> name desc </when>
+			<when test='sortType == 3'> phone desc </when>
+			<when test='sortType == 4'> password desc </when>
+			<otherwise> id desc </otherwise>
+		</choose>
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+</mapper>
