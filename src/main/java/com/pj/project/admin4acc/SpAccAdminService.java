@@ -53,60 +53,42 @@ public class SpAccAdminService {
 	 */
 	@Transactional(rollbackFor = Exception.class)
 	public AjaxJson doLogin(String key, String password) {
-		
+
 		// 0、判断 way (1=ID, 2=昵称，3=手机号  )
-    	int way = 2;	
-    	if(NbUtil.isNumber(key) == true){
-    		way = 1;
-    		if(key.length() == 11){
-    			way = 3;
-    		}
-    	}
-		
+		int way = 2;
 		// 2、获取admin
-        SpAdmin admin = null;	
-        if(way == 1) {
-        	admin = spAdminMapper.getById(Long.parseLong(key)); 
-        }
-
+		SpAdmin admin = null;
 		// 优化 key 默认 既可作昵称登录也可当做手机号登录
-        if(way == 2) {
-        	admin = spAdminMapper.getByName(key); 
-        }
-        if(ObjectUtil.isEmpty(admin)) {
-        	admin = spAdminMapper.getByPhone(key); 
-        }
-        
+		if(way == 2) {
+			admin = spAdminMapper.getByName(key);
+		}
+		if(ObjectUtil.isEmpty(admin)) {
+			admin = spAdminMapper.getByPhone(key);
+		}
 
-        // 3、开始验证
-        if(admin == null){
-        	return AjaxJson.getError("无此账号");	
-        }
-        if(NbUtil.isNull(admin.getPassword2())) {
-        	return AjaxJson.getError("此账号尚未设置密码，无法登陆");
-        }
-        String md5Password = SystemObject.getPasswordMd5(admin.getId(), password);
-        if(admin.getPassword2().equals(md5Password) == false){
-        	return AjaxJson.getError("密码错误");
-        }
-        
-        // 4、是否禁用
-        if(admin.getStatus() == 2) {
-        	return AjaxJson.getError("此账号已被禁用，如有疑问，请联系管理员");	
-        }
 
-        // =========== 至此, 已登录成功 ============ 
-        StpUtil.login(admin.getId()); 		
-        String tokenValue = StpUtil.getTokenValue();
-        successLogin(admin, tokenValue);
-        
-        // 组织返回参数  
-		SoMap map = new SoMap();
-		map.put("admin", admin);
-		map.put("appCfg", SpCfgUtil.getAppCfg());
-		map.put("perList", spRolePermissionService.getPcodeByRid(admin.getRoleId()));
-		map.put("tokenInfo", StpUtil.getTokenInfo());
-		return AjaxJson.getSuccessData(map);	
+		// 3、开始验证
+		if(admin == null){
+			return AjaxJson.getError("无此账号");
+		}
+		if(NbUtil.isNull(admin.getPassword2())) {
+			return AjaxJson.getError("此账号尚未设置密码，无法登陆");
+		}
+		String md5Password = SystemObject.getPasswordMd5(admin.getId(), password);
+		if(admin.getPassword2().equals(md5Password) == false){
+			return AjaxJson.getError("密码错误");
+		}
+
+		// 4、是否禁用
+		if(admin.getStatus() == 2) {
+			return AjaxJson.getError("此账号已被禁用，如有疑问，请联系管理员");
+		}
+
+		// =========== 至此, 已登录成功 ============
+		StpUtil.login(admin.getId());
+		String tokenValue = StpUtil.getTokenValue();
+		successLogin(admin, tokenValue);
+		return AjaxJson.getSuccessData(StpUtil.getTokenInfo());
 	}
 	
 	/**

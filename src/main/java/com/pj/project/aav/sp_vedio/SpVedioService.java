@@ -1,15 +1,19 @@
-package com.pj.project.sp_vedio;
+package com.pj.project.aav.sp_vedio;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import cn.hutool.core.util.ObjectUtil;
 import com.pj.current.global.SnowflakeIdGenerator;
 import com.pj.current.global.VedioStatusEnum;
 import com.pj.current.global.VedioTypeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.pj.utils.so.*;
+import org.springframework.web.client.RestTemplate;
 
 /**
  * Service: sp_vedio -- 视频表
@@ -23,6 +27,9 @@ public class SpVedioService {
 	SpVedioMapper spVedioMapper;
 	@Autowired
 	private SnowflakeIdGenerator snowflakeIdGenerator;
+	@Autowired
+	private RestTemplate restTemplate;
+
 
 	/** 增 */
 	int add(SpVedio s){
@@ -60,6 +67,22 @@ public class SpVedioService {
 		}
 		return list;
 	}
-	
+
+	//请求获取视频数据
+	public void getVedioData(){
+		Map<String,String> params = new HashMap<>();
+		params.put("url",VedioConstent.GIRL_VEDIO_PATH+"url");
+		params.put("json",VedioConstent.GIRL_VEDIO_PATH+"json");
+		ResponseEntity<VedioDataResponse> forEntity = restTemplate.getForEntity(VedioConstent.GIRL_VEDIO_PATH,
+				VedioDataResponse.class, params);
+		System.out.println(forEntity);
+//		String vedioUrl = result.getUrl();
+//		System.out.println(vedioUrl);
+//		System.out.println(result);
+	}
+
+
+
+
 
 }

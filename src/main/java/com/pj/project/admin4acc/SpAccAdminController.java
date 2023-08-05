@@ -1,6 +1,9 @@
 package com.pj.project.admin4acc;
 
+import com.pj.project.admin.LoginDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,8 +35,10 @@ public class SpAccAdminController {
 	SpRolePermissionService spRolePermissionService;
 	
 	/** 账号、密码登录  */
-	@RequestMapping("doLogin")
-	AjaxJson doLogin(String key, String password) {
+	@PostMapping("doLogin")
+	AjaxJson doLogin(@RequestBody LoginDTO loginDTO) {
+		String key = loginDTO.getKey();
+		String password = loginDTO.getPassword();
 		IpCheckUtil.checkResToNow("admin-login", 1);
 		// 1、验证参数 
 		if(NbUtil.hasNull(key, password)) {

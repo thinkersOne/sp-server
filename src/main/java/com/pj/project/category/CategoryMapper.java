@@ -22,7 +22,9 @@ public interface CategoryMapper {
 	 * @return 受影响行数 
 	 */
 	int add(Category c);
+	List<Category> searchByName(String name,Long userId);
 
+	int existName(String name);
 	/**
 	 * 删  
 	 * @param id 要删除的数据id  

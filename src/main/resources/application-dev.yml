@@ -6,7 +6,7 @@ spring:
     # 数据源配置
     datasource: 
         type: com.mysql.cj.jdbc.Driver
-        url: jdbc:mysql://182.92.153.115:3306/aav?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+        url: jdbc:mysql://182.92.153.115:3306/sp-dev?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
         username: root
         password: 123456
         # 是否打开sql监控台  (生产环境请务必关闭此选项) 

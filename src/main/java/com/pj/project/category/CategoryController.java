@@ -2,8 +2,10 @@ package com.pj.project.category;
 
 import java.util.List;
 
+import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.stp.StpUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import com.pj.current.satoken.AuthConst;
@@ -25,16 +27,38 @@ public class CategoryController {
 	/** 底层 Service 对象 */
 	@Autowired
 	CategoryService categoryService;
+	@Autowired
+	CategoryMapper categoryMapper;
 
-	/** 增 */  
-	@RequestMapping("add")
-	@SaCheckPermission(AuthConst.CATEGORY_ADD)
+	/** 增 */
+	@PostMapping("add")
+	@SaCheckLogin
 	@Transactional(rollbackFor = Exception.class)
-	public AjaxJson add(Category c){
+	public AjaxJson add(@RequestBody Category c){
+		if(categoryMapper.existName(c.getName()) > 0){
+			return AjaxJson.getError("名称已存在!");
+		}
 		c.setUserId(StpUtil.getLoginIdAsLong());
 		categoryService.add(c);
 		c = categoryService.getById(SP.publicMapper.getPrimarykey());
 		return AjaxJson.getSuccessData(c);
+	}
+	@GetMapping("searchByName")
+	@SaCheckLogin
+	public AjaxJson searchByName(@Param("name") String name) {
+		List<Category> list = categoryService.searchByName(name);
+		return AjaxJson.getPageData(Long.valueOf(list.size()), list);
+	}
+	/** 删 - 根据id列表 */
+	@PostMapping("deleteByIds")
+	@SaCheckLogin
+	public AjaxJson deleteByIds(@RequestBody List<Long> ids){
+		int count = categoryService.getCountByIds(ids);
+		if(count > 0){
+			return AjaxJson.getError("该分类已使用，不能进行删除！");
+		}
+		int line = SP.publicMapper.deleteByIds(Category.TABLE_NAME, ids);
+		return AjaxJson.getByLine(line);
 	}
 
 	/** 删 */  
@@ -42,19 +66,6 @@ public class CategoryController {
 	@SaCheckPermission(AuthConst.CATEGORY_DELETE)
 	public AjaxJson delete(Long id){
 		int line = categoryService.delete(id);
-		return AjaxJson.getByLine(line);
-	}
-	
-	/** 删 - 根据id列表 */  
-	@RequestMapping("deleteByIds")
-	@SaCheckPermission(AuthConst.CATEGORY_DELETE_BY_IDS)
-	public AjaxJson deleteByIds(){
-		List<Long> ids = SoMap.getRequestSoMap().getListByComma("ids", long.class);
-		int count = categoryService.getCountByIds(ids);
-		if(count > 0){
-			return AjaxJson.getError("该分类已使用，不能进行删除！");
-		}
-		int line = SP.publicMapper.deleteByIds(Category.TABLE_NAME, ids);
 		return AjaxJson.getByLine(line);
 	}
 	

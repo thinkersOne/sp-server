@@ -1,14 +1,10 @@
-package com.pj.project.sys_user;
+package com.pj.project.aav.sys_user;
 
 import java.util.List;
 
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.util.ObjectUtil;
-import com.pj.current.config.SystemObject;
-import com.pj.project.admin.SpAdmin;
-import com.pj.project.spcfg.SpCfgUtil;
 import com.pj.utils.sg.AjaxJson;
-import com.pj.utils.sg.NbUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

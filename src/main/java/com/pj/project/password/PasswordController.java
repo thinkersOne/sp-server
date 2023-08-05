@@ -2,8 +2,10 @@ package com.pj.project.password;
 
 import java.util.List;
 
+import cn.dev33.satoken.annotation.SaCheckLogin;
 import cn.dev33.satoken.stp.StpUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import com.pj.current.satoken.AuthConst;
@@ -26,17 +28,33 @@ public class PasswordController {
 	/** 底层 Service 对象 */
 	@Autowired
 	PasswordService passwordService;
+	@Autowired
+	PasswordMapper passwordMapper;
 
-	/** 增 */  
-	@RequestMapping("add")
-	@SaCheckPermission(AuthConst.PASSWORD_ADD)
+	@PostMapping("add")
 	@Transactional(rollbackFor = Exception.class)
-	public AjaxJson add(Password p){
+	@SaCheckLogin
+	public AjaxJson add(@RequestBody Password p){
+		if(passwordMapper.existName(p.getTitle()) > 0){
+			return AjaxJson.getError("title已存在!");
+		}
+		p.setUserId(StpUtil.getLoginIdAsLong());
 		passwordService.add(p);
 		p = passwordService.getById(SP.publicMapper.getPrimarykey());
 		return AjaxJson.getSuccessData(p);
 	}
+	@PostMapping("deleteByIds")
+	public AjaxJson deleteByIds(@RequestBody List<Long> ids){
+		int line = SP.publicMapper.deleteByIds(Password.TABLE_NAME, ids);
+		return AjaxJson.getByLine(line);
+	}
 
+	@GetMapping("searchByName")
+	@SaCheckLogin
+	public AjaxJson searchByName(@Param("name") String name) {
+		List<Password> list = passwordService.searchByName(name);
+		return AjaxJson.getPageData(Long.valueOf(list.size()), list);
+	}
 	/** 删 */  
 	@RequestMapping("delete")
 	@SaCheckPermission(AuthConst.PASSWORD_DELETE)
@@ -44,16 +62,7 @@ public class PasswordController {
 		int line = passwordService.delete(id);
 		return AjaxJson.getByLine(line);
 	}
-	
-	/** 删 - 根据id列表 */  
-	@RequestMapping("deleteByIds")
-	@SaCheckPermission(AuthConst.PASSWORD_DELETE_BY_IDS)
-	public AjaxJson deleteByIds(){
-		List<Long> ids = SoMap.getRequestSoMap().getListByComma("ids", long.class); 
-		int line = SP.publicMapper.deleteByIds(Password.TABLE_NAME, ids);
-		return AjaxJson.getByLine(line);
-	}
-	
+
 	/** 改 */  
 	@RequestMapping("update")
 	@SaCheckPermission(AuthConst.PASSWORD_UPDATE)

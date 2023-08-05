@@ -1,8 +1,7 @@
-package com.pj.project.sys_user;
+package com.pj.project.aav.sys_user;
 
 import java.util.List;
 
-import com.pj.project.admin.SpAdmin;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.pj.utils.so.*;

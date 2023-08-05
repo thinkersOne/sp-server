@@ -27,6 +27,9 @@ public class PasswordService {
 		p.setUserId(loginIdAsLong);
 		return passwordMapper.add(p);
 	}
+	List<Password> searchByName(String name) {
+		return passwordMapper.searchByName(name,StpUtil.getLoginIdAsLong());
+	}
 
 	/** 删 */
 	int delete(Long id){

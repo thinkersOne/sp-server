@@ -29,7 +29,7 @@ public class SpAdminService {
 	@Transactional(rollbackFor = Exception.class)
 	public long register(SpAdmin admin) {
 		// 检查姓名是否合法
-		SpAdminUtil.checkAdmin(admin);
+//		SpAdminUtil.checkAdmin(admin);
 		// 自己创建
 		admin.setCreateByAid(0L);
 		// 开始添加

@@ -14,7 +14,19 @@
 		delete from category 
 		where id = #{id}
 	</delete>
+	<select id="existName" resultType="int">
+		select count(*) from category where name = #{name}
+	</select>
 
+	<select id="searchByName" resultMap="model">
+		select * from category
+		<where>
+			1 = 1 and user_id = #{userId}
+			<if test=' name != null and name != ""  '>
+				and title = #{name}
+			</if>
+		</where>
+	</select>
 	<!-- 改 [G] -->
 	<update id="update">
 		update category set

@@ -1,4 +1,4 @@
-package com.pj.project.sys_user;
+package com.pj.project.aav.sys_user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

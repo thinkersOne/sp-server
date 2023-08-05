@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.pj.project.sp_vedio.SpVedioMapper">
+<mapper namespace="com.pj.project.aav.sp_vedio.SpVedioMapper">
 
 	<!-- 增 [G] -->
 	<insert id="add">
@@ -39,7 +39,7 @@
 	<!-- select id, url, type, status, create_by, create_time, update_by, update_time from sp_vedio  -->
 	
 	<!-- 通用映射：手动模式 -->
-	<resultMap id="model" type="com.pj.project.sp_vedio.SpVedio">
+	<resultMap id="model" type="com.pj.project.aav.sp_vedio.SpVedio">
 		<result property="id" column="id" />
 		<result property="url" column="url" />
 		<result property="type" column="type" />

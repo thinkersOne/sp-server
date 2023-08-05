@@ -3,6 +3,8 @@ package com.pj.project.admin;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,8 +36,8 @@ public class SpAdminController {
 	@Autowired
 	SpAdminPasswordService spAdminPasswordService;
 
-	@RequestMapping("register")
-	AjaxJson register(SpAdmin admin){
+	@PostMapping("register")
+	AjaxJson register(@RequestBody SpAdmin admin){
 		//校验名称及手机号是否重复
 		if(spAdminMapper.existsAccount(admin) > 0){
 			return AjaxJson.getError("账号已存在，请换个账号试试！");

@@ -2,6 +2,7 @@ package com.pj.project.category;
 
 import java.util.List;
 
+import cn.dev33.satoken.stp.StpUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +28,9 @@ public class CategoryService {
 	int delete(Long id){
 		return categoryMapper.delete(id);
 	}
-
+	List<Category> searchByName(String name) {
+		return categoryMapper.searchByName(name, StpUtil.getLoginIdAsLong());
+	}
 	/** 改 */
 	int update(Category c){
 		return categoryMapper.update(c);

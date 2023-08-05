@@ -22,7 +22,8 @@ public interface PasswordMapper {
 	 * @return 受影响行数 
 	 */
 	int add(Password p);
-
+	List<Password> searchByName(String name,Long userId);
+	int existName(String name);
 	/**
 	 * 删  
 	 * @param id 要删除的数据id  

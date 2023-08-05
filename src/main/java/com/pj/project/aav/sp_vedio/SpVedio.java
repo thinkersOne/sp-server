@@ -1,4 +1,4 @@
-package com.pj.project.sp_vedio;
+package com.pj.project.aav.sp_vedio;
 
 import java.io.Serializable;
 
