@@ -2,9 +2,8 @@ package com.pj.project.aav.sp_vedio;
 
 import java.util.List;
 
+import com.pj.project.sp_dev.so.SoMap;
 import org.apache.ibatis.annotations.Mapper;
-
-import com.pj.utils.so.*;
 import org.springframework.stereotype.Repository;
 
 /**

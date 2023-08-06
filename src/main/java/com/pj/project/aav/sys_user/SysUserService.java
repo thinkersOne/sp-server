@@ -4,11 +4,10 @@ import java.util.List;
 
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.util.ObjectUtil;
+import com.pj.project.sp_dev.so.SoMap;
 import com.pj.utils.sg.AjaxJson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.pj.utils.so.*;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -63,7 +62,7 @@ public class SysUserService {
 	}
 
 	/** 查集合 - 根据条件（参数为空时代表忽略指定条件） */  
-	List<SysUser> getList(SoMap so) { 
+	List<SysUser> getList(SoMap so) {
 		return sysUserMapper.getList(so);	
 	}
 	

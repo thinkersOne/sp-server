@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.pj.project.public4mapper.PublicMapper;
-import com.pj.project.public4mapper.PublicService;
+import com.pj.project.sp_dev.public4mapper.PublicMapper;
+import com.pj.project.sp_dev.public4mapper.PublicService;
 
 /**
  * 公共Mapper 与 公共Service 

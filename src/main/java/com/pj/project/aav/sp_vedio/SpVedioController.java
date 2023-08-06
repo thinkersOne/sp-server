@@ -2,12 +2,12 @@ package com.pj.project.aav.sp_vedio;
 
 import java.util.List;
 
+import com.pj.project.sp_dev.so.SoMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import com.pj.current.satoken.AuthConst;
 import com.pj.utils.sg.*;
-import com.pj.utils.so.*;
 import com.pj.project.SP;
 
 import com.pj.current.satoken.StpUserUtil;
@@ -48,7 +48,7 @@ public class SpVedioController {
 	@RequestMapping("deleteByIds")
 	@SaCheckPermission(AuthConst.SP_VEDIO_DELETE_BY_IDS)
 	public AjaxJson deleteByIds(){
-		List<Long> ids = SoMap.getRequestSoMap().getListByComma("ids", long.class); 
+		List<Long> ids = SoMap.getRequestSoMap().getListByComma("ids", long.class);
 		int line = SP.publicMapper.deleteByIds(SpVedio.TABLE_NAME, ids);
 		return AjaxJson.getByLine(line);
 	}

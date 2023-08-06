@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.pj.project.admin.SpAdminMapper;
-import com.pj.project.role.SpRoleUtil;
-import com.pj.project.role4permission.SpRolePermissionService;
+import com.pj.project.sp_dev.admin.SpAdminMapper;
+import com.pj.project.sp_dev.role.SpRoleUtil;
+import com.pj.project.sp_dev.role4permission.SpRolePermissionService;
 
 import cn.dev33.satoken.stp.StpInterface;
 import cn.dev33.satoken.stp.StpUtil;

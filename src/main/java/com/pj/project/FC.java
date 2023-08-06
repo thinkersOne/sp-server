@@ -1,16 +1,16 @@
 package com.pj.project;
 
-import com.pj.project.category.CategoryMapper;
-import com.pj.project.category.CategoryService;
-import com.pj.project.password.PasswordMapper;
-import com.pj.project.password.PasswordService;
-import com.pj.project.user.UserMapper;
-import com.pj.project.user.UserService;
+import com.pj.project.sp_dev.category.CategoryMapper;
+import com.pj.project.sp_dev.category.CategoryService;
+import com.pj.project.sp_dev.password.PasswordMapper;
+import com.pj.project.sp_dev.password.PasswordService;
+import com.pj.project.sp_dev.user.UserMapper;
+import com.pj.project.sp_dev.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.pj.project.public4mapper.PublicMapper;
-import com.pj.project.public4mapper.PublicService;
+import com.pj.project.sp_dev.public4mapper.PublicMapper;
+import com.pj.project.sp_dev.public4mapper.PublicService;
 
 /**
  * SpringBean依赖清单，项目中所有Bean在此定义

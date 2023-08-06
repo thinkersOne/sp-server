@@ -4,7 +4,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import com.pj.project.apilog.SpApilogUtil;
+import com.pj.project.sp_dev.apilog.SpApilogUtil;
 
 import cn.dev33.satoken.interceptor.SaRouteInterceptor;
 

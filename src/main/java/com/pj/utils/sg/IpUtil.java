@@ -3,7 +3,7 @@ package com.pj.utils.sg;
 import javax.servlet.http.HttpServletRequest;
 
 import com.ejlchina.okhttps.OkHttps;
-import com.pj.utils.so.SoMap;
+import com.pj.project.sp_dev.so.SoMap;
 
 /**
  * Ip相关操作 

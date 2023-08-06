@@ -1,8 +1,5 @@
 package com.pj.current.global;
 import cn.hutool.core.util.ObjectUtil;
-import com.alibaba.druid.util.StringUtils;
-import lombok.extern.java.Log;
-import lombok.extern.log4j.Log4j;
 import lombok.extern.log4j.Log4j2;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -12,15 +9,12 @@ import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
-import com.pj.project.apilog.SpApilogUtil;
+import com.pj.project.sp_dev.apilog.SpApilogUtil;
 import com.pj.utils.sg.AjaxJson;
 
 import java.beans.IntrospectionException;
-import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**

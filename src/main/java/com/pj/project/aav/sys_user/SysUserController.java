@@ -2,11 +2,11 @@ package com.pj.project.aav.sys_user;
 
 import java.util.List;
 
+import com.pj.project.sp_dev.so.SoMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import com.pj.utils.sg.*;
-import com.pj.utils.so.*;
 import com.pj.project.SP;
 
 import com.pj.current.satoken.StpUserUtil;
@@ -72,7 +72,7 @@ public class SysUserController {
 	/** 删 - 根据id列表 */  
 	@RequestMapping("deleteByIds")
 	public AjaxJson deleteByIds(){
-		List<Long> ids = SoMap.getRequestSoMap().getListByComma("ids", long.class); 
+		List<Long> ids = SoMap.getRequestSoMap().getListByComma("ids", long.class);
 		int line = SP.publicMapper.deleteByIds(SysUser.TABLE_NAME, ids);
 		return AjaxJson.getByLine(line);
 	}

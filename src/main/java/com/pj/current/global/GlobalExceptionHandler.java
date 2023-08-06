@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.pj.current.config.SystemObject;
-import com.pj.project.apilog.SpApilogUtil;
+import com.pj.project.sp_dev.apilog.SpApilogUtil;
 import com.pj.utils.sg.AjaxError;
 import com.pj.utils.sg.AjaxJson;
 
