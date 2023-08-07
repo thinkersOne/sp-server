@@ -29,3 +29,23 @@ CREATE TABLE `sp_vedio` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='视频表';
 
+-- 版本管理表
+CREATE TABLE aav.app_version (
+	id BIGINT auto_increment NOT NULL COMMENT '主键id',
+	androidUrl varchar(100) NOT NULL COMMENT '安卓下载地址',
+	iosUrl varchar(100) NOT NULL COMMENT 'ios下载地址',
+	isForceUpdate varchar(10) NOT NULL COMMENT '是否强制更新   1：是  2：否',
+	version varchar(100) NOT NULL COMMENT '版本号',
+	versionCode varchar(100) NOT NULL COMMENT '版本code',
+	CONSTRAINT app_version_PK PRIMARY KEY (id)
+)
+ENGINE=InnoDB
+DEFAULT CHARSET=utf8mb4
+COLLATE=utf8mb4_0900_ai_ci
+COMMENT='app版本管理表';
+
+
+
+
+
+

@@ -2,6 +2,7 @@ package com.pj.project.aav.sys_user;
 
 import java.util.List;
 
+import cn.dev33.satoken.stp.StpUtil;
 import com.pj.project.sp_dev.so.SoMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,6 +52,12 @@ public class SysUserController {
 			return AjaxJson.getError("请提供key与password参数");
 		}
 		return sysUserService.doLogin(key, password);
+	}
+
+	@GetMapping("logOut")
+	public AjaxJson logOut(){
+		StpUtil.logout();
+		return AjaxJson.getSuccess();
 	}
 
 	/** 增 */  
