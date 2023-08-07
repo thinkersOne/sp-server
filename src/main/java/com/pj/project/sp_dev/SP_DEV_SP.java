@@ -1,4 +1,4 @@
-package com.pj.project;
+package com.pj.project.sp_dev;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -13,7 +13,7 @@ import com.pj.project.sp_dev.public4mapper.PublicService;
  *
  */
 @Component
-public class SP {
+public class SP_DEV_SP {
 	
 
 	/**
@@ -37,9 +37,9 @@ public class SP {
 			PublicService publicService,
 			ObjectMapper objectMapper
 			) {
-		SP.publicMapper = publicMapper;
-		SP.publicService = publicService;
-		SP.objectMapper = objectMapper;
+		SP_DEV_SP.publicMapper = publicMapper;
+		SP_DEV_SP.publicService = publicService;
+		SP_DEV_SP.objectMapper = objectMapper;
 	}
 	
 	

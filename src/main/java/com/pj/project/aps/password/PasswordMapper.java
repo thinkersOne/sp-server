@@ -1,67 +1,59 @@
-package com.pj.project.aav.sys_user;
+package com.pj.project.aps.password;
 
 import java.util.List;
 
 import com.pj.models.so.SoMap;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 /**
- * Mapper: sys_user --
+ * Mapper: password -- 密码表
  * @author lizhihao
  */
 
 @Mapper
 @Repository
-public interface SysUserMapper {
+public interface PasswordMapper {
 
-	int existsAccount(SysUser sysUser);
 	/**
 	 * 增
-	 * @param s 实体对象
+	 * @param p 实体对象
 	 * @return 受影响行数
 	 */
-	int add(SysUser s);
-
+	int add(Password p);
+	List<Password> searchByName(String name,Long userId);
+	int existName(String name);
 	/**
 	 * 删
 	 * @param id 要删除的数据id
 	 * @return 受影响行数
 	 */
 	int delete(Long id);
-
+	public int deleteByIds(
+			@Param("tableName")String tableName,
+			@Param("ids")List<?> ids
+	);
 	/**
 	 * 改
-	 * @param s 实体对象
+	 * @param p 实体对象
 	 * @return 受影响行数
 	 */
-	int update(SysUser s);
-	/**
-	 * 查询，根据name
-	 * @param name
-	 * @return
-	 */
-	SysUser getByName(String name);
+	int update(Password p);
 
-	/**
-	 * 查询，根据 phone
-	 * @param phone
-	 * @return
-	 */
-	SysUser getByPhone(String phone);
 	/**
 	 * 查 - 根据id
 	 * @param id 要查询的数据id
 	 * @return 实体对象
 	 */
-	SysUser getById(Long id);
+	Password getById(Long id);
 
 	/**
 	 * 查集合 - 根据条件（参数为空时代表忽略指定条件）
 	 * @param so 参数集合
 	 * @return 数据列表
 	 */
-	List<SysUser> getList(SoMap so);
+	List<Password> getList(SoMap so);
 
 
 }

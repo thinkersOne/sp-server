@@ -7,15 +7,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pj.current.satoken.AuthConst;
-import com.pj.project.SP;
+import com.pj.project.sp_dev.SP_DEV_SP;
 import com.pj.utils.sg.AjaxJson;
-import com.pj.project.sp_dev.so.SoMap;
+import com.pj.models.so.SoMap;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
 
 /**
  * Controller: api请求记录表
- * @author kong 
+ * @author kong
  */
 @RestController
 @RequestMapping("/SgApilog/")
@@ -24,7 +24,7 @@ public class SpApilogControlle {
 	/** 底层 Mapper 对象 */
 	@Autowired
 	SpApilogMapper spApilogMapper;
-	
+
 	/** 删 */
 	@RequestMapping("delete")
 	@SaCheckPermission(AuthConst.APILOG_LIST)
@@ -37,11 +37,11 @@ public class SpApilogControlle {
 	@RequestMapping("deleteByIds")
 	@SaCheckPermission(AuthConst.APILOG_LIST)
 	AjaxJson deleteByIds(){
-		List<Long> ids = SoMap.getRequestSoMap().getListByComma("ids", long.class); 
-		int line = SP.publicMapper.deleteByIds("sp_apilog", ids);
+		List<Long> ids = SoMap.getRequestSoMap().getListByComma("ids", long.class);
+		int line = SP_DEV_SP.publicMapper.deleteByIds("sp_apilog", ids);
 		return AjaxJson.getByLine(line);
 	}
-	
+
 	/** 删 - 根据日期范围 */
 	@RequestMapping("deleteByStartEnd")
 	@SaCheckPermission(AuthConst.APILOG_LIST)
@@ -49,11 +49,11 @@ public class SpApilogControlle {
 		int line = spApilogMapper.deleteByStartEnd(startTime, endTime);
 		return AjaxJson.getSuccessData(line);
 	}
-	
+
 	/** 查 - 集合（参数为null或0时默认忽略此条件）   */
 	@RequestMapping("getList")
 	@SaCheckPermission(AuthConst.APILOG_LIST)
-	AjaxJson getList() { 
+	AjaxJson getList() {
 		SoMap so = SoMap.getRequestSoMap();
 		List<SpApilog> list = spApilogMapper.getList(so.startPage());
 		return AjaxJson.getPageData(so.getDataCount(), list);
@@ -62,10 +62,10 @@ public class SpApilogControlle {
 	/** 统计  */
 	@RequestMapping("staBy")
 	@SaCheckPermission(AuthConst.APILOG_LIST)
-	AjaxJson staBy() { 
+	AjaxJson staBy() {
 		SoMap so = SoMap.getRequestSoMap();
 		SoMap data = spApilogMapper.staBy(so);
 		return AjaxJson.getSuccessData(data);
 	}
-	
+
 }

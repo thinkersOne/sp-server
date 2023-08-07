@@ -1,4 +1,4 @@
-package com.pj.project.sp_dev.admin;
+package com.pj.models.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;

@@ -5,30 +5,30 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.pj.current.config.SystemObject;
-import com.pj.project.SP;
+import com.pj.project.sp_dev.SP_DEV_SP;
 
 /**
- * 用户表 密码相关 
+ * 用户表 密码相关
  * @author kong
  *
  */
 @Service
 public class SpAdminPasswordService {
 
-	
-	// REQUIRED=如果调用方有事务  就继续使用调用方的事务 
+
+	// REQUIRED=如果调用方有事务  就继续使用调用方的事务
 	/** 修改一个admin的密码为  */
-	@Transactional(rollbackFor = Exception.class, propagation=Propagation.REQUIRED)	
+	@Transactional(rollbackFor = Exception.class, propagation=Propagation.REQUIRED)
 	public int updatePassword(long adminId, String password) {
-		// 更改密码 
-		SP.publicMapper.updateColumnById("sp_admin", "password", SystemObject.getPasswordMd5(adminId, password), adminId);
+		// 更改密码
+		SP_DEV_SP.publicMapper.updateColumnById("sp_admin", "password", SystemObject.getPasswordMd5(adminId, password), adminId);
 		if(SystemObject.config.getIsPw()) {
-			// 明文密码 
-			SP.publicMapper.updateColumnById("sp_admin", "pw", password, adminId);		
+			// 明文密码
+			SP_DEV_SP.publicMapper.updateColumnById("sp_admin", "pw", password, adminId);
 			return 2;
 		}
 		return 1;
 	}
-	
-	
+
+
 }

@@ -1,4 +1,4 @@
-package com.pj.project.sp_dev.password;
+package com.pj.project.aps.password;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -7,22 +7,22 @@ import com.pj.utils.sg.*;
 
 /**
  * 工具类：password -- 密码表
- * @author lizhihao 
+ * @author lizhihao
  *
  */
 @Component
 public class PasswordUtil {
 
-	
+
 	/** 底层 Mapper 对象 */
 	public static PasswordMapper passwordMapper;
 	@Autowired
 	private void setPasswordMapper(PasswordMapper passwordMapper) {
 		PasswordUtil.passwordMapper = passwordMapper;
 	}
-	
-	
-	/** 
+
+
+	/**
 	 * 将一个 Password 对象进行进行数据完整性校验 (方便add/update等接口数据校验) [G] 
 	 */
 	static void check(Password p) {
@@ -40,9 +40,9 @@ public class PasswordUtil {
 		AjaxError.throwByIsNull(p.updateTime, "[更新时间] 不能为空");		// 验证: 更新时间 
 	}
 
-	/** 
+	/**
 	 * 获取一个Password (方便复制代码用) [G] 
-	 */ 
+	 */
 	static Password getPassword() {
 		Password p = new Password();	// 声明对象 
 		p.id = 0L;		// 主键id 
@@ -59,9 +59,9 @@ public class PasswordUtil {
 		p.updateTime = "";		// 更新时间 
 		return p;
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 }

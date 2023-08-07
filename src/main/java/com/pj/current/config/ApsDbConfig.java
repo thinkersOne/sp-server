@@ -14,22 +14,21 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 import javax.sql.DataSource;
-import java.sql.SQLException;
 
 /**
  * 从数据源配置
  * 若需要配置更多数据源 , 直接在yml中添加数据源配置再增加相应的新的数据源配置类即可
  */
 @Configuration
-@MapperScan(basePackages  = ClusterDbConfig.PACKAGE , sqlSessionFactoryRef = "clusterSqlSessionFactory")
-public class ClusterDbConfig {
-    private Logger logger = LoggerFactory.getLogger(ClusterDbConfig.class);
+@MapperScan(basePackages  = ApsDbConfig.PACKAGE , sqlSessionFactoryRef = "apsClusterSqlSessionFactory")
+public class ApsDbConfig {
+    private Logger logger = LoggerFactory.getLogger(ApsDbConfig.class);
     // 精确到 cluster 目录，以便跟其他数据源隔离
-    static final String PACKAGE = "com.pj.project.aav";
-    private static final String MAPPER_LOCATION = "classpath*:mapper/aav/*.xml";
-    private static final String DOMAIN_PACKAGE = "com.pj.project.aav";
+    static final String PACKAGE = "com.pj.project.aps";
+    private static final String MAPPER_LOCATION = "classpath*:mapper/aps/*.xml";
+    private static final String DOMAIN_PACKAGE = "com.pj.project.aps";
 
-    @Value("${spring.datasource.url2}")
+    @Value("${spring.datasource.url3}")
     private String dbUrl;
 
     @Value("${spring.datasource.username2}")
@@ -43,7 +42,7 @@ public class ClusterDbConfig {
 
 
 
-    @Bean(name="clusterDataSource")   //声明其为Bean实例
+    @Bean(name="apsClusterDataSource")   //声明其为Bean实例
     public DataSource clusterDataSource() {
         DruidDataSource datasource = new DruidDataSource();
 
@@ -54,18 +53,18 @@ public class ClusterDbConfig {
         return datasource;
     }
 
-    @Bean(name = "clusterTransactionManager")
+    @Bean(name = "apsClusterTransactionManager")
     public DataSourceTransactionManager clusterTransactionManager() {
         return new DataSourceTransactionManager(clusterDataSource());
     }
 
-    @Bean(name = "clusterSqlSessionFactory")
-    public SqlSessionFactory clusterSqlSessionFactory(@Qualifier("clusterDataSource") DataSource culsterDataSource)
+    @Bean(name = "apsClusterSqlSessionFactory")
+    public SqlSessionFactory clusterSqlSessionFactory(@Qualifier("apsClusterDataSource") DataSource culsterDataSource)
             throws Exception {
         final SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
         sessionFactory.setDataSource(culsterDataSource);
         sessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver()
-                .getResources(ClusterDbConfig.MAPPER_LOCATION));
+                .getResources(ApsDbConfig.MAPPER_LOCATION));
         sessionFactory.setTypeAliasesPackage(DOMAIN_PACKAGE);
         //mybatis 数据库字段与实体类属性驼峰映射配置
         sessionFactory.getObject().getConfiguration().setMapUnderscoreToCamelCase(true);

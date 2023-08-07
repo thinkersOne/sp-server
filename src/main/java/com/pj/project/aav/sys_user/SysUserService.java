@@ -4,15 +4,15 @@ import java.util.List;
 
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.util.ObjectUtil;
-import com.pj.project.sp_dev.so.SoMap;
+import com.pj.models.so.SoMap;
 import com.pj.utils.sg.AjaxJson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Service: sys_user -- 
- * @author lizhihao 
+ * Service: sys_user --
+ * @author lizhihao
  */
 @Service
 public class SysUserService {
@@ -61,10 +61,10 @@ public class SysUserService {
 		return AjaxJson.getSuccessData(StpUtil.getTokenInfo());
 	}
 
-	/** 查集合 - 根据条件（参数为空时代表忽略指定条件） */  
+	/** 查集合 - 根据条件（参数为空时代表忽略指定条件） */
 	List<SysUser> getList(SoMap so) {
-		return sysUserMapper.getList(so);	
+		return sysUserMapper.getList(so);
 	}
-	
+
 
 }

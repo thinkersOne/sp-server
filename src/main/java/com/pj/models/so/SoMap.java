@@ -1,4 +1,4 @@
-package com.pj.project.sp_dev.so;
+package com.pj.models.so;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;

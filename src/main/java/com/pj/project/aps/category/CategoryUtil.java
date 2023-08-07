@@ -1,4 +1,4 @@
-package com.pj.project.sp_dev.category;
+package com.pj.project.aps.category;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

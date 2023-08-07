@@ -1,4 +1,4 @@
-package com.pj.project.sp_dev.category;
+package com.pj.project.aps.user;
 
 import java.io.Serializable;
 
@@ -7,12 +7,12 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 /**
- * Model: category -- 密码分类表
+ * Model: user -- 用户表
  * @author lizhihao
  */
 @Data
 @Accessors(chain = true)
-public class Category implements Serializable {
+public class User implements Serializable {
 
 	// ---------- 模块常量 ----------
 	/**
@@ -22,11 +22,11 @@ public class Category implements Serializable {
 	/**
 	 * 此模块对应的表名
 	 */
-	public static final String TABLE_NAME = "category";
+	public static final String TABLE_NAME = "user";
 	/**
 	 * 此模块对应的权限码
 	 */
-	public static final String PERMISSION_CODE = "category";
+	public static final String PERMISSION_CODE = "user";
 
 
 	// ---------- 表中字段 ----------
@@ -34,16 +34,17 @@ public class Category implements Serializable {
 	 * 主键id
 	 */
 	public Long id;
-	/**
-	 * 所属用户ID
-	 */
-	public Long userId;
 
 	/**
-	 * 分类名称
+	 * 用户名
 	 */
-	@JsonProperty("Name")
-	public String name;
+	@JsonProperty("name")
+	public String username;
+
+	/**
+	 * 密码
+	 */
+	public String password;
 
 	/**
 	 * 创建人
@@ -64,5 +65,12 @@ public class Category implements Serializable {
 	 * 更新时间
 	 */
 	public String updateTime;
+
+
+
+
+
+
+
 
 }

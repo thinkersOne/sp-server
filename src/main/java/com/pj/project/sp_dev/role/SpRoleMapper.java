@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.pj.project.sp_dev.so.SoMap;
+import com.pj.models.so.SoMap;
 
 /**
  * Mapper: 系统角色表
@@ -15,7 +15,7 @@ public interface SpRoleMapper {
 
 
 	/**
-	 * 增 
+	 * 增
 	 * @param obj
 	 * @return
 	 */
@@ -29,21 +29,21 @@ public interface SpRoleMapper {
 	int delete(long id);
 
 	/**
-	 * 改 
+	 * 改
 	 * @param obj
 	 * @return
 	 */
 	int update(SpRole obj);
 
 	/**
-	 *  查 
+	 *  查
 	 * @param id
 	 * @return
 	 */
 	SpRole getById(long id);
 
 	/**
-	 * 查 
+	 * 查
 	 * @param soMap
 	 * @return
 	 */

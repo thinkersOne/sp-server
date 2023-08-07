@@ -2,7 +2,7 @@ package com.pj.project.sp_dev.sp_product;
 
 import java.util.List;
 
-import com.pj.project.sp_dev.so.SoMap;
+import com.pj.models.so.SoMap;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 

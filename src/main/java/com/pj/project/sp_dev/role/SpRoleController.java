@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pj.current.satoken.AuthConst;
-import com.pj.project.SP;
+import com.pj.project.sp_dev.SP_DEV_SP;
 import com.pj.utils.sg.AjaxError;
 import com.pj.utils.sg.AjaxJson;
-import com.pj.project.sp_dev.so.SoMap;
+import com.pj.models.so.SoMap;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
 
@@ -39,10 +39,10 @@ public class SpRoleController {
 		SpRoleUtil.checkRoleThrow(s);
 		int line = spRoleMapper.add(s);
 		AjaxError.throwByLine(line, "添加失败");
-		// 返回这个对象 
+		// 返回这个对象
 		long id = s.getId();
 		if(id == 0) {
-			id = SP.publicMapper.getPrimarykey();
+			id = SP_DEV_SP.publicMapper.getPrimarykey();
 		}
 		return AjaxJson.getSuccessData(spRoleMapper.getById(id));
 	}
@@ -55,7 +55,7 @@ public class SpRoleController {
 		return AjaxJson.getByLine(line);
 	}
 
-	/** 改 */ 
+	/** 改 */
 	@RequestMapping("update")
 	@SaCheckPermission({AuthConst.ROLE_LIST, AuthConst.DEV})
 	AjaxJson update(SpRole s){
@@ -64,7 +64,7 @@ public class SpRoleController {
 		return AjaxJson.getByLine(line);
 	}
 
-	/** 查 */ 
+	/** 查 */
 	@RequestMapping("getById")
 	@SaCheckPermission(AuthConst.IN_SYSTEM)
 	AjaxJson getById(long id){

@@ -5,11 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import com.pj.current.satoken.AuthConst;
 import com.pj.utils.sg.*;
-import com.pj.project.SP;
-import com.pj.current.satoken.StpUserUtil;
-import cn.dev33.satoken.annotation.SaCheckPermission;
+import com.pj.project.sp_dev.SP_DEV_SP;
 
 
 /**
@@ -29,7 +26,7 @@ public class AppVersionController {
 	@Transactional(rollbackFor = Exception.class)
 	public AjaxJson add(AppVersion a){
 		appVersionService.add(a);
-		a = appVersionService.getById(SP.publicMapper.getPrimarykey());
+		a = appVersionService.getById(SP_DEV_SP.publicMapper.getPrimarykey());
 		return AjaxJson.getSuccessData(a);
 	}
 
@@ -43,7 +40,7 @@ public class AppVersionController {
 	/** 删 - 根据id列表 */  
 	@PostMapping("deleteByIds")
 	public AjaxJson deleteByIds(@RequestBody List<Long> ids){
-		int line = SP.publicMapper.deleteByIds(AppVersion.TABLE_NAME, ids);
+		int line = SP_DEV_SP.publicMapper.deleteByIds(AppVersion.TABLE_NAME, ids);
 		return AjaxJson.getByLine(line);
 	}
 	
@@ -62,5 +59,5 @@ public class AppVersionController {
 	}
 
 	// ------------------------- 前端接口 -------------------------
-	
+
 }

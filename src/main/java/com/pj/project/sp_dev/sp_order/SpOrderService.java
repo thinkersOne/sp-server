@@ -2,7 +2,7 @@ package com.pj.project.sp_dev.sp_order;
 
 import java.util.List;
 
-import com.pj.project.sp_dev.so.SoMap;
+import com.pj.models.so.SoMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package com.pj.project.aav.sys_user;
+package com.pj.project.aps.user;
 
 import java.util.List;
 
@@ -7,22 +7,21 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 /**
- * Mapper: sys_user --
+ * Mapper: user -- 用户表
  * @author lizhihao
  */
 
 @Mapper
 @Repository
-public interface SysUserMapper {
+public interface UserMapper {
 
-	int existsAccount(SysUser sysUser);
 	/**
 	 * 增
-	 * @param s 实体对象
+	 * @param u 实体对象
 	 * @return 受影响行数
 	 */
-	int add(SysUser s);
-
+	int add(User u);
+	int existsAccount(User admin);
 	/**
 	 * 删
 	 * @param id 要删除的数据id
@@ -32,36 +31,29 @@ public interface SysUserMapper {
 
 	/**
 	 * 改
-	 * @param s 实体对象
+	 * @param u 实体对象
 	 * @return 受影响行数
 	 */
-	int update(SysUser s);
-	/**
-	 * 查询，根据name
-	 * @param name
-	 * @return
-	 */
-	SysUser getByName(String name);
+	int update(User u);
 
-	/**
-	 * 查询，根据 phone
-	 * @param phone
-	 * @return
-	 */
-	SysUser getByPhone(String phone);
 	/**
 	 * 查 - 根据id
 	 * @param id 要查询的数据id
 	 * @return 实体对象
 	 */
-	SysUser getById(Long id);
+	User getById(Long id);
 
 	/**
 	 * 查集合 - 根据条件（参数为空时代表忽略指定条件）
 	 * @param so 参数集合
 	 * @return 数据列表
 	 */
-	List<SysUser> getList(SoMap so);
-
+	List<User> getList(SoMap so);
+	/**
+	 * 查询，根据name
+	 * @param name
+	 * @return
+	 */
+	User getByName(String name);
 
 }

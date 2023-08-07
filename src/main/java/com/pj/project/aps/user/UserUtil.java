@@ -1,4 +1,4 @@
-package com.pj.project.sp_dev.user;
+package com.pj.project.aps.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -7,22 +7,22 @@ import com.pj.utils.sg.*;
 
 /**
  * 工具类：user -- 用户表
- * @author lizhihao 
+ * @author lizhihao
  *
  */
 @Component
 public class UserUtil {
 
-	
+
 	/** 底层 Mapper 对象 */
 	public static UserMapper userMapper;
 	@Autowired
 	private void setUserMapper(UserMapper userMapper) {
 		UserUtil.userMapper = userMapper;
 	}
-	
-	
-	/** 
+
+
+	/**
 	 * 将一个 User 对象进行进行数据完整性校验 (方便add/update等接口数据校验) [G] 
 	 */
 	static void check(User u) {
@@ -35,9 +35,9 @@ public class UserUtil {
 		AjaxError.throwByIsNull(u.updateTime, "[更新时间] 不能为空");		// 验证: 更新时间 
 	}
 
-	/** 
+	/**
 	 * 获取一个User (方便复制代码用) [G] 
-	 */ 
+	 */
 	static User getUser() {
 		User u = new User();	// 声明对象 
 		u.id = 0L;		// 主键id 
@@ -49,9 +49,9 @@ public class UserUtil {
 		u.updateTime = "";		// 更新时间 
 		return u;
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 }

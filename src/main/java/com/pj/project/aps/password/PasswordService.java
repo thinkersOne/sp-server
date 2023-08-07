@@ -1,16 +1,16 @@
-package com.pj.project.sp_dev.password;
+package com.pj.project.aps.password;
 
 import java.util.List;
 
 import cn.dev33.satoken.stp.StpUtil;
-import com.pj.project.sp_dev.so.SoMap;
+import com.pj.models.so.SoMap;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
  * Service: password -- 密码表
- * @author lizhihao 
+ * @author lizhihao
  */
 @Service
 @Slf4j
@@ -47,10 +47,10 @@ public class PasswordService {
 
 
 
-	/** 查集合 - 根据条件（参数为空时代表忽略指定条件） */  
+	/** 查集合 - 根据条件（参数为空时代表忽略指定条件） */
 	List<Password> getList(SoMap so) {
-		return passwordMapper.getList(so);	
+		return passwordMapper.getList(so);
 	}
-	
+
 
 }

@@ -6,17 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.pj.project.SP;
+import com.pj.project.sp_dev.SP_DEV_SP;
 import com.pj.utils.sg.AjaxJson;
-import com.pj.project.sp_dev.so.SoMap;
+import com.pj.models.so.SoMap;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
 
 
 /**
- * Controller: sp_admin_login -- 管理员登录日志表 
- * 
- * @author shengzhang 
+ * Controller: sp_admin_login -- 管理员登录日志表
+ *
+ * @author shengzhang
  */
 @RestController
 @RequestMapping("/SpAdminLogin/")
@@ -26,24 +26,24 @@ public class SpAdminLoginController {
 	@Autowired
 	SpAdminLoginMapper sysLoginLogMapper;
 
-	/** 删 */  
+	/** 删 */
 	@RequestMapping("delete")
 	@SaCheckPermission(SpAdminLogin.PERMISSION_CODE)
 	public AjaxJson delete(Long id){
 		int line = sysLoginLogMapper.delete(id);
 		return AjaxJson.getByLine(line);
 	}
-	
-	/** 删 - 根据id列表 */  
+
+	/** 删 - 根据id列表 */
 	@RequestMapping("deleteByIds")
 	@SaCheckPermission(SpAdminLogin.PERMISSION_CODE)
 	public AjaxJson deleteByIds(){
-		List<Long> ids = SoMap.getRequestSoMap().getListByComma("ids", long.class); 
-		int line = SP.publicMapper.deleteByIds(SpAdminLogin.TABLE_NAME, ids);
+		List<Long> ids = SoMap.getRequestSoMap().getListByComma("ids", long.class);
+		int line = SP_DEV_SP.publicMapper.deleteByIds(SpAdminLogin.TABLE_NAME, ids);
 		return AjaxJson.getByLine(line);
 	}
-	
-	/** 查 - 根据id */  
+
+	/** 查 - 根据id */
 	@RequestMapping("getById")
 	@SaCheckPermission(SpAdminLogin.PERMISSION_CODE)
 	public AjaxJson getById(Long id){
@@ -51,13 +51,13 @@ public class SpAdminLoginController {
 		return AjaxJson.getSuccessData(s);
 	}
 
-	/** 查集合 - 根据条件（参数为空时代表忽略指定条件） */  
+	/** 查集合 - 根据条件（参数为空时代表忽略指定条件） */
 	@RequestMapping("getList")
 	@SaCheckPermission(SpAdminLogin.PERMISSION_CODE)
-	public AjaxJson getList() { 
+	public AjaxJson getList() {
 		SoMap so = SoMap.getRequestSoMap();
 		List<SpAdminLogin> list = sysLoginLogMapper.getList(so.startPage());
 		return AjaxJson.getPageData(so.getDataCount(), list);
 	}
-	
+
 }
