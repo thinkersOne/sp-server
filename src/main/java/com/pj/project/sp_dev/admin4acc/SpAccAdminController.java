@@ -36,7 +36,7 @@ public class SpAccAdminController {
 
 	/** 账号、密码登录  */
 	@PostMapping("doLogin")
-	AjaxJson doLogin(@RequestBody LoginDTO loginDTO) {
+	AjaxJson doLogin(LoginDTO loginDTO) {
 		String key = loginDTO.getKey();
 		String password = loginDTO.getPassword();
 		IpCheckUtil.checkResToNow("admin-login", 1);

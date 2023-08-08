@@ -37,7 +37,7 @@ public class SpAdminController {
 	SpAdminPasswordService spAdminPasswordService;
 
 	@PostMapping("register")
-	AjaxJson register(@RequestBody SpAdmin admin){
+	AjaxJson register( SpAdmin admin){
 		//校验名称及手机号是否重复
 		if(spAdminMapper.existsAccount(admin) > 0){
 			return AjaxJson.getError("账号已存在，请换个账号试试！");

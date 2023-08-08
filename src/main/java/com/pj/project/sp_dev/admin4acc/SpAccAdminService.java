@@ -6,10 +6,12 @@ import java.time.LocalDateTime;
 import javax.servlet.http.HttpServletRequest;
 
 import cn.hutool.core.util.ObjectUtil;
+import com.pj.models.so.SoMap;
 import com.pj.project.sp_dev.admin.SpAdmin;
 import com.pj.project.sp_dev.admin4login.SpAdminLogin;
 import com.pj.project.sp_dev.admin4login.SpAdminLoginMapper;
 import com.pj.project.sp_dev.role4permission.SpRolePermissionService;
+import com.pj.project.sp_dev.spcfg.SpCfgUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,10 +51,9 @@ public class SpAccAdminService {
 	 */
 	@Transactional(rollbackFor = Exception.class)
 	public AjaxJson doLogin(String key, String password) {
-
-		// 0、判断 way (1=ID, 2=昵称，3=手机号  )
+// 0、判断 way (1=ID, 2=昵称，3=手机号  )
 		int way = 2;
-		// 2、获取admin
+		// 1、根据 way 查询 admin
 		SpAdmin admin = null;
 		// 优化 key 默认 既可作昵称登录也可当做手机号登录
 		if(way == 2) {
@@ -84,7 +85,14 @@ public class SpAccAdminService {
 		StpUtil.login(admin.getId());
 		String tokenValue = StpUtil.getTokenValue();
 		successLogin(admin, tokenValue);
-		return AjaxJson.getSuccessData(StpUtil.getTokenInfo());
+
+		// 组织返回参数
+		SoMap map = new SoMap();
+		map.put("admin", admin);
+		map.put("appCfg", SpCfgUtil.getAppCfg());
+		map.put("perList", spRolePermissionService.getPcodeByRid(admin.getRoleId()));
+		map.put("tokenInfo", StpUtil.getTokenInfo());
+		return AjaxJson.getSuccessData(map);
 	}
 	
 	/**
