@@ -16,7 +16,7 @@ import org.springframework.web.client.RestTemplate;
 
 /**
  * Service: sp_vedio -- 视频表
- * @author lizhihao 
+ * @author lizhihao
  */
 @Service
 public class SpVedioService {
@@ -55,18 +55,6 @@ public class SpVedioService {
 		return spVedioMapper.getById(id);
 	}
 
-	/** 查集合 - 根据条件（参数为空时代表忽略指定条件） */  
-	List<SpVedio> getList(SoMap so) {
-		List<SpVedio> list = spVedioMapper.getList(so);
-		if(!ObjectUtil.isEmpty(list)){
-			list.stream().forEach(v->{
-				v.setTypeName(VedioTypeEnum.getVedioName(v.getType()));
-				v.setStatusName(VedioStatusEnum.getVedioName(v.getStatus()));
-			});
-		}
-		return list;
-	}
-
 	//请求获取视频数据
 	public void getVedioData(){
 		Map<String,String> params = new HashMap<>();
@@ -75,13 +63,5 @@ public class SpVedioService {
 		ResponseEntity<VedioDataResponse> forEntity = restTemplate.getForEntity(VedioConstent.GIRL_VEDIO_PATH,
 				VedioDataResponse.class, params);
 		System.out.println(forEntity);
-//		String vedioUrl = result.getUrl();
-//		System.out.println(vedioUrl);
-//		System.out.println(result);
 	}
-
-
-
-
-
 }

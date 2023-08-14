@@ -7,7 +7,7 @@ import lombok.experimental.Accessors;
 
 /**
  * Model: sp_vedio -- 视频表
- * @author lizhihao 
+ * @author lizhihao
  */
 @Data
 @Accessors(chain = true)
@@ -17,65 +17,63 @@ public class SpVedio implements Serializable {
 	/**
 	 * 序列化版本id 
 	 */
-	private static final long serialVersionUID = 1L;	
+	private static final long serialVersionUID = 1L;
 	/**
 	 * 此模块对应的表名 
 	 */
-	public static final String TABLE_NAME = "sp_vedio";	
+	public static final String TABLE_NAME = "sp_vedio";
 	/**
 	 * 此模块对应的权限码 
 	 */
-	public static final String PERMISSION_CODE = "sp-vedio";	
+	public static final String PERMISSION_CODE = "sp-vedio";
 
 
 	// ---------- 表中字段 ----------
 	/**
-	 *  
+	 *
 	 */
 	public String id;
 
 	/**
-	 *  
+	 *
 	 */
-	public String url;	
+	public String url;
 
 	/**
-	 *  
+	 *
 	 */
-	public String type;	
+	public String type;
 	public String typeName;
 
 	/**
-	 *  
+	 *
 	 */
-	public String status;	
+	public String status;
 	public String statusName;
 
-	/**
-	 *  
-	 */
-	public String createBy;	
+	public String imgPath;
+
+	public String title;
 
 	/**
-	 *  
+	 *
 	 */
-	public String createTime;	
+	public String createBy;
 
 	/**
-	 *  
+	 *
 	 */
-	public String updateBy;	
+	public String createTime;
 
 	/**
-	 *  
+	 *
 	 */
-	public String updateTime;	
+	public String updateBy;
 
-
-
-
-
-	
+	/**
+	 *
+	 */
+	public String updateTime;
 
 
 }

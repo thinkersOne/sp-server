@@ -50,7 +50,7 @@ public interface SpVedioMapper {
 	 * @param so 参数集合
 	 * @return 数据列表
 	 */
-	List<SpVedio> getList(SoMap so);
+	List<SpVedio> getList(int type);
 
 
 }

@@ -2,8 +2,10 @@ package com.pj.project.aav.sp_vedio;
 
 import java.util.List;
 
+import cn.dev33.satoken.annotation.SaCheckLogin;
 import com.pj.models.so.SoMap;
 import com.pj.project.sp_dev.SP_DEV_SP;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -24,14 +26,16 @@ public class SpVedioController {
 	/** 底层 Service 对象 */
 	@Autowired
 	SpVedioService spVedioService;
+	@Autowired
+	SpVedioMapper spVedioMapper;
 
 	/** 增 */
-	@RequestMapping("add")
-	@SaCheckPermission(AuthConst.SP_VEDIO_ADD)
+	@PostMapping("add")
+	@SaCheckLogin
 	@Transactional(rollbackFor = Exception.class)
-	public AjaxJson add(SpVedio s){
-		spVedioService.add(s);
-		s = spVedioService.getById(SP_DEV_SP.publicMapper.getPrimarykey());
+	public AjaxJson add(@RequestBody SpVedio s){
+		Long id = Long.valueOf(spVedioService.add(s));
+		s = spVedioService.getById(id);
 		return AjaxJson.getSuccessData(s);
 	}
 
@@ -76,39 +80,11 @@ public class SpVedioController {
 		return AjaxJson.getSuccessData(s);
 	}
 
-	/** 查集合 - 根据条件（参数为空时代表忽略指定条件） */
-	@RequestMapping("getList")
-	@SaCheckPermission(AuthConst.SP_VEDIO_GETLIST)
-	public AjaxJson getList() {
-		SoMap so = SoMap.getRequestSoMap();
-		List<SpVedio> list = spVedioService.getList(so.startPage());
-		return AjaxJson.getPageData(so.getDataCount(), list);
+	@GetMapping("getList")
+	@SaCheckLogin
+	public AjaxJson getList(@Param("type") int type) {
+		return AjaxJson.getSuccessData(spVedioMapper.getList(type));
 	}
-
-
-
-
-	// ------------------------- 前端接口 -------------------------
-	/** 改 - 不传不改 [G] */
-	@RequestMapping("updateByNotNull")
-	public AjaxJson updateByNotNull(Long id){
-		AjaxError.throwBy(true, "如需正常调用此接口，请删除此行代码");
-		// 鉴别身份，是否为数据创建者
-		long userId = SP_DEV_SP.publicMapper.getColumnByIdToLong(SpVedio.TABLE_NAME, "user_id", id);
-		AjaxError.throwBy(userId != StpUserUtil.getLoginIdAsLong(), "此数据您无权限修改");
-		// 开始修改 (请只保留需要修改的字段)
-		SoMap so = SoMap.getRequestSoMap();
-		so.clearNotIn("id", "url", "type", "status", "createBy", "createTime", "updateBy", "updateTime").clearNull().humpToLineCase();
-		int line = SP_DEV_SP.publicMapper.updateBySoMapById(SpVedio.TABLE_NAME, so, id);
-		return AjaxJson.getByLine(line);
-	}
-
-	@GetMapping("getGirlVedios")
-	public void getGirlVedios(){
-		spVedioService.getVedioData();
-	}
-
-
 
 
 }
