@@ -1,12 +1,18 @@
 package com.pj.project.aav.sp_image;
 
 import cn.dev33.satoken.annotation.SaCheckLogin;
+import com.pj.project.sp_dev.uploadfile.UploadUtil;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 import com.pj.utils.sg.*;
 import cn.dev33.satoken.annotation.SaCheckPermission;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -60,8 +66,13 @@ public class SpImageController {
     @GetMapping("getList")
     @SaCheckLogin
     public AjaxJson getList(@Param("type") int type) {
-        return AjaxJson.getSuccessData(spImageMapper.getImgUrl(type));
+        List<String> imgUrls = spImageMapper.getImgUrl(type);
+        if(!CollectionUtils.isEmpty(imgUrls)){
+            imgUrls = imgUrls.stream().map(v-> UploadUtil.getDoMain() + v).collect(Collectors.toList());
+        }
+        return AjaxJson.getSuccessData(imgUrls);
     }
+
 
 
 }

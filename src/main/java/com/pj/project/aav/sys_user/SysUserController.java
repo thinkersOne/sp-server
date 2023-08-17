@@ -2,6 +2,7 @@ package com.pj.project.aav.sys_user;
 
 import java.util.List;
 
+import cn.dev33.satoken.stp.StpUtil;
 import com.pj.models.so.SoMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -99,30 +100,11 @@ public class SysUserController {
 		return AjaxJson.getPageData(so.getDataCount(), list);
 	}
 
-
-
-
-	// ------------------------- 前端接口 -------------------------
-
-
-	/** 改 - 不传不改 [G] */
-	@RequestMapping("updateByNotNull")
-	public AjaxJson updateByNotNull(Long id){
-		AjaxError.throwBy(true, "如需正常调用此接口，请删除此行代码");
-		// 鉴别身份，是否为数据创建者
-		long userId = SP_DEV_SP.publicMapper.getColumnByIdToLong(SysUser.TABLE_NAME, "user_id", id);
-		AjaxError.throwBy(userId != StpUserUtil.getLoginIdAsLong(), "此数据您无权限修改");
-		// 开始修改 (请只保留需要修改的字段)
-		SoMap so = SoMap.getRequestSoMap();
-		so.clearNotIn("id", "name", "phone", "password").clearNull().humpToLineCase();
-		int line = SP_DEV_SP.publicMapper.updateBySoMapById(SysUser.TABLE_NAME, so, id);
-		return AjaxJson.getByLine(line);
+	/** 退出登录  */
+	@GetMapping("logOut")
+	AjaxJson logOut() {
+		StpUtil.logout();
+		return AjaxJson.getSuccess();
 	}
-
-
-
-
-
-
 
 }

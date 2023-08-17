@@ -38,7 +38,7 @@ public class UploadUtil {
 		String fileFolder = new File(uploadConfig.rootFolder).getAbsolutePath() + "/" +
 				uploadConfig.httpPrefix + flieTypeFolder + currDateFolder + "/";	
 		// 对外暴露的http路径
-		String httpUrl = getDoMain() + uploadConfig.httpPrefix + flieTypeFolder + currDateFolder + "/" + fileName;	
+		String httpUrl = uploadConfig.httpPrefix + flieTypeFolder + currDateFolder + "/" + fileName;
 		
 		// 2、如果文件夹不存在，则先创建 
 		File dirFile = new File(fileFolder);
@@ -99,7 +99,7 @@ public class UploadUtil {
 	}
 	
 	/** 返回本服务器域名信息  */
-	static String getDoMain() {
+	public static String getDoMain() {
 		return SystemObject.config.getDomain();
 	}
 

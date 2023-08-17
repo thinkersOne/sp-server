@@ -42,3 +42,16 @@ CREATE TABLE `user` (
                         `update_time` datetime DEFAULT NULL COMMENT '更新时间',
                         PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户表';
+
+-- 版本更新
+CREATE TABLE `version_info` (
+    `id` bigint NOT NULL AUTO_INCREMENT COMMENT '主键id',
+    `version` varchar(50) NOT NULL COMMENT '当前版本号',
+    `url` varchar(255) NOT NULL COMMENT '安装程序下载地址',
+    `description` varchar(500) NOT NULL COMMENT '版本更新内容说明',
+    `create_by` varchar(32) NOT NULL COMMENT '创建人',
+    `create_time` datetime NOT NULL COMMENT '创建时间',
+    `update_by` varchar(32) DEFAULT NULL COMMENT '更新人',
+    `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='版本更新表';

@@ -1,13 +1,16 @@
 package com.pj.project.aav.sp_vedio;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import cn.dev33.satoken.annotation.SaCheckLogin;
 import com.pj.models.so.SoMap;
 import com.pj.project.sp_dev.SP_DEV_SP;
+import com.pj.project.sp_dev.uploadfile.UploadUtil;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 import com.pj.current.satoken.AuthConst;
 import com.pj.utils.sg.*;
@@ -83,7 +86,13 @@ public class SpVedioController {
 	@GetMapping("getList")
 	@SaCheckLogin
 	public AjaxJson getList(@Param("type") int type) {
-		return AjaxJson.getSuccessData(spVedioMapper.getList(type));
+		List<SpVedio> spVedios = spVedioMapper.getList(type);
+		if(!CollectionUtils.isEmpty(spVedios)){
+			spVedios.forEach(v->{
+				v.setUrl(UploadUtil.getDoMain() + v.getUrl());
+			});
+		}
+		return AjaxJson.getSuccessData(spVedios);
 	}
 
 
