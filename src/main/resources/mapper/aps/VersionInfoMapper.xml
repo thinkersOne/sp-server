@@ -3,10 +3,10 @@
 <mapper namespace="com.pj.project.aps.version_info.VersionInfoMapper">
 
     <!-- 增 [G] -->
-    <insert id="add">
+    <insert id="add" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
         insert into
-        version_info (id, version, url, description, create_by, create_time, update_by, update_time)
-        values (#{id}, #{version}, #{url}, #{description}, #{createBy}, #{createTime}, #{updateBy}, #{updateTime})
+        version_info (version, url, description, create_by, create_time, update_by, update_time)
+        values (#{version}, #{url}, #{description}, #{createBy}, #{createTime}, #{updateBy}, #{updateTime})
     </insert>
 
     <!-- 删 -->

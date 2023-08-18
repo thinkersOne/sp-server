@@ -28,8 +28,7 @@ public class VersionInfoController {
     @PostMapping("add")
     @Transactional(rollbackFor = Exception.class)
     public AjaxJson add(@RequestBody VersionInfo v){
-        int id = versionInfoService.add(v);
-        v = versionInfoService.getById(Long.valueOf(id));
+        versionInfoService.add(v);
         return AjaxJson.getSuccessData(v);
     }
 
