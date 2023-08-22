@@ -1,7 +1,4 @@
-INSERT INTO `sp-dev`.category (user_id,name,create_by,create_time,update_by,update_time) VALUES
-	 (10001,'测试1','admin','2023-06-02 18:01:41','admin','2023-06-02 18:01:41');
-INSERT INTO `sp-dev`.password (user_id,category_id,title,account,password,url,notes,create_by,create_time,update_by,update_time) VALUES
-	 (10001,4,'测试11','张三','123','http://xxxx','null','admin','2023-06-02 18:03:36','admin','2023-06-02 18:03:36');
+
 INSERT INTO `sp-dev`.ser_article (title,content,type_id,goods_id,eff_time,create_time,status,is_eff) VALUES
 	 ('天地同寿会','<p>长虹贯日，天地同寿</p>',1004,1001,'2023-05-28 09:42:54','2023-05-28 09:42:54',1,1),
 	 ('开业大酬宾','<p>开业大酬宾，开业了</p>',1004,1001,'2023-05-28 09:42:54','2023-05-28 09:42:54',1,1),
@@ -1115,7 +1112,4 @@ INSERT INTO `sp-dev`.sys_type (name,icon,sort,create_time) VALUES
 	 ('服饰箱包','http://demo-jj.dev33.cn/spdj-server/upload/in-file/15998042340421259468332.png',4,'2023-05-28 09:42:52'),
 	 ('休闲零食','http://demo-jj.dev33.cn/spdj-server/upload/in-file/15998043314131110408700.jpg',2,'2023-05-28 09:42:52'),
 	 ('虚拟物品','http://demo-jj.dev33.cn/spdj-server/upload/in-file/1599804375931771963230.jpg',3,'2023-05-28 09:42:52');
-INSERT INTO `sp-dev`.`user` (username,password,create_by,create_time,update_by,update_time) VALUES
-	 ('zhangsan','123','admin','2023-05-28 00:00:00','admin','2023-05-28 00:00:00'),
-	 ('lisi','123','admin','2023-05-28 18:13:19','admin','2023-05-28 18:13:19'),
-	 ('wangwu','123','admin','2023-05-28 21:12:09','admin','2023-05-28 21:12:09');
+

@@ -66,7 +66,7 @@ CREATE TABLE `sp_admin_login` (
   `system` varchar(127) DEFAULT NULL COMMENT '客户端系统标识',
   `create_time` datetime NOT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=1047 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=COMPACT COMMENT='管理员登录日志表';
+) ENGINE=InnoDB AUTO_INCREMENT=1047 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ROW_FORMAT=COMPACT COMMENT='管理员登录日志表';
 
 
 -- `sp-dev`.sp_apilog definition

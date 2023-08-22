@@ -7,13 +7,13 @@ spring:
     datasource: 
         type: com.alibaba.druid.pool.DruidDataSource
         driverClassName: com.mysql.cj.jdbc.Driver
-        url: jdbc:mysql://182.92.153.115:3306/sp-dev?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+        url: jdbc:mysql://localhost:3306/sp-dev?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
         username: root
         password: 123456
-        url2: jdbc:mysql://182.92.153.115:3306/aav?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+        url2: jdbc:mysql://localhost:3306/aav?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
         username2: root
         password2: 123456
-        url3: jdbc:mysql://182.92.153.115:3306/aps?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+        url3: jdbc:mysql://localhost:3306/aps?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
         username3: root
         password3: 123456
         # 是否打开sql监控台  (生产环境请务必关闭此选项) 
@@ -31,7 +31,7 @@ spring:
         # Redis数据库索引（默认为0）
         database: 1
         # Redis服务器地址
-        host: 182.92.153.115
+        host: localhost
         # Redis服务器连接端口
         port: 6379
         # Redis服务器连接密码（默认为空）
@@ -52,5 +52,5 @@ spring:
     # 项目自定义配置
     myconfig:
         # 本项目部署到的服务器域名（文件上传等等模块  要用到）
-#        domain: http://127.0.0.1:8099
-        domain:  http://4kc25i.natappfree.cc
+        domain: http://127.0.0.1:8099
+#        domain:  http://27y621188t.goho.co:29402

@@ -21,13 +21,13 @@ create table sp_vedio
 );
 alter table sp_vedio comment '视频表';
 ALTER TABLE `sp-dev`.sp_vedio MODIFY COLUMN id bigint NOT NULL COMMENT '主键id';
-ALTER TABLE `sp-dev`.sp_vedio MODIFY COLUMN url varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL COMMENT '地址';
-ALTER TABLE `sp-dev`.sp_vedio MODIFY COLUMN `type` char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL COMMENT '类型 1:普通  2:会员';
-ALTER TABLE `sp-dev`.sp_vedio MODIFY COLUMN status char(2) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL COMMENT '状态  1:上架  2:下架';
-ALTER TABLE `sp-dev`.sp_vedio MODIFY COLUMN create_by varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL COMMENT '创建人';
-ALTER TABLE `sp-dev`.sp_vedio MODIFY COLUMN create_time varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL COMMENT '创建时间';
-ALTER TABLE `sp-dev`.sp_vedio MODIFY COLUMN update_by varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL COMMENT '更新人';
-ALTER TABLE `sp-dev`.sp_vedio MODIFY COLUMN update_time varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL COMMENT '更新时间';
+ALTER TABLE `sp-dev`.sp_vedio MODIFY COLUMN url varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '地址';
+ALTER TABLE `sp-dev`.sp_vedio MODIFY COLUMN `type` char(2) CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '类型 1:普通  2:会员';
+ALTER TABLE `sp-dev`.sp_vedio MODIFY COLUMN status char(2) CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '状态  1:上架  2:下架';
+ALTER TABLE `sp-dev`.sp_vedio MODIFY COLUMN create_by varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '创建人';
+ALTER TABLE `sp-dev`.sp_vedio MODIFY COLUMN create_time varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '创建时间';
+ALTER TABLE `sp-dev`.sp_vedio MODIFY COLUMN update_by varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '更新人';
+ALTER TABLE `sp-dev`.sp_vedio MODIFY COLUMN update_time varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '更新时间';
 
 -- 配置权限
 INSERT INTO `sp-dev`.sp_role_permission
@@ -57,8 +57,8 @@ CREATE TABLE `sp-dev`.sp_product (
 	update_by varchar(32) NOT NULL COMMENT '更新人'
 )
 ENGINE=InnoDB
-DEFAULT CHARSET=utf8mb4
-COLLATE=utf8mb4_0900_ai_ci
+DEFAULT CHARSET=utf8
+COLLATE=utf8_general_ci
 COMMENT='商品信息表';
 
 CREATE TABLE `sp-dev`.sp_order (
@@ -76,8 +76,8 @@ CREATE TABLE `sp-dev`.sp_order (
 	update_by varchar(100) NOT NULL COMMENT '更新人'
 )
 ENGINE=InnoDB
-DEFAULT CHARSET=utf8mb4
-COLLATE=utf8mb4_0900_ai_ci
+DEFAULT CHARSET=utf8
+COLLATE=utf8_general_ci
 COMMENT='订单信息表';
 
 INSERT INTO `sp-dev`.sp_role_permission

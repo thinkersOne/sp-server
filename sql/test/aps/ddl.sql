@@ -8,7 +8,7 @@ CREATE TABLE `category` (
                             `update_by` varchar(32) DEFAULT NULL COMMENT '更新人',
                             `update_time` datetime DEFAULT NULL COMMENT '更新时间',
                             PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='密码分类表';
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='密码分类表';
 
 
 -- `sp-dev`.password definition
@@ -27,7 +27,7 @@ CREATE TABLE `password` (
 `update_by` varchar(32) DEFAULT NULL COMMENT '更新人',
 `update_time` datetime DEFAULT NULL COMMENT '更新时间',
 PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='密码表';
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='密码表';
 
 
 -- `sp-dev`.`user` definition
@@ -41,7 +41,7 @@ CREATE TABLE `user` (
                         `update_by` varchar(32) DEFAULT NULL COMMENT '更新人',
                         `update_time` datetime DEFAULT NULL COMMENT '更新时间',
                         PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户表';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='用户表';
 
 -- 版本更新
 CREATE TABLE `version_info` (
@@ -54,4 +54,4 @@ CREATE TABLE `version_info` (
     `update_by` varchar(32) DEFAULT NULL COMMENT '更新人',
     `update_time` datetime DEFAULT NULL COMMENT '更新时间',
     PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='版本更新表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='版本更新表';
