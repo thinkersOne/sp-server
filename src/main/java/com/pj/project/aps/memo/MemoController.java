@@ -35,7 +35,7 @@ public class MemoController {
     }
 
     /** 删 - 根据id列表 */
-    @RequestMapping("deleteByIds")
+    @PostMapping("deleteByIds")
     @SaCheckLogin
     public AjaxJson deleteByIds(@RequestBody List<Long> ids){
         int line = memoMapper.deleteByIds(Memo.TABLE_NAME, ids);
