@@ -2,13 +2,24 @@ package com.pj.current.config;
 
 import org.apache.http.client.HttpClient;
 import org.apache.http.conn.HttpClientConnectionManager;
+import org.apache.http.conn.ssl.NoopHostnameVerifier;
+import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
+import org.apache.http.conn.ssl.TrustStrategy;
+import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
+import org.apache.http.ssl.SSLContexts;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
+
+import javax.net.ssl.SSLContext;
+import java.security.KeyManagementException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
 
 @Configuration
 public class RestTemplateConfig {
@@ -56,6 +67,21 @@ public class RestTemplateConfig {
         return httpClientBuilder.build();
     }
 
+    public static HttpComponentsClientHttpRequestFactory generateHttpRequestFactory()
+            throws NoSuchAlgorithmException, KeyManagementException, KeyStoreException
+    {
+        TrustStrategy acceptingTrustStrategy = (x509Certificates, authType) -> true;
+        SSLContext sslContext = SSLContexts.custom().loadTrustMaterial(null, acceptingTrustStrategy).build();
+        SSLConnectionSocketFactory connectionSocketFactory = new SSLConnectionSocketFactory(sslContext, new NoopHostnameVerifier());
+
+        HttpClientBuilder httpClientBuilder = HttpClients.custom();
+        httpClientBuilder.setSSLSocketFactory(connectionSocketFactory);
+        CloseableHttpClient httpClient = httpClientBuilder.build();
+        HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory();
+        factory.setHttpClient(httpClient);
+        return factory;
+    }
+
     /**
      * 请求连接池配置
      * @param httpClient
@@ -67,9 +93,9 @@ public class RestTemplateConfig {
         // httpClient创建器
         clientHttpRequestFactory.setHttpClient(httpClient);
         // 连接超时时间/毫秒（连接上服务器(握手成功)的时间，超出抛出connect timeout）
-        clientHttpRequestFactory.setConnectTimeout(5 * 1000);
+        clientHttpRequestFactory.setConnectTimeout(15 * 1000);
         // 数据读取超时时间(socketTimeout)/毫秒（务器返回数据(response)的时间，超过抛出read timeout）
-        clientHttpRequestFactory.setReadTimeout(10 * 1000);
+        clientHttpRequestFactory.setReadTimeout(20 * 1000);
         // 连接池获取请求连接的超时时间，不宜过长，必须设置/毫秒（超时间未拿到可用连接，会抛出org.apache.http.conn.ConnectionPoolTimeoutException: Timeout waiting for connection from pool）
         clientHttpRequestFactory.setConnectionRequestTimeout(10 * 1000);
         return clientHttpRequestFactory;
@@ -80,9 +106,10 @@ public class RestTemplateConfig {
      * @return
      */
     @Bean
-    public RestTemplate restTemplate(ClientHttpRequestFactory clientHttpRequestFactory) {
+    public RestTemplate restTemplate(ClientHttpRequestFactory clientHttpRequestFactory)
+            throws NoSuchAlgorithmException, KeyStoreException, KeyManagementException {
         // boot中可使用RestTemplateBuilder.build创建
-        RestTemplate restTemplate = new RestTemplate();
+        RestTemplate restTemplate = new RestTemplate(generateHttpRequestFactory());
         // 配置请求工厂
         restTemplate.setRequestFactory(clientHttpRequestFactory);
         return restTemplate;

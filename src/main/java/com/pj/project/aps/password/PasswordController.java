@@ -1,17 +1,17 @@
 package com.pj.project.aps.password;
 
-import java.util.List;
-
 import cn.dev33.satoken.annotation.SaCheckLogin;
+import cn.dev33.satoken.annotation.SaCheckPermission;
 import cn.dev33.satoken.stp.StpUtil;
+import com.pj.current.satoken.AuthConst;
 import com.pj.models.so.SoMap;
+import com.pj.utils.sg.AjaxJson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import com.pj.current.satoken.AuthConst;
-import com.pj.utils.sg.*;
-import cn.dev33.satoken.annotation.SaCheckPermission;
+
+import java.util.List;
 
 
 /**
@@ -86,8 +86,5 @@ public class PasswordController {
 		List<Password> list = passwordService.getList(so.startPage());
 		return AjaxJson.getPageData(so.getDataCount(), list);
 	}
-
-
-
 
 }

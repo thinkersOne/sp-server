@@ -36,7 +36,7 @@ public class UserService {
 	}
 
 	/** 查 */
-	User getById(Long id){
+	public User getById(Long id){
 		return userMapper.getById(id);
 	}
 

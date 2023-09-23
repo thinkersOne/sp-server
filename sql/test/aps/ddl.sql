@@ -55,3 +55,24 @@ CREATE TABLE `version_info` (
     `update_time` datetime DEFAULT NULL COMMENT '更新时间',
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci COMMENT='版本更新表';
+CREATE TABLE aps.chart_message (
+	id BIGINT auto_increment NOT NULL COMMENT '主键id',
+	user_id BIGINT NOT NULL COMMENT 'userId',
+	content varchar(100) NOT NULL COMMENT '对话',
+	sender varchar(100) NOT NULL COMMENT '发送者',
+	create_by varchar(100) NOT NULL COMMENT 'createBy',
+	create_time DATETIME NOT NULL COMMENT 'createTime',
+	update_by varchar(100) NOT NULL COMMENT 'updateBy',
+	update_time DATETIME NOT NULL COMMENT 'updateTime',
+	CONSTRAINT chart_message_PK PRIMARY KEY (id)
+)
+ENGINE=InnoDB
+DEFAULT CHARSET=utf8mb4
+COLLATE=utf8mb4_general_ci
+COMMENT='智能聊天信息表';
+
+ALTER TABLE aps.chart_message ADD `role` varchar(50) NOT NULL;
+ALTER TABLE aps.chart_message ADD plantform TINYINT DEFAULT 1 NOT NULL COMMENT '1:文心一言   2:通义千问';
+
+ALTER TABLE aps.chart_message MODIFY COLUMN content TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '对话';
+

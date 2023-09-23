@@ -2,6 +2,7 @@ package com.pj.project.aps.user;
 
 import java.util.List;
 
+import cn.dev33.satoken.annotation.SaCheckLogin;
 import com.pj.current.satoken.AuthConst;
 import com.pj.models.dto.LoginDTO;
 import com.pj.models.so.SoMap;
@@ -42,9 +43,9 @@ public class UserController {
 	}
 
 	/** 查 - 根据id */
-	@RequestMapping("getById")
-	@SaCheckPermission(AuthConst.USER_GETBY＿ID)
-	public AjaxJson getById(Long id){
+	@GetMapping("getById")
+	@SaCheckLogin
+	public AjaxJson getById(@RequestParam("userId") Long id){
 		User u = userService.getById(id);
 		return AjaxJson.getSuccessData(u);
 	}
