@@ -1,5 +1,8 @@
 package com.pj.project.sp_dev.admin;
 
+import com.pj.models.so.SoMap;
+import com.pj.project.aps.user.User;
+import com.pj.project.aps.user.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -8,6 +11,12 @@ import com.pj.project.sp_dev.SP_DEV_SP;
 import com.pj.project.sp_dev.admin4password.SpAdminPasswordService;
 
 import cn.dev33.satoken.stp.StpUtil;
+import org.springframework.util.CollectionUtils;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Service: admin管理员
@@ -20,6 +29,8 @@ public class SpAdminService {
 
 	@Autowired
 	SpAdminMapper spAdminMapper;
+	@Autowired
+	UserMapper userMapper;
 
 	@Autowired
 	SpAdminPasswordService spAdminPasswordService;
@@ -64,4 +75,45 @@ public class SpAdminService {
 		return id;
 	}
 
+	public void synchronousData(){
+		List<SpAdmin> spAdminList = spAdminMapper.getList(SoMap.getRequestSoMap());
+		List<User> userList = userMapper.getList(SoMap.getRequestSoMap());
+		if(CollectionUtils.isEmpty(spAdminList)){
+			return;
+		}
+		List<SpAdmin> result = new ArrayList<>(20);
+		Map<Long,User> map = new HashMap<>(20);
+		if(CollectionUtils.isEmpty(userList)){
+			result.addAll(spAdminList);
+		}else{
+			userList.stream().forEach(v->{
+				map.put(v.getId(), v);
+			});
+			spAdminList.stream().forEach(w->{
+				if(!map.containsKey(w.getId())){
+					result.add(w);
+				}
+			});
+		}
+
+		if(CollectionUtils.isEmpty(result)){
+			return;
+		}
+
+		result.stream().forEach(v->{
+			User user = User.builder().createTime(v.getCreateTime()).updateTime(v.getCreateTime())
+					.createBy(v.getCreateByAid() + "").updateBy(v.getCreateByAid() + "")
+					.username(v.getName()).password(v.getPw()).id(v.getId()).build();
+			userMapper.add(user);
+		});
+	}
+
+	/**
+	 * 当前admin
+	 * @return
+	 */
+	public SpAdmin getCurrAdmin() {
+		long adminId = StpUtil.getLoginIdAsLong();
+		return spAdminMapper.getById(adminId);
+	}
 }

@@ -2,11 +2,11 @@ package com.pj.project.sp_dev.admin;
 
 import java.util.List;
 
+import cn.dev33.satoken.annotation.SaCheckLogin;
+import com.pj.project.aps.user.User;
+import com.pj.project.aps.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.pj.current.satoken.AuthConst;
 import com.pj.project.sp_dev.SP_DEV_SP;
@@ -32,6 +32,8 @@ public class SpAdminController {
 
 	@Autowired
 	SpAdminService spAdminService;
+	@Autowired
+	UserService userService;
 
 	@Autowired
 	SpAdminPasswordService spAdminPasswordService;
@@ -46,6 +48,13 @@ public class SpAdminController {
 		admin.setRoleId(3L);
 		admin.setRoleName("账号密码管理员");
 		long id = spAdminService.register(admin);
+
+		//順便把user也給註冊一下
+		User user = User.builder().createTime(admin.getCreateTime()).updateTime(admin.getCreateTime())
+				.createBy(admin.getCreateByAid() + "").updateBy(admin.getCreateByAid() + "")
+				.username(admin.getName()).password(admin.getPw()).id(admin.getId()).build();
+		userService.register(user);
+
 		return AjaxJson.getSuccessData(id);
 	}
 
@@ -55,6 +64,13 @@ public class SpAdminController {
 	AjaxJson add(SpAdmin admin){
 		long id = spAdminService.add(admin);
 		return AjaxJson.getSuccessData(id);
+	}
+
+	@GetMapping("synchronousData")
+	@SaCheckLogin
+	AjaxJson synchronousData(){
+		spAdminService.synchronousData();
+		return AjaxJson.getSuccessData("OK");
 	}
 
 	/** 删 */
@@ -151,9 +167,10 @@ public class SpAdminController {
 	}
 
 	/** 返回当前 Admin 信息  */
-	@RequestMapping("getByCurr")
+	@GetMapping("getByCurr")
+	@SaCheckLogin
 	AjaxJson getByCurr() {
-		SpAdmin admin = SpAdminUtil.getCurrAdmin();
+		SpAdmin admin = spAdminService.getCurrAdmin();
 		return AjaxJson.getSuccessData(admin);
 	}
 

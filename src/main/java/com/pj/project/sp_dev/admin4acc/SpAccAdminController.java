@@ -2,6 +2,7 @@ package com.pj.project.sp_dev.admin4acc;
 
 import com.pj.models.dto.LoginDTO;
 import com.pj.project.sp_dev.admin.SpAdmin;
+import com.pj.project.sp_dev.admin.SpAdminService;
 import com.pj.project.sp_dev.admin.SpAdminUtil;
 import com.pj.project.sp_dev.role4permission.SpRolePermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,8 @@ public class SpAccAdminController {
 
 	@Autowired
 	SpAccAdminService spAccAdminService;
+	@Autowired
+	SpAdminService spAdminService;
 
 	@Autowired
 	SpRolePermissionService spRolePermissionService;
@@ -59,7 +62,7 @@ public class SpAccAdminController {
 	@RequestMapping("getLoginInfo")
 	AjaxJson getLoginInfo() {
 		// 当前admin
-		SpAdmin admin = SpAdminUtil.getCurrAdmin();
+		SpAdmin admin = spAdminService.getCurrAdmin();
 		// 组织参数 (admin信息，权限信息，配置信息)
 		SoMap map = new SoMap();
 		map.set("admin", admin);

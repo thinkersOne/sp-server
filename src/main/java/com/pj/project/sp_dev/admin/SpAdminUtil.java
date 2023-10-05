@@ -23,15 +23,6 @@ public class SpAdminUtil {
 	private void setSpAdminMapper(SpAdminMapper spAdminMapper) {
 		SpAdminUtil.spAdminMapper = spAdminMapper;
 	}
-	
-	/**
-	 * 当前admin
-	 * @return
-	 */
-	public static SpAdmin getCurrAdmin() {
-		long adminId = StpUtil.getLoginIdAsLong();
-		return spAdminMapper.getById(adminId);
-	}
 
 	/**
 	 * 检查指定姓名是否合法 ,如果不合法，则抛出异常

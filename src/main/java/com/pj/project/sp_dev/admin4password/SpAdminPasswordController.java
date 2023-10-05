@@ -1,6 +1,7 @@
 package com.pj.project.sp_dev.admin4password;
 
 import com.pj.project.sp_dev.admin.SpAdmin;
+import com.pj.project.sp_dev.admin.SpAdminService;
 import com.pj.project.sp_dev.admin.SpAdminUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,12 +22,14 @@ public class SpAdminPasswordController {
 
 	@Autowired
 	SpAdminPasswordService spAdminPasswordService;
+	@Autowired
+	SpAdminService spAdminService;
 
 	/** 指定用户修改自己密码 */
 	@RequestMapping("update")
 	AjaxJson updatePassword(String oldPwd, String newPwd) {
 		// 1、转md5
-		SpAdmin a = SpAdminUtil.getCurrAdmin();
+		SpAdmin a = spAdminService.getCurrAdmin();
 		String oldPwdMd5 = SystemObject.getPasswordMd5(a.getId(), oldPwd);
 		
 		// 2、验证
