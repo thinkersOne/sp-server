@@ -32,7 +32,7 @@ public class PasswordController {
 	@Transactional(rollbackFor = Exception.class)
 	@SaCheckLogin
 	public AjaxJson add(@RequestBody Password p){
-		if(passwordMapper.existName(p.getTitle()) > 0){
+		if(passwordMapper.existName(p.getTitle(),StpUtil.getLoginIdAsLong()) > 0){
 			return AjaxJson.getError("title已存在!");
 		}
 		p.setUserId(StpUtil.getLoginIdAsLong());

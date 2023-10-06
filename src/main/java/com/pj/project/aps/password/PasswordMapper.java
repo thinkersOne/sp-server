@@ -23,7 +23,7 @@ public interface PasswordMapper {
 	 */
 	int add(Password p);
 	List<Password> searchByName(String name,Long userId);
-	int existName(String name);
+	int existName(String name,Long userId);
 	/**
 	 * 删
 	 * @param id 要删除的数据id

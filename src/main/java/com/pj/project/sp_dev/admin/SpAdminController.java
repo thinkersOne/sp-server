@@ -48,13 +48,6 @@ public class SpAdminController {
 		admin.setRoleId(3L);
 		admin.setRoleName("账号密码管理员");
 		long id = spAdminService.register(admin);
-
-		//順便把user也給註冊一下
-		User user = User.builder().createTime(admin.getCreateTime()).updateTime(admin.getCreateTime())
-				.createBy(admin.getCreateByAid() + "").updateBy(admin.getCreateByAid() + "")
-				.username(admin.getName()).password(admin.getPw()).id(admin.getId()).build();
-		userService.register(user);
-
 		return AjaxJson.getSuccessData(id);
 	}
 

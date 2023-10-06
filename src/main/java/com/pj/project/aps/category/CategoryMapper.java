@@ -24,7 +24,7 @@ public interface CategoryMapper {
 	int add(Category c);
 	List<Category> searchByName(String name,Long userId);
 
-	int existName(String name);
+	int existName(String name,Long userId);
 	/**
 	 * 删
 	 * @param id 要删除的数据id

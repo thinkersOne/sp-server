@@ -15,7 +15,7 @@
 		where id = #{id}
 	</delete>
 	<select id="existName" resultType="int">
-		select count(*) from category where name = #{name}
+		select count(*) from category where name = #{name} and user_id = #{userId}
 	</select>
 
 	<select id="searchByName" resultMap="model">

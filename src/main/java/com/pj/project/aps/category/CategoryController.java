@@ -33,7 +33,7 @@ public class CategoryController {
 	@SaCheckLogin
 	@Transactional(rollbackFor = Exception.class)
 	public AjaxJson add(@RequestBody Category c){
-		if(categoryMapper.existName(c.getName()) > 0){
+		if(categoryMapper.existName(c.getName(),StpUtil.getLoginIdAsLong()) > 0){
 			return AjaxJson.getError("名称已存在!");
 		}
 		c.setUserId(StpUtil.getLoginIdAsLong());

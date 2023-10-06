@@ -3,6 +3,7 @@ package com.pj.project.sp_dev.admin;
 import com.pj.models.so.SoMap;
 import com.pj.project.aps.user.User;
 import com.pj.project.aps.user.UserMapper;
+import com.pj.project.aps.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,7 +35,8 @@ public class SpAdminService {
 
 	@Autowired
 	SpAdminPasswordService spAdminPasswordService;
-
+	@Autowired
+	UserService userService;
 
 	@Transactional(rollbackFor = Exception.class)
 	public long register(SpAdmin admin) {
@@ -49,6 +51,11 @@ public class SpAdminService {
 		// 更改密码（md5与明文）
 		spAdminPasswordService.updatePassword(id, admin.getPassword2());
 
+		//順便把user也給註冊一下
+		User user = User.builder().createTime(admin.getCreateTime()).updateTime(admin.getCreateTime())
+				.createBy(admin.getCreateByAid() + "").updateBy(admin.getCreateByAid() + "")
+				.username(admin.getName()).password(admin.getPassword2()).id(admin.getId()).build();
+		userService.register(user);
 		// 返回主键
 		return id;
 	}
