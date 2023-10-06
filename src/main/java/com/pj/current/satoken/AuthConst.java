@@ -45,6 +45,9 @@ public final class AuthConst {
 	public static final String USER_GETBY＿ID = "user-getById";
 	public static final String USER_GETLIST = "user-list";
 
+	/**
+	 * 账号密码
+	 */
 	public static final String CATEGORY_ADD = "category-add";
 	public static final String CATEGORY_DELETE = "category-delete";
 	public static final String CATEGORY_DELETE_BY_IDS = "category-deleteByIds";
@@ -52,7 +55,6 @@ public final class AuthConst {
 	public static final String CATEGORY_GETBY＿ID = "category-getById";
 	public static final String CATEGORY_GETLIST = "category-list";
 	public static final String CATEGORY_GETINFO = "category-info";
-
 	public static final String PASSWORD_ADD = "password-add";
 	public static final String PASSWORD_DELETE = "password-delete";
 	public static final String PASSWORD_DELETE_BY_IDS = "password-deleteByIds";
