@@ -105,6 +105,8 @@ public class Ttime {
 
 		String startOfDay = getStartOfDay();
 		System.out.println(startOfDay);
+
+		System.out.println(0 % 2);
 	}
 
 

@@ -1,4 +1,4 @@
-package com.pj.current.global;
+package com.pj.current.enums;
 
 public enum VedioTypeEnum {
     NORMAL("1","普通会员"),

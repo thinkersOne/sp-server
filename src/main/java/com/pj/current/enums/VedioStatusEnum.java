@@ -1,4 +1,4 @@
-package com.pj.current.global;
+package com.pj.current.enums;
 
 public enum VedioStatusEnum {
     UP("1","上架"),

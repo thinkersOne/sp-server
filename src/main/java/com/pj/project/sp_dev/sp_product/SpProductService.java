@@ -3,7 +3,7 @@ package com.pj.project.sp_dev.sp_product;
 import java.util.List;
 
 import cn.hutool.core.util.ObjectUtil;
-import com.pj.current.global.ProductTypeEnum;
+import com.pj.current.enums.ProductTypeEnum;
 import com.pj.models.so.SoMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

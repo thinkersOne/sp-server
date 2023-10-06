@@ -5,8 +5,8 @@
     <!-- 增 [G] -->
     <insert id="add">
         insert into
-        chart_message (id, user_id, content, sender, create_by, create_time, update_by, update_time,role)
-        values (#{id}, #{userId}, #{content}, #{sender}, #{createBy}, #{createTime}, #{updateBy}, #{updateTime},#{role})
+        chart_message (id, user_id, content, sender, create_by, create_time, update_by, update_time,role,plantform)
+        values (#{id}, #{userId}, #{content}, #{sender}, #{createBy}, #{createTime}, #{updateBy}, #{updateTime},#{role},#{plantform})
     </insert>
 
     <!-- 删 -->
@@ -79,6 +79,7 @@
             <if test=' this.has("updateBy") '> and update_by = #{updateBy} </if>
             <if test=' this.has("updateTime") '> and update_time = #{updateTime} </if>
             <if test=' this.has("startTime")'> and create_time >= #{startTime}</if>
+            <if test=' this.has("plantform")'> and plantform = #{plantform}</if>
         </where>
         order by create_time
         <!--		<choose>-->

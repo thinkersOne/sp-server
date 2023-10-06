@@ -5,12 +5,16 @@ import cn.dev33.satoken.annotation.SaCheckPermission;
 import cn.dev33.satoken.stp.StpUtil;
 import com.pj.current.global.AiChartConstant;
 import com.pj.models.so.SoMap;
+import com.pj.project.aps.chart_message.ali.AlChartService;
+import com.pj.project.aps.chart_message.baidu.BdChartService;
+import com.pj.utils.ai.ali.ALiContent;
+import com.pj.utils.ai.ali.ALiInput;
+import com.pj.utils.ai.ali.ALiMessage;
 import com.pj.utils.ai.baidu.BaiduChatMessage;
 import com.pj.utils.sg.AjaxJson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +30,11 @@ public class ChartMessageController {
     /** 底层 Service 对象 */
     @Autowired
     ChartMessageService chartMessageService;
+    @Autowired
+    BdChartService bdChartService;
+    @Autowired
+    AlChartService alChartService;
+
     /** 增 */
     @PostMapping("add")
     @SaCheckLogin
@@ -69,9 +78,10 @@ public class ChartMessageController {
     /** 查集合 - 根据条件（参数为空时代表忽略指定条件） */
     @GetMapping("getList")
     @SaCheckLogin
-    public AjaxJson getList() {
+    public AjaxJson getList(@RequestParam("plantform") int platform) {
         SoMap so = SoMap.getRequestSoMap();
         so.set("userId",StpUtil.getLoginIdAsLong());
+        so.set("plantform",platform);
         List<ChartMessage> list = chartMessageService.getList(so);
         return AjaxJson.getPageData(so.getDataCount(), list);
     }
@@ -79,7 +89,7 @@ public class ChartMessageController {
     @GetMapping("bd/getAccess_token")
     @SaCheckLogin
     public AjaxJson getAccess_token() {
-        return AjaxJson.getSuccessData(chartMessageService.bd_chart_token());
+        return AjaxJson.getSuccessData(bdChartService.bd_chart_token());
     }
 
     @GetMapping("bd/getResult")
@@ -96,13 +106,19 @@ public class ChartMessageController {
         baiduChatMessageList.add(baiduChatMessage1);
         baiduChatMessageList.add(baiduChatMessage2);
         AiChartConstant.tokenMap.put(StpUtil.getLoginIdAsLong(),"24.b83bded9c570d34a62d170563a2d3075.2592000.1697769687.282335-39658647");
-        return AjaxJson.getSuccessData(chartMessageService.bd_chart(baiduChatMessageList));
+        return AjaxJson.getSuccessData(bdChartService.bd_chart(baiduChatMessageList));
     }
 
+    @GetMapping("al/getResult")
+    @SaCheckLogin
+    public AjaxJson getResult1(){
+        ALiInput aLiInput = ALiInput.builder().prompt("您好，我是小美，请问有什么可以帮到您的吗？").build();
+        return AjaxJson.getSuccess(alChartService.al_chart(aLiInput));
+    }
     @GetMapping("testGetChartMessageList")
     @SaCheckLogin
     public AjaxJson testGetChartMessageList() {
-        return AjaxJson.getSuccessData(chartMessageService.getChartMessageList());
+        return AjaxJson.getSuccessData(bdChartService.getChartMessageList());
     }
 
 }

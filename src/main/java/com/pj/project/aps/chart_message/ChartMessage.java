@@ -57,7 +57,7 @@ public class ChartMessage implements Serializable {
     public String sender;
 
     public String role;
-    public int plantform;
+    public Integer plantform;
     /**
      * 创建人
      */
