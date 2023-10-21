@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pj.project.lottery.LotteryMapper">
+
+	<!-- 增 [G] -->
+	<insert id="add">
+		insert into 
+		lottery (code, date, red, blue, sales, one_type_num, one_type_money, two_type_num, two_type_money, three_type_num, three_type_money, poolmoney) 
+		values (#{code}, #{date}, #{red}, #{blue}, #{sales}, #{oneTypeNum}, #{oneTypeMoney}, #{twoTypeNum}, #{twoTypeMoney}, #{threeTypeNum}, #{threeTypeMoney}, #{poolmoney}) 
+	</insert>
+	<insert id="batchInsertLottery" parameterType="java.util.List">
+		INSERT INTO lottery (code, date, red, blue, sales, one_type_num, one_type_money, two_type_num, two_type_money, three_type_num, three_type_money, poolmoney)
+		VALUES
+		<foreach collection="list" item="lottery" separator=",">
+			(#{lottery.code}, #{lottery.date}, #{lottery.red}, #{lottery.blue}, #{lottery.sales}, #{lottery.oneTypeNum},
+			#{lottery.oneTypeMoney}, #{lottery.twoTypeNum}, #{lottery.twoTypeMoney}, #{lottery.threeTypeNum},
+			#{lottery.threeTypeMoney}, #{lottery.poolmoney})
+		</foreach>
+	</insert>
+	<!-- 删 -->
+	<delete id="delete">
+		delete from lottery 
+		where code = #{code}
+	</delete>
+
+	<!-- 改 [G] -->
+	<update id="update">
+		update lottery set
+		code = #{code}, 
+		date = #{date}, 
+		red = #{red}, 
+		blue = #{blue}, 
+		sales = #{sales}, 
+		one_type_num = #{oneTypeNum}, 
+		one_type_money = #{oneTypeMoney}, 
+		two_type_num = #{twoTypeNum}, 
+		two_type_money = #{twoTypeMoney}, 
+		three_type_num = #{threeTypeNum}, 
+		three_type_money = #{threeTypeMoney}, 
+		poolmoney = #{poolmoney}
+		where code = #{code}
+	</update>
+
+
+	<!-- ================================== 查询相关 ================================== -->
+	<!-- select code, date, red, blue, sales, one_type_num, one_type_money, two_type_num, two_type_money, three_type_num, three_type_money, poolmoney from lottery  -->
+	
+	<!-- 通用映射：手动模式 -->
+	<resultMap id="model" type="com.pj.project.lottery.unionLotto.domain.Lottery">
+		<result property="code" column="code" />
+		<result property="date" column="date" />
+		<result property="red" column="red" />
+		<result property="blue" column="blue" />
+		<result property="sales" column="sales" />
+		<result property="oneTypeNum" column="one_type_num" />
+		<result property="oneTypeMoney" column="one_type_money" />
+		<result property="twoTypeNum" column="two_type_num" />
+		<result property="twoTypeMoney" column="two_type_money" />
+		<result property="threeTypeNum" column="three_type_num" />
+		<result property="threeTypeMoney" column="three_type_money" />
+		<result property="poolmoney" column="poolmoney" />
+	</resultMap>
+	
+	<!-- 公共查询sql片段 -->
+	<sql id="select_sql">
+		select * 
+		from lottery 
+	</sql>
+	
+	<!-- 查 - 根据id -->
+	<select id="getById" resultMap="model">
+		<include refid="select_sql"></include>
+		where code = #{code}
+	</select>
+	
+	<!-- 查集合 - 根据条件（参数为空时代表忽略指定条件） [G] -->
+	<select id="getList" resultMap="model">
+		<include refid="select_sql"></include>
+		<where>
+			<if test=' this.has("code") '> and code = #{code} </if>
+			<if test=' this.has("date") '> and date = #{date} </if>
+			<if test=' this.has("red") '> and red = #{red} </if>
+			<if test=' this.has("blue") '> and blue = #{blue} </if>
+			<if test=' this.has("sales") '> and sales = #{sales} </if>
+			<if test=' this.has("oneTypeNum") '> and one_type_num = #{oneTypeNum} </if>
+			<if test=' this.has("oneTypeMoney") '> and one_type_money = #{oneTypeMoney} </if>
+			<if test=' this.has("twoTypeNum") '> and two_type_num = #{twoTypeNum} </if>
+			<if test=' this.has("twoTypeMoney") '> and two_type_money = #{twoTypeMoney} </if>
+			<if test=' this.has("threeTypeNum") '> and three_type_num = #{threeTypeNum} </if>
+			<if test=' this.has("threeTypeMoney") '> and three_type_money = #{threeTypeMoney} </if>
+			<if test=' this.has("poolmoney") '> and poolmoney = #{poolmoney} </if>
+		</where>
+		order by
+		<choose>
+			<when test='sortType == 1'> code desc </when>
+			<when test='sortType == 2'> date desc </when>
+			<when test='sortType == 3'> red desc </when>
+			<when test='sortType == 4'> blue desc </when>
+			<when test='sortType == 5'> sales desc </when>
+			<when test='sortType == 6'> one_type_num desc </when>
+			<when test='sortType == 7'> one_type_money desc </when>
+			<when test='sortType == 8'> two_type_num desc </when>
+			<when test='sortType == 9'> two_type_money desc </when>
+			<when test='sortType == 10'> three_type_num desc </when>
+			<when test='sortType == 11'> three_type_money desc </when>
+			<when test='sortType == 12'> poolmoney desc </when>
+			<otherwise> code desc </otherwise>
+		</choose>
+	</select>
+	
+	<delete id="deleteAll">
+		delete from lottery
+	</delete>
+
+	<select id="getCurrentLottery" resultType="com.pj.project.lottery.unionLotto.domain.Lottery">
+		select * from lottery order by code desc limit 1
+	</select>
+
+	<select id="getLotteryByRed" resultType="com.pj.project.lottery.unionLotto.domain.Lottery">
+		select * from lottery where red like '%${red}%' order by code desc
+	</select>
+
+</mapper>

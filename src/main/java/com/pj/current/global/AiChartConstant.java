@@ -56,4 +56,5 @@ public class AiChartConstant {
      */
     public static final Float AL_TEMPERATURE = 1.0f;
     public static final Boolean AL_ENABLE_SEARCH = false;
+
 }

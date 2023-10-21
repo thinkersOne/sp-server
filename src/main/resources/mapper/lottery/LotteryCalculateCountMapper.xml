@@ -1,0 +1,463 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pj.project.lottery.lottery_calculate_count.LotteryCalculateCountMapper">
+
+	<!-- 增 [G] -->
+	<insert id="add">
+		insert into
+		lottery_calculate_count (id, year, month, week, codes, red1, red2, red3, red4, red5, red6, red7, red8, red9, red10, red11, red12, red13, red14, red15, red16, red17, red18, red19, red20, red21, red22, red23, red24, red25, red26, red27, red28, red29, red30, red31, red32, red33, blue1, blue2, blue3, blue4, blue5, blue6, blue7, blue8, blue9, blue10, blue11, blue12, blue13, blue14, blue15, blue16, cal_type, red_parity_ratio_2_4, red_parity_ratio_4_2, red_parity_ratio_5_1, red_parity_ratio_1_5, red_parity_ratio_3_3, red_parity_ratio_6_0, red_parity_ratio_0_6, red_range_2_3_1, red_range_2_2_2, red_range_3_2_1, red_range_1_2_3, red_range_2_0_4, red_range_2_4_0, red_range_4_0_2, red_range_4_2_0, red_range_3_1_2, red_range_2_1_3, red_range_4_1_1, red_range_1_1_4, red_range_1_4_1, blue_small, blue_big, blue_area_one, blue_area_two, blue_area_three, blue_area_four, blue_parity, blue_ratio, red_21_60, red_73_78, red_61_66, red_103_108, red_91_96, red_79_84, red_67_72, red_109_114, red_115_120, red_133_138, red_97_102, red_139_144, red_127_132, red_121_126, red_145_183)
+		values (#{id}, #{year}, #{month}, #{week}, #{codes}, #{red1}, #{red2}, #{red3}, #{red4}, #{red5}, #{red6}, #{red7}, #{red8}, #{red9}, #{red10}, #{red11}, #{red12}, #{red13}, #{red14}, #{red15}, #{red16}, #{red17}, #{red18}, #{red19}, #{red20}, #{red21}, #{red22}, #{red23}, #{red24}, #{red25}, #{red26}, #{red27}, #{red28}, #{red29}, #{red30}, #{red31}, #{red32}, #{red33}, #{blue1}, #{blue2}, #{blue3}, #{blue4}, #{blue5}, #{blue6}, #{blue7}, #{blue8}, #{blue9}, #{blue10}, #{blue11}, #{blue12}, #{blue13}, #{blue14}, #{blue15}, #{blue16}, #{calType}, #{redParityRatio24}, #{redParityRatio42}, #{redParityRatio51}, #{redParityRatio15}, #{redParityRatio33}, #{redParityRatio60}, #{redParityRatio06}, #{redRange231}, #{redRange222}, #{redRange321}, #{redRange123}, #{redRange204}, #{redRange240}, #{redRange402}, #{redRange420}, #{redRange312}, #{redRange213}, #{redRange411}, #{redRange114}, #{redRange141}, #{blueSmall}, #{blueBig}, #{blueAreaOne}, #{blueAreaTwo}, #{blueAreaThree}, #{blueAreaFour}, #{blueParity}, #{blueRatio}, #{red2160}, #{red7378}, #{red6166}, #{red103108}, #{red9196}, #{red7984}, #{red6772}, #{red109114}, #{red115120}, #{red133138}, #{red97102}, #{red139144}, #{red127132}, #{red121126}, #{red145183})
+	</insert>
+	<insert id="batchInsertLotteryCalculateCount" parameterType="java.util.List">
+		INSERT INTO lottery_calculate_count (id,year, month, week,codes, red1, red2, red3, red4, red5, red6, red7, red8, red9, red10, red11, red12, red13, red14, red15, red16, red17, red18, red19, red20, red21, red22, red23, red24, red25, red26, red27, red28, red29, red30, red31, red32, red33, blue1, blue2, blue3, blue4, blue5, blue6, blue7, blue8, blue9, blue10, blue11, blue12, blue13, blue14, blue15, blue16, cal_type, red_parity_ratio_2_4, red_parity_ratio_4_2, red_parity_ratio_5_1, red_parity_ratio_1_5, red_parity_ratio_3_3, red_parity_ratio_6_0, red_parity_ratio_0_6, red_range_2_3_1, red_range_2_2_2, red_range_3_2_1, red_range_1_2_3, red_range_2_0_4, red_range_2_4_0, red_range_4_0_2, red_range_4_2_0, red_range_3_1_2, red_range_2_1_3, red_range_4_1_1, red_range_1_1_4, red_range_1_4_1, blue_small, blue_big, blue_area_one, blue_area_two, blue_area_three, blue_area_four, blue_parity, blue_ratio, red_21_60, red_73_78, red_61_66, red_103_108, red_91_96, red_79_84, red_67_72, red_109_114, red_115_120, red_133_138, red_97_102, red_139_144, red_127_132, red_121_126, red_145_183)
+		VALUES
+		<foreach collection="list" item="l" separator=",">
+			(#{l.id},#{l.year}, #{l.month}, #{l.week},#{l.codes}, #{l.red1}, #{l.red2}, #{l.red3}, #{l.red4}, #{l.red5}, #{l.red6}, #{l.red7}, #{l.red8}, #{l.red9}, #{l.red10}, #{l.red11}, #{l.red12}, #{l.red13}, #{l.red14}, #{l.red15}, #{l.red16}, #{l.red17}, #{l.red18}, #{l.red19}, #{l.red20}, #{l.red21}, #{l.red22}, #{l.red23}, #{l.red24}, #{l.red25}, #{l.red26}, #{l.red27}, #{l.red28}, #{l.red29}, #{l.red30}, #{l.red31}, #{l.red32}, #{l.red33}, #{l.blue1}, #{l.blue2}, #{l.blue3}, #{l.blue4}, #{l.blue5}, #{l.blue6}, #{l.blue7}, #{l.blue8}, #{l.blue9}, #{l.blue10}, #{l.blue11}, #{l.blue12}, #{l.blue13}, #{l.blue14}, #{l.blue15}, #{l.blue16}, #{l.calType}, #{l.redParityRatio24}, #{l.redParityRatio42}, #{l.redParityRatio51}, #{l.redParityRatio15}, #{l.redParityRatio33}, #{l.redParityRatio60}, #{l.redParityRatio06}, #{l.redRange231}, #{l.redRange222}, #{l.redRange321}, #{l.redRange123}, #{l.redRange204}, #{l.redRange240}, #{l.redRange402}, #{l.redRange420}, #{l.redRange312}, #{l.redRange213}, #{l.redRange411}, #{l.redRange114}, #{l.redRange141}, #{l.blueSmall}, #{l.blueBig}, #{l.blueAreaOne}, #{l.blueAreaTwo}, #{l.blueAreaThree}, #{l.blueAreaFour}, #{l.blueParity}, #{l.blueRatio}, #{l.red2160}, #{l.red7378}, #{l.red6166}, #{l.red103108}, #{l.red9196}, #{l.red7984}, #{l.red6772}, #{l.red109114}, #{l.red115120}, #{l.red133138}, #{l.red97102}, #{l.red139144}, #{l.red127132}, #{l.red121126}, #{l.red145183})
+		</foreach>
+	</insert>
+	<!-- 删 -->
+	<delete id="delete">
+		delete from lottery_calculate_count 
+		where id = #{id}
+	</delete>
+
+	<!-- 改 [G] -->
+	<update id="update">
+		update lottery_calculate_count set
+		id = #{id},
+		year = #{year},
+		month = #{month},
+		week = #{week},
+		codes = #{codes},
+		red1 = #{red1}, 
+		red2 = #{red2}, 
+		red3 = #{red3}, 
+		red4 = #{red4}, 
+		red5 = #{red5}, 
+		red6 = #{red6}, 
+		red7 = #{red7}, 
+		red8 = #{red8}, 
+		red9 = #{red9}, 
+		red10 = #{red10}, 
+		red11 = #{red11}, 
+		red12 = #{red12}, 
+		red13 = #{red13}, 
+		red14 = #{red14}, 
+		red15 = #{red15}, 
+		red16 = #{red16}, 
+		red17 = #{red17}, 
+		red18 = #{red18}, 
+		red19 = #{red19}, 
+		red20 = #{red20}, 
+		red21 = #{red21}, 
+		red22 = #{red22}, 
+		red23 = #{red23}, 
+		red24 = #{red24}, 
+		red25 = #{red25}, 
+		red26 = #{red26}, 
+		red27 = #{red27}, 
+		red28 = #{red28}, 
+		red29 = #{red29}, 
+		red30 = #{red30}, 
+		red31 = #{red31}, 
+		red32 = #{red32}, 
+		red33 = #{red33}, 
+		blue1 = #{blue1}, 
+		blue2 = #{blue2}, 
+		blue3 = #{blue3}, 
+		blue4 = #{blue4}, 
+		blue5 = #{blue5}, 
+		blue6 = #{blue6}, 
+		blue7 = #{blue7}, 
+		blue8 = #{blue8}, 
+		blue9 = #{blue9}, 
+		blue10 = #{blue10}, 
+		blue11 = #{blue11}, 
+		blue12 = #{blue12}, 
+		blue13 = #{blue13}, 
+		blue14 = #{blue14}, 
+		blue15 = #{blue15}, 
+		blue16 = #{blue16}, 
+		cal_type = #{calType}, 
+		red_parity_ratio_2_4 = #{redParityRatio24}, 
+		red_parity_ratio_4_2 = #{redParityRatio42}, 
+		red_parity_ratio_5_1 = #{redParityRatio51}, 
+		red_parity_ratio_1_5 = #{redParityRatio15}, 
+		red_parity_ratio_3_3 = #{redParityRatio33}, 
+		red_parity_ratio_6_0 = #{redParityRatio60}, 
+		red_parity_ratio_0_6 = #{redParityRatio06}, 
+		red_range_2_3_1 = #{redRange231}, 
+		red_range_2_2_2 = #{redRange222}, 
+		red_range_3_2_1 = #{redRange321}, 
+		red_range_1_2_3 = #{redRange123}, 
+		red_range_2_0_4 = #{redRange204}, 
+		red_range_2_4_0 = #{redRange240}, 
+		red_range_4_0_2 = #{redRange402}, 
+		red_range_4_2_0 = #{redRange420}, 
+		red_range_3_1_2 = #{redRange312}, 
+		red_range_2_1_3 = #{redRange213}, 
+		red_range_4_1_1 = #{redRange411}, 
+		red_range_1_1_4 = #{redRange114}, 
+		red_range_1_4_1 = #{redRange141}, 
+		blue_small = #{blueSmall}, 
+		blue_big = #{blueBig}, 
+		blue_area_one = #{blueAreaOne}, 
+		blue_area_two = #{blueAreaTwo}, 
+		blue_area_three = #{blueAreaThree}, 
+		blue_area_four = #{blueAreaFour}, 
+		blue_parity = #{blueParity}, 
+		blue_ratio = #{blueRatio}, 
+		red_21_60 = #{red2160}, 
+		red_73_78 = #{red7378}, 
+		red_61_66 = #{red6166}, 
+		red_103_108 = #{red103108}, 
+		red_91_96 = #{red9196}, 
+		red_79_84 = #{red7984}, 
+		red_67_72 = #{red6772}, 
+		red_109_114 = #{red109114}, 
+		red_115_120 = #{red115120}, 
+		red_133_138 = #{red133138}, 
+		red_97_102 = #{red97102}, 
+		red_139_144 = #{red139144}, 
+		red_127_132 = #{red127132}, 
+		red_121_126 = #{red121126}, 
+		red_145_183 = #{red145183}
+		where id = #{id}
+	</update>
+
+
+	<!-- ================================== 查询相关 ================================== -->
+	<!-- select id, red1, red2, red3, red4, red5, red6, red7, red8, red9, red10, red11, red12, red13, red14, red15, red16, red17, red18, red19, red20, red21, red22, red23, red24, red25, red26, red27, red28, red29, red30, red31, red32, red33, blue1, blue2, blue3, blue4, blue5, blue6, blue7, blue8, blue9, blue10, blue11, blue12, blue13, blue14, blue15, blue16, cal_type, red_parity_ratio_2_4, red_parity_ratio_4_2, red_parity_ratio_5_1, red_parity_ratio_1_5, red_parity_ratio_3_3, red_parity_ratio_6_0, red_parity_ratio_0_6, red_range_2_3_1, red_range_2_2_2, red_range_3_2_1, red_range_1_2_3, red_range_2_0_4, red_range_2_4_0, red_range_4_0_2, red_range_4_2_0, red_range_3_1_2, red_range_2_1_3, red_range_4_1_1, red_range_1_1_4, red_range_1_4_1, blue_small, blue_big, blue_area_one, blue_area_two, blue_area_three, blue_area_four, blue_parity, blue_ratio, red_21_60, red_73_78, red_61_66, red_103_108, red_91_96, red_79_84, red_67_72, red_109_114, red_115_120, red_133_138, red_97_102, red_139_144, red_127_132, red_121_126, red_145_183 from lottery_calculate_count  -->
+	
+	<!-- 通用映射：手动模式 -->
+	<resultMap id="model" type="com.pj.project.lottery.lottery_calculate_count.LotteryCalculateCount">
+		<result property="id" column="id" />
+		<result property="year" column="year" />
+		<result property="month" column="month" />
+		<result property="week" column="week" />
+		<result property="codes" column="codes" />
+		<result property="red1" column="red1" />
+		<result property="red2" column="red2" />
+		<result property="red3" column="red3" />
+		<result property="red4" column="red4" />
+		<result property="red5" column="red5" />
+		<result property="red6" column="red6" />
+		<result property="red7" column="red7" />
+		<result property="red8" column="red8" />
+		<result property="red9" column="red9" />
+		<result property="red10" column="red10" />
+		<result property="red11" column="red11" />
+		<result property="red12" column="red12" />
+		<result property="red13" column="red13" />
+		<result property="red14" column="red14" />
+		<result property="red15" column="red15" />
+		<result property="red16" column="red16" />
+		<result property="red17" column="red17" />
+		<result property="red18" column="red18" />
+		<result property="red19" column="red19" />
+		<result property="red20" column="red20" />
+		<result property="red21" column="red21" />
+		<result property="red22" column="red22" />
+		<result property="red23" column="red23" />
+		<result property="red24" column="red24" />
+		<result property="red25" column="red25" />
+		<result property="red26" column="red26" />
+		<result property="red27" column="red27" />
+		<result property="red28" column="red28" />
+		<result property="red29" column="red29" />
+		<result property="red30" column="red30" />
+		<result property="red31" column="red31" />
+		<result property="red32" column="red32" />
+		<result property="red33" column="red33" />
+		<result property="blue1" column="blue1" />
+		<result property="blue2" column="blue2" />
+		<result property="blue3" column="blue3" />
+		<result property="blue4" column="blue4" />
+		<result property="blue5" column="blue5" />
+		<result property="blue6" column="blue6" />
+		<result property="blue7" column="blue7" />
+		<result property="blue8" column="blue8" />
+		<result property="blue9" column="blue9" />
+		<result property="blue10" column="blue10" />
+		<result property="blue11" column="blue11" />
+		<result property="blue12" column="blue12" />
+		<result property="blue13" column="blue13" />
+		<result property="blue14" column="blue14" />
+		<result property="blue15" column="blue15" />
+		<result property="blue16" column="blue16" />
+		<result property="calType" column="cal_type" />
+		<result property="redParityRatio24" column="red_parity_ratio_2_4" />
+		<result property="redParityRatio42" column="red_parity_ratio_4_2" />
+		<result property="redParityRatio51" column="red_parity_ratio_5_1" />
+		<result property="redParityRatio15" column="red_parity_ratio_1_5" />
+		<result property="redParityRatio33" column="red_parity_ratio_3_3" />
+		<result property="redParityRatio60" column="red_parity_ratio_6_0" />
+		<result property="redParityRatio06" column="red_parity_ratio_0_6" />
+		<result property="redRange231" column="red_range_2_3_1" />
+		<result property="redRange222" column="red_range_2_2_2" />
+		<result property="redRange321" column="red_range_3_2_1" />
+		<result property="redRange123" column="red_range_1_2_3" />
+		<result property="redRange204" column="red_range_2_0_4" />
+		<result property="redRange240" column="red_range_2_4_0" />
+		<result property="redRange402" column="red_range_4_0_2" />
+		<result property="redRange420" column="red_range_4_2_0" />
+		<result property="redRange312" column="red_range_3_1_2" />
+		<result property="redRange213" column="red_range_2_1_3" />
+		<result property="redRange411" column="red_range_4_1_1" />
+		<result property="redRange114" column="red_range_1_1_4" />
+		<result property="redRange141" column="red_range_1_4_1" />
+		<result property="blueSmall" column="blue_small" />
+		<result property="blueBig" column="blue_big" />
+		<result property="blueAreaOne" column="blue_area_one" />
+		<result property="blueAreaTwo" column="blue_area_two" />
+		<result property="blueAreaThree" column="blue_area_three" />
+		<result property="blueAreaFour" column="blue_area_four" />
+		<result property="blueParity" column="blue_parity" />
+		<result property="blueRatio" column="blue_ratio" />
+		<result property="red2160" column="red_21_60" />
+		<result property="red7378" column="red_73_78" />
+		<result property="red6166" column="red_61_66" />
+		<result property="red103108" column="red_103_108" />
+		<result property="red9196" column="red_91_96" />
+		<result property="red7984" column="red_79_84" />
+		<result property="red6772" column="red_67_72" />
+		<result property="red109114" column="red_109_114" />
+		<result property="red115120" column="red_115_120" />
+		<result property="red133138" column="red_133_138" />
+		<result property="red97102" column="red_97_102" />
+		<result property="red139144" column="red_139_144" />
+		<result property="red127132" column="red_127_132" />
+		<result property="red121126" column="red_121_126" />
+		<result property="red145183" column="red_145_183" />
+	</resultMap>
+	
+	<!-- 公共查询sql片段 -->
+	<sql id="select_sql">
+		select * 
+		from lottery_calculate_count 
+	</sql>
+	
+	<!-- 查 - 根据id -->
+	<select id="getById" resultMap="model">
+		<include refid="select_sql"></include>
+		where id = #{id}
+	</select>
+	
+	<!-- 查集合 - 根据条件（参数为空时代表忽略指定条件） [G] -->
+	<select id="getList" resultMap="model">
+		<include refid="select_sql"></include>
+		<where>
+			<if test=' this.has("id") '> and id = #{id} </if>
+			<if test=' this.has("year") '> and year = #{year} </if>
+			<if test=' this.has("month") '> and month = #{month} </if>
+			<if test=' this.has("week") '> and week = #{week} </if>
+			<if test=' this.has("red1") '> and red1 = #{red1} </if>
+			<if test=' this.has("red2") '> and red2 = #{red2} </if>
+			<if test=' this.has("red3") '> and red3 = #{red3} </if>
+			<if test=' this.has("red4") '> and red4 = #{red4} </if>
+			<if test=' this.has("red5") '> and red5 = #{red5} </if>
+			<if test=' this.has("red6") '> and red6 = #{red6} </if>
+			<if test=' this.has("red7") '> and red7 = #{red7} </if>
+			<if test=' this.has("red8") '> and red8 = #{red8} </if>
+			<if test=' this.has("red9") '> and red9 = #{red9} </if>
+			<if test=' this.has("red10") '> and red10 = #{red10} </if>
+			<if test=' this.has("red11") '> and red11 = #{red11} </if>
+			<if test=' this.has("red12") '> and red12 = #{red12} </if>
+			<if test=' this.has("red13") '> and red13 = #{red13} </if>
+			<if test=' this.has("red14") '> and red14 = #{red14} </if>
+			<if test=' this.has("red15") '> and red15 = #{red15} </if>
+			<if test=' this.has("red16") '> and red16 = #{red16} </if>
+			<if test=' this.has("red17") '> and red17 = #{red17} </if>
+			<if test=' this.has("red18") '> and red18 = #{red18} </if>
+			<if test=' this.has("red19") '> and red19 = #{red19} </if>
+			<if test=' this.has("red20") '> and red20 = #{red20} </if>
+			<if test=' this.has("red21") '> and red21 = #{red21} </if>
+			<if test=' this.has("red22") '> and red22 = #{red22} </if>
+			<if test=' this.has("red23") '> and red23 = #{red23} </if>
+			<if test=' this.has("red24") '> and red24 = #{red24} </if>
+			<if test=' this.has("red25") '> and red25 = #{red25} </if>
+			<if test=' this.has("red26") '> and red26 = #{red26} </if>
+			<if test=' this.has("red27") '> and red27 = #{red27} </if>
+			<if test=' this.has("red28") '> and red28 = #{red28} </if>
+			<if test=' this.has("red29") '> and red29 = #{red29} </if>
+			<if test=' this.has("red30") '> and red30 = #{red30} </if>
+			<if test=' this.has("red31") '> and red31 = #{red31} </if>
+			<if test=' this.has("red32") '> and red32 = #{red32} </if>
+			<if test=' this.has("red33") '> and red33 = #{red33} </if>
+			<if test=' this.has("blue1") '> and blue1 = #{blue1} </if>
+			<if test=' this.has("blue2") '> and blue2 = #{blue2} </if>
+			<if test=' this.has("blue3") '> and blue3 = #{blue3} </if>
+			<if test=' this.has("blue4") '> and blue4 = #{blue4} </if>
+			<if test=' this.has("blue5") '> and blue5 = #{blue5} </if>
+			<if test=' this.has("blue6") '> and blue6 = #{blue6} </if>
+			<if test=' this.has("blue7") '> and blue7 = #{blue7} </if>
+			<if test=' this.has("blue8") '> and blue8 = #{blue8} </if>
+			<if test=' this.has("blue9") '> and blue9 = #{blue9} </if>
+			<if test=' this.has("blue10") '> and blue10 = #{blue10} </if>
+			<if test=' this.has("blue11") '> and blue11 = #{blue11} </if>
+			<if test=' this.has("blue12") '> and blue12 = #{blue12} </if>
+			<if test=' this.has("blue13") '> and blue13 = #{blue13} </if>
+			<if test=' this.has("blue14") '> and blue14 = #{blue14} </if>
+			<if test=' this.has("blue15") '> and blue15 = #{blue15} </if>
+			<if test=' this.has("blue16") '> and blue16 = #{blue16} </if>
+			<if test=' this.has("calType") and calType > 0'> and cal_type = #{calType} </if>
+			<if test=' this.has("redParityRatio24") '> and red_parity_ratio_2_4 = #{redParityRatio24} </if>
+			<if test=' this.has("redParityRatio42") '> and red_parity_ratio_4_2 = #{redParityRatio42} </if>
+			<if test=' this.has("redParityRatio51") '> and red_parity_ratio_5_1 = #{redParityRatio51} </if>
+			<if test=' this.has("redParityRatio15") '> and red_parity_ratio_1_5 = #{redParityRatio15} </if>
+			<if test=' this.has("redParityRatio33") '> and red_parity_ratio_3_3 = #{redParityRatio33} </if>
+			<if test=' this.has("redParityRatio60") '> and red_parity_ratio_6_0 = #{redParityRatio60} </if>
+			<if test=' this.has("redParityRatio06") '> and red_parity_ratio_0_6 = #{redParityRatio06} </if>
+			<if test=' this.has("redRange231") '> and red_range_2_3_1 = #{redRange231} </if>
+			<if test=' this.has("redRange222") '> and red_range_2_2_2 = #{redRange222} </if>
+			<if test=' this.has("redRange321") '> and red_range_3_2_1 = #{redRange321} </if>
+			<if test=' this.has("redRange123") '> and red_range_1_2_3 = #{redRange123} </if>
+			<if test=' this.has("redRange204") '> and red_range_2_0_4 = #{redRange204} </if>
+			<if test=' this.has("redRange240") '> and red_range_2_4_0 = #{redRange240} </if>
+			<if test=' this.has("redRange402") '> and red_range_4_0_2 = #{redRange402} </if>
+			<if test=' this.has("redRange420") '> and red_range_4_2_0 = #{redRange420} </if>
+			<if test=' this.has("redRange312") '> and red_range_3_1_2 = #{redRange312} </if>
+			<if test=' this.has("redRange213") '> and red_range_2_1_3 = #{redRange213} </if>
+			<if test=' this.has("redRange411") '> and red_range_4_1_1 = #{redRange411} </if>
+			<if test=' this.has("redRange114") '> and red_range_1_1_4 = #{redRange114} </if>
+			<if test=' this.has("redRange141") '> and red_range_1_4_1 = #{redRange141} </if>
+			<if test=' this.has("blueSmall") '> and blue_small = #{blueSmall} </if>
+			<if test=' this.has("blueBig") '> and blue_big = #{blueBig} </if>
+			<if test=' this.has("blueAreaOne") '> and blue_area_one = #{blueAreaOne} </if>
+			<if test=' this.has("blueAreaTwo") '> and blue_area_two = #{blueAreaTwo} </if>
+			<if test=' this.has("blueAreaThree") '> and blue_area_three = #{blueAreaThree} </if>
+			<if test=' this.has("blueAreaFour") '> and blue_area_four = #{blueAreaFour} </if>
+			<if test=' this.has("blueParity") '> and blue_parity = #{blueParity} </if>
+			<if test=' this.has("blueRatio") '> and blue_ratio = #{blueRatio} </if>
+			<if test=' this.has("red2160") '> and red_21_60 = #{red2160} </if>
+			<if test=' this.has("red7378") '> and red_73_78 = #{red7378} </if>
+			<if test=' this.has("red6166") '> and red_61_66 = #{red6166} </if>
+			<if test=' this.has("red103108") '> and red_103_108 = #{red103108} </if>
+			<if test=' this.has("red9196") '> and red_91_96 = #{red9196} </if>
+			<if test=' this.has("red7984") '> and red_79_84 = #{red7984} </if>
+			<if test=' this.has("red6772") '> and red_67_72 = #{red6772} </if>
+			<if test=' this.has("red109114") '> and red_109_114 = #{red109114} </if>
+			<if test=' this.has("red115120") '> and red_115_120 = #{red115120} </if>
+			<if test=' this.has("red133138") '> and red_133_138 = #{red133138} </if>
+			<if test=' this.has("red97102") '> and red_97_102 = #{red97102} </if>
+			<if test=' this.has("red139144") '> and red_139_144 = #{red139144} </if>
+			<if test=' this.has("red127132") '> and red_127_132 = #{red127132} </if>
+			<if test=' this.has("red121126") '> and red_121_126 = #{red121126} </if>
+			<if test=' this.has("red145183") '> and red_145_183 = #{red145183} </if>
+		</where>
+		order by
+		<choose>
+			<when test='sortType == 1'> id desc </when>
+			<when test='sortType == 2'> year desc </when>
+			<when test='sortType == 3'> year desc,month desc </when>
+			<when test='sortType == 4'> year desc,week desc </when>
+			<when test='sortType == 5'> codes desc </when>
+			<when test='sortType == 6'> red1 desc </when>
+			<when test='sortType == 7'> red2 desc </when>
+			<when test='sortType == 8'> red3 desc </when>
+			<when test='sortType == 9'> red4 desc </when>
+			<when test='sortType == 10'> red5 desc </when>
+			<when test='sortType == 11'> red6 desc </when>
+			<when test='sortType == 12'> red7 desc </when>
+			<when test='sortType == 13'> red8 desc </when>
+			<when test='sortType == 14'> red9 desc </when>
+			<when test='sortType == 15'> red10 desc </when>
+			<when test='sortType == 16'> red11 desc </when>
+			<when test='sortType == 17'> red12 desc </when>
+			<when test='sortType == 18'> red13 desc </when>
+			<when test='sortType == 19'> red14 desc </when>
+			<when test='sortType == 20'> red15 desc </when>
+			<when test='sortType == 21'> red16 desc </when>
+			<when test='sortType == 22'> red17 desc </when>
+			<when test='sortType == 23'> red18 desc </when>
+			<when test='sortType == 24'> red19 desc </when>
+			<when test='sortType == 25'> red20 desc </when>
+			<when test='sortType == 26'> red21 desc </when>
+			<when test='sortType == 27'> red22 desc </when>
+			<when test='sortType == 28'> red23 desc </when>
+			<when test='sortType == 29'> red24 desc </when>
+			<when test='sortType == 30'> red25 desc </when>
+			<when test='sortType == 31'> red26 desc </when>
+			<when test='sortType == 32'> red27 desc </when>
+			<when test='sortType == 33'> red28 desc </when>
+			<when test='sortType == 34'> red29 desc </when>
+			<when test='sortType == 35'> red30 desc </when>
+			<when test='sortType == 36'> red31 desc </when>
+			<when test='sortType == 37'> red32 desc </when>
+			<when test='sortType == 38'> red33 desc </when>
+			<when test='sortType == 39'> blue1 desc </when>
+			<when test='sortType == 40'> blue2 desc </when>
+			<when test='sortType == 41'> blue3 desc </when>
+			<when test='sortType == 42'> blue4 desc </when>
+			<when test='sortType == 43'> blue5 desc </when>
+			<when test='sortType == 44'> blue6 desc </when>
+			<when test='sortType == 45'> blue7 desc </when>
+			<when test='sortType == 46'> blue8 desc </when>
+			<when test='sortType == 47'> blue9 desc </when>
+			<when test='sortType == 48'> blue10 desc </when>
+			<when test='sortType == 49'> blue11 desc </when>
+			<when test='sortType == 50'> blue12 desc </when>
+			<when test='sortType == 51'> blue13 desc </when>
+			<when test='sortType == 52'> blue14 desc </when>
+			<when test='sortType == 53'> blue15 desc </when>
+			<when test='sortType == 54'> blue16 desc </when>
+			<when test='sortType == 55'> cal_type desc </when>
+			<when test='sortType == 56'> red_parity_ratio_2_4 desc </when>
+			<when test='sortType == 57'> red_parity_ratio_4_2 desc </when>
+			<when test='sortType == 58'> red_parity_ratio_5_1 desc </when>
+			<when test='sortType == 59'> red_parity_ratio_1_5 desc </when>
+			<when test='sortType == 60'> red_parity_ratio_3_3 desc </when>
+			<when test='sortType == 61'> red_parity_ratio_6_0 desc </when>
+			<when test='sortType == 62'> red_parity_ratio_0_6 desc </when>
+			<when test='sortType == 63'> red_range_2_3_1 desc </when>
+			<when test='sortType == 64'> red_range_2_2_2 desc </when>
+			<when test='sortType == 65'> red_range_3_2_1 desc </when>
+			<when test='sortType == 66'> red_range_1_2_3 desc </when>
+			<when test='sortType == 67'> red_range_2_0_4 desc </when>
+			<when test='sortType == 68'> red_range_2_4_0 desc </when>
+			<when test='sortType == 69'> red_range_4_0_2 desc </when>
+			<when test='sortType == 70'> red_range_4_2_0 desc </when>
+			<when test='sortType == 71'> red_range_3_1_2 desc </when>
+			<when test='sortType == 72'> red_range_2_1_3 desc </when>
+			<when test='sortType == 73'> red_range_4_1_1 desc </when>
+			<when test='sortType == 74'> red_range_1_1_4 desc </when>
+			<when test='sortType == 75'> red_range_1_4_1 desc </when>
+			<when test='sortType == 76'> blue_small desc </when>
+			<when test='sortType == 77'> blue_big desc </when>
+			<when test='sortType == 78'> blue_area_one desc </when>
+			<when test='sortType == 79'> blue_area_two desc </when>
+			<when test='sortType == 80'> blue_area_three desc </when>
+			<when test='sortType == 81'> blue_area_four desc </when>
+			<when test='sortType == 82'> blue_parity desc </when>
+			<when test='sortType == 83'> blue_ratio desc </when>
+			<when test='sortType == 84'> red_21_60 desc </when>
+			<when test='sortType == 85'> red_73_78 desc </when>
+			<when test='sortType == 86'> red_61_66 desc </when>
+			<when test='sortType == 87'> red_103_108 desc </when>
+			<when test='sortType == 88'> red_91_96 desc </when>
+			<when test='sortType == 89'> red_79_84 desc </when>
+			<when test='sortType == 90'> red_67_72 desc </when>
+			<when test='sortType == 91'> red_109_114 desc </when>
+			<when test='sortType == 92'> red_115_120 desc </when>
+			<when test='sortType == 93'> red_133_138 desc </when>
+			<when test='sortType == 94'> red_97_102 desc </when>
+			<when test='sortType == 95'> red_139_144 desc </when>
+			<when test='sortType == 96'> red_127_132 desc </when>
+			<when test='sortType == 97'> red_121_126 desc </when>
+			<when test='sortType == 98'> red_145_183 desc </when>
+			<otherwise> id desc </otherwise>
+		</choose>
+	</select>
+
+	<delete id="deleteAll">
+		delete from lottery_calculate_count
+	</delete>
+	
+	
+	
+	
+	
+	
+	
+
+</mapper>

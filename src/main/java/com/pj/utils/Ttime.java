@@ -1,9 +1,19 @@
 package com.pj.utils;
 
 
+import org.jetbrains.annotations.Nullable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalAdjusters;
+import java.time.temporal.WeekFields;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * 用于测试用时
@@ -17,6 +27,7 @@ public class Ttime {
 
 	public static Ttime t = new Ttime();	//static快捷使用
 	private static String DATE_TIME_FORMAT_14 = "yyyy-MM-dd HH:mm:ss";
+	private static String DATE_TIME_FORMAT_8 = "yyyy-MM-dd";
 
 	/**
 	 * 开始计时
@@ -96,17 +107,76 @@ public class Ttime {
 		return formattedDateTime;
 	}
 
+	/**
+	 * date 格式必须是 XXXX-XX-XX
+	 * @param date
+	 * @return
+	 */
+	public static int getYear(String date){
+		return Integer.parseInt(getDateArrays( date)[0]);
+	}
+
+	public static int getMonth(String date){
+		return Integer.parseInt(getDateArrays( date)[1]);
+	}
+
+	public static String getWeek(String date){
+		String dateArray = getDateArrays(date)[2];
+		String s = dateArray.substring(dateArray.indexOf("(")+1, dateArray.indexOf(")"));
+		return s;
+	}
+
+	public static String getYearMonthDay(String date){
+		if(date == null || "".equals(date)){
+			return null;
+		}
+		return date.substring(0,date.indexOf("("));
+	}
+
+	public static String getWeekOfYear(String dateStr) {
+		//获取一个Calendar对象
+		Calendar calendar = Calendar.getInstance();
+		//设置星期一为一周开始的第一天
+		calendar.setFirstDayOfWeek(Calendar.MONDAY);
+		//设置在一年中第一个星期所需最少天数
+		calendar.setMinimalDaysInFirstWeek(4);
+		//格式化日期
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_TIME_FORMAT_8);
+		Date parse = null;
+		try {
+			parse = simpleDateFormat.parse(dateStr);
+		} catch (ParseException e) {
+			e.printStackTrace();
+			throw new RuntimeException("日期格式不正确");
+		}
+		calendar.setTime(parse);
+		int weekYear = calendar.getWeekYear();
+		return weekYear+"-"+calendar.get(Calendar.WEEK_OF_YEAR);
+	}
+
+	/**
+	 * date 格式必须是 XXXX-XX-XX
+	 * @param date
+	 * @return
+	 */
+	@Nullable
+	private static String[] getDateArrays(String date) {
+		if(date == null || "".equals(date)){
+			return null;
+		}
+		String[] split = date.split("-");
+		return split;
+	}
+
 	public static void main(String[] args) {
-//		String dateTimeA = "2022-09-12 10:28:43";
-//		LocalDateTime localDateTime = getLocalDateTime(1);
-//		System.out.println(localDateTime.toString());
-//		boolean after = isBefore(dateTimeA, localDateTime);
-//		System.out.println(after);
+		String date = "2023-01-01(二)";
+//		System.out.println(getYear(date));
+//		System.out.println(getMonth(date));
+//		System.out.println(getWeek(date));
 
-		String startOfDay = getStartOfDay();
-		System.out.println(startOfDay);
-
-		System.out.println(0 % 2);
+//		String dateString = "2023-10-09"; // 输入日期，格式为YYYY-MM-DD
+		String weekOfYear = getWeekOfYear(getYearMonthDay(date));
+		System.out.println(getYearMonthDay(date) + " 是 " + weekOfYear + " 周");
 	}
 
 

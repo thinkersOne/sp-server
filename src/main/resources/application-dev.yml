@@ -7,15 +7,18 @@ spring:
     datasource: 
         type: com.alibaba.druid.pool.DruidDataSource
         driverClassName: com.mysql.cj.jdbc.Driver
-        url: jdbc:mysql://123.60.97.103:3306/sp-dev?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+        url: jdbc:mysql://localhost:3306/sp-dev?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
         username: root
         password: 123456
-        url2: jdbc:mysql://123.60.97.103:3306/aav?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+        url2: jdbc:mysql://localhost:3306/aav?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
         username2: root
         password2: 123456
-        url3: jdbc:mysql://123.60.97.103:3306/aps?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+        url3: jdbc:mysql://localhost:3306/aps?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
         username3: root
         password3: 123456
+        url4: jdbc:mysql://localhost:3306/lottery?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+        username4: root
+        password4: 123456
         # 是否打开sql监控台  (生产环境请务必关闭此选项) 
 #        druid:
 #            stat-view-servlet:
@@ -31,11 +34,11 @@ spring:
         # Redis数据库索引（默认为0）
         database: 1
         # Redis服务器地址
-        host: 123.60.97.103
+        host: localhost
         # Redis服务器连接端口
         port: 6379
         # Redis服务器连接密码（默认为空）
-#        password: 123456
+        password: 123456
         # 连接超时时间（毫秒）
         timeout: 5000ms
         lettuce:

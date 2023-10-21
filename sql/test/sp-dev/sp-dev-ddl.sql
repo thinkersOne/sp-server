@@ -265,3 +265,9 @@ CREATE TABLE `sys_type` (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `NAME` (`name`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=1009 DEFAULT CHARSET=gbk ROW_FORMAT=COMPACT COMMENT='分类表 [table icon=el-icon-eleme] [fk-count js=ser_goods.type_id.商品数量]';
+
+ALTER TABLE `sp-dev`.sp_apilog MODIFY COLUMN res_msg LONGTEXT CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '返回-信息描述';
+
+
+
+
