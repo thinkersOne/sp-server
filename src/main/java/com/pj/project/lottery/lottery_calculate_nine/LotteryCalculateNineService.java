@@ -68,7 +68,7 @@ public class LotteryCalculateNineService {
 		return lotteryCalculateNineMapper.getList(so);	
 	}
 
-	void lotteryCalculateNine(){
+	public void lotteryCalculateNine(){
 		//删除数据
 		lotteryCalculateNineMapper.deleteAll();
 		//查询数据

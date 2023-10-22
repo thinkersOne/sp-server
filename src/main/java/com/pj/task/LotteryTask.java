@@ -1,5 +1,8 @@
 package com.pj.task;
 
+import com.pj.project.lottery.LotteryParameter;
+import com.pj.project.lottery.lottery_calculate_count.LotteryCalculateCountService;
+import com.pj.project.lottery.lottery_calculate_nine.LotteryCalculateNineService;
 import com.pj.project.lottery.lottery_calculate_per.LotteryCalculatePerMapper;
 import com.pj.project.lottery.lottery_calculate_per.LotteryCalculatePerService;
 import com.pj.project.lottery.unionLotto.domain.Lottery;
@@ -22,9 +25,33 @@ public class LotteryTask {
     @Autowired
     private LotteryCalculatePerService lotteryCalculatePerService;
     @Autowired
+    private LotteryCalculateCountService lotteryCalculateCountService;
+    @Autowired
+    private LotteryCalculateNineService lotteryCalculateNineService;
+    @Autowired
     UnionLotto unionLotto;
 
-    @Scheduled(cron = "0 0 21 ? * 1,3,5")
+    @Scheduled(cron = "0 0 22 * * ?")
+    @Transactional(rollbackFor = Exception.class)
+    public void syncAllLottery() {
+        try{
+            LotteryParameter lotteryParameter = LotteryParameter.builder().type(1).pageNo(1).pageSize(1650).build();
+            lotteryService.syncLotterydata(lotteryParameter);
+
+            lotteryCalculatePerService.lotteryCalculatePer();
+
+            lotteryCalculateCountService.lotteryCalculateCount();
+
+            lotteryCalculateNineService.lotteryCalculateNine();
+
+
+        }catch (Exception e){
+            log.error("同步失败", e);
+            throw new RuntimeException("同步失败");
+        }
+    }
+
+//    @Scheduled(cron = "0 0 21 ? * 1,3,5")
     @Transactional(rollbackFor = Exception.class)
     public void syncCurrentLottery() {
         try{

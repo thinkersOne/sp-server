@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.hutool.core.collection.ListUtil;
 import com.pj.current.global.RuleConstants;
 import com.pj.models.so.SoMap;
 import com.pj.project.lottery.lottery_all.LotteryAll;
@@ -118,6 +119,76 @@ public class LotterySelectService {
 			lotterySelectMapper.batchInsertLotterySelect(resultList);
 		}
 
+	}
+
+	public List<String> lotterySelectCodes(LotterySelectCodesDTO lotterySelectCodesDTO){
+		if(lotterySelectCodesDTO == null){
+			return new ArrayList<>(1);
+		}
+		//查询所有组合红球号
+		List<LotterySelect> list = lotterySelectMapper.getList(new SoMap());
+		if(CollectionUtils.isEmpty(list)){
+			throw new RuntimeException("查询所有组合红球号失败！");
+		}
+
+		List<String> resultList = new ArrayList<>(1000);
+		list.stream().forEach(v->{
+			String[] redArray = v.getRed().split(",");
+			String calParityRatio = RuleUtils.calParityRatio(v.getRed());
+			String calRange = RuleUtils.calRange(v.getRed());
+			int redSum = RuleUtils.calRedSum(v.getRed());
+			int countConsecutiveSets = RuleUtils.countConsecutiveSets(v.getRed());
+			int maxConsecutiveInfo = RuleUtils.getConsecutiveInfo(v.getRed());
+			String nineTurn9 = PersonalLawUtils.calNineTurn(v.getRed(), RuleConstants.NINE_TURN_SERIAL_DIAGRAM_09);
+			String nineTurn17 = PersonalLawUtils.calNineTurn(v.getRed(), RuleConstants.NINE_TURN_SERIAL_DIAGRAM_17);
+			String nineTurn33 = PersonalLawUtils.calNineTurn(v.getRed(), RuleConstants.NINE_TURN_SERIAL_DIAGRAM_33);
+			for(String redItem : redArray){
+				// 预选红球 筛选
+				List<String> redList = lotterySelectCodesDTO.getRedList();
+				if(!CollectionUtils.isEmpty(redList) &&  !redList.contains(redItem)){
+					return;
+				}
+			}
+			//红球奇偶比筛选
+			List<String> redParityRatioList = lotterySelectCodesDTO.getRedParityRatioList();
+			if(!CollectionUtils.isEmpty(redParityRatioList) && !redParityRatioList.contains(calParityRatio)){
+				return;
+			}
+			//红球分区比筛选
+			List<String> redRangeRatioList = lotterySelectCodesDTO.getRedRangeRatioList();
+			if(!CollectionUtils.isEmpty(redRangeRatioList) && !redRangeRatioList.contains(calRange)){
+				return;
+			}
+			//红球和值筛选
+			List<String> redSumList = lotterySelectCodesDTO.getRedSumList();
+			if(!CollectionUtils.isEmpty(redSumList) && !RuleUtils.redSumContainer(redSumList,redSum)){
+				return;
+			}
+			//红球连号筛选
+			List<Integer> consecutiveNumbersCountList = lotterySelectCodesDTO.getConsecutiveNumbersCountList();
+			if(!CollectionUtils.isEmpty(consecutiveNumbersCountList) && !consecutiveNumbersCountList.contains(countConsecutiveSets)){
+				return;
+			}
+			List<Integer> maxConsecutiveNumbersCountList = lotterySelectCodesDTO.getMaxConsecutiveNumbersCountList();
+			if(!CollectionUtils.isEmpty(maxConsecutiveNumbersCountList) && !maxConsecutiveNumbersCountList.contains(maxConsecutiveInfo)){
+				return;
+			}
+			//红球九转连环筛选
+			List<String> nineTurn09List = lotterySelectCodesDTO.getNineTurn09List();
+			if(!CollectionUtils.isEmpty(nineTurn09List) && !nineTurn09List.contains(nineTurn9)){
+				return;
+			}
+			List<String> nineTurn17List = lotterySelectCodesDTO.getNineTurn17List();
+			if(!CollectionUtils.isEmpty(nineTurn17List) && !nineTurn17List.contains(nineTurn17)){
+				return;
+			}
+			List<String> nineTurn33List = lotterySelectCodesDTO.getNineTurn33List();
+			if(!CollectionUtils.isEmpty(nineTurn33List) && !nineTurn33List.contains(nineTurn33)){
+				return;
+			}
+			resultList.add(v.getRed());
+		});
+		return resultList;
 	}
 	
 

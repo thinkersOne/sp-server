@@ -77,7 +77,7 @@ public class LotteryCalculateCountService {
 		return new ArrayList<>(1);
 	}
 	
-	void lotteryCalculateCount(){
+	public void lotteryCalculateCount(){
 		//删除数据
 		lotteryCalculateCountMapper.deleteAll();
 

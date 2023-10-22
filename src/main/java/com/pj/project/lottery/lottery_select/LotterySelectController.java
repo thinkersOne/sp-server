@@ -76,7 +76,10 @@ public class LotterySelectController {
 		return AjaxJson.getSuccess();
 	}
 	
-	
+	@PostMapping("/forecast/lotterySelectCodes")
+	public AjaxJson lotterySelectCodes(@RequestBody LotterySelectCodesDTO lotterySelectCodesDTO){
+		return AjaxJson.getSuccessData(lotterySelectService.lotterySelectCodes(lotterySelectCodesDTO));
+	}
 	
 
 }

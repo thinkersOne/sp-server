@@ -182,6 +182,18 @@ public class RuleUtils {
         return list;
     }
 
+    public static boolean redSumContainer(List<String> redSumList,int redSum){
+        for (String redSumItem: redSumList){
+            String[] split = redSumItem.split("-");
+            int min = Integer.parseInt(split[0]);
+            int max = Integer.parseInt(split[1]);
+            if(redSum >= min && redSum <= max){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static List<String> filterLotterysAmount(List<String> chooseLotteryReds,List<String> generateLotteryReds,int count){
         if(CollectionUtils.isEmpty(chooseLotteryReds) || CollectionUtils.isEmpty(generateLotteryReds)){
             return new ArrayList<>(1);
@@ -341,8 +353,6 @@ public class RuleUtils {
     private static int calConsecutiveNumberCount(List<String> list, int nextVal,int i,
         int hisMaxConsecutiveNumberCount,int maxConsecutiveNumberCount,boolean enableConsive){
         if(i > 5){
-            System.out.println("maxConsecutiveNumberCount: " + maxConsecutiveNumberCount);
-            System.out.println("hisMaxConsecutiveNumberCount: " + hisMaxConsecutiveNumberCount);
             return hisMaxConsecutiveNumberCount;
         }
         if(list.contains((nextVal)+"")){
