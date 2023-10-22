@@ -1,28 +1,27 @@
-package com.pj.project.lottery.lottery_calculate_nine;
+package com.pj.project.lottery.lottery_select;
 
 import java.util.List;
 
 import com.pj.models.so.SoMap;
-import com.pj.project.lottery.lottery_calculate_count.LotteryCalculateCount;
-import com.pj.project.lottery.lottery_calculate_per.LotteryCalculatePerM;
+import com.pj.project.lottery.lottery_all.LotteryAll;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 /**
- * Mapper: lottery_calculate_nine -- 九转连环图统计表
+ * Mapper: lottery_select -- 经过初步筛选后的全量双色球表
  * @author lizhihao 
  */
 
 @Mapper
 @Repository
-public interface LotteryCalculateNineMapper {
+public interface LotterySelectMapper {
 
 	/**
 	 * 增  
 	 * @param l 实体对象 
 	 * @return 受影响行数 
 	 */
-	int add(LotteryCalculateNine l);
+	int add(LotterySelect l);
 
 	/**
 	 * 删  
@@ -36,24 +35,23 @@ public interface LotteryCalculateNineMapper {
 	 * @param l 实体对象 
 	 * @return 受影响行数 
 	 */
-	int update(LotteryCalculateNine l);
+	int update(LotterySelect l);
 
 	/** 
 	 * 查 - 根据id  
 	 * @param id 要查询的数据id 
 	 * @return 实体对象 
 	 */
-	LotteryCalculateNine getById(Long id);	 
+	LotterySelect getById(Long id);	 
 
 	/**
 	 * 查集合 - 根据条件（参数为空时代表忽略指定条件）
 	 * @param so 参数集合 
 	 * @return 数据列表 
 	 */
-	List<LotteryCalculateNine> getList(SoMap so);
-	void batchInsertLotteryCalculateNine(List<LotteryCalculateNine> list);
+	List<LotterySelect> getList(SoMap so);
 	void deleteAll();
 
-	List<LotteryCalculateNineM> getMinAndMax();
+	void batchInsertLotterySelect(List<LotterySelect> list);
 
 }

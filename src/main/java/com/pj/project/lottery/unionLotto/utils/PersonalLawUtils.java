@@ -1,5 +1,6 @@
 package com.pj.project.lottery.unionLotto.utils;
 
+import com.pj.current.global.RuleConstants;
 import com.pj.project.lottery.unionLotto.domain.ConvertDoubleSpheresReq;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
@@ -52,6 +53,18 @@ public class PersonalLawUtils {
                 enableRed(req.getCurrentLotteryRed(),v,CURRENT_MIN_COUNT,CURRENT_MAX_COUNT) &&
                 enableRed(req.getCommonAddrRed(),v,COMMON_MIN_COUNT,COMMON_MAX_COUNT)
         ).collect(Collectors.toList());
+    }
+
+    public static int[] calNineTurnArray(String red,String[][] nineTurnArray){
+        int[]  result = new int[2];
+        String s = PersonalLawUtils.calNineTurn(red, nineTurnArray);
+        if(StringUtils.isEmpty(s)){
+            throw new RuntimeException("calNineTurn error");
+        }
+        String nineTurn = s.split("\\|")[0];
+        result[0] = RuleUtils.getNineTurnMax(nineTurn);
+        result[1] =  RuleUtils.getNineTurnMin(nineTurn);
+        return result;
     }
 
     public static String calNineTurn(String red,String[][] nineTurnArray){

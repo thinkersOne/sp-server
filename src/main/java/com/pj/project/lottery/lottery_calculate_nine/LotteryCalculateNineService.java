@@ -14,6 +14,7 @@ import com.pj.project.lottery.lottery_calculate_per.LotteryCalculatePerMapper;
 import com.pj.project.lottery.lottery_calculate_per.LotteryCalculatePerService;
 import com.pj.project.lottery.unionLotto.enums.CalTypeEnum;
 import com.pj.project.lottery.unionLotto.enums.NineTypeEnum;
+import com.pj.project.lottery.unionLotto.utils.RuleUtils;
 import com.pj.utils.IntegerUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -160,6 +161,8 @@ public class LotteryCalculateNineService {
 			}
 			l.setCalType(calType);
 			l.setNineTurn(k);
+			l.setNineTurnMax(RuleUtils.getNineTurnMax( k));
+			l.setNineTurnMin(RuleUtils.getNineTurnMin( k));
 			l.setNineTurnCount(v);
 			l.setNineTurnType(nineTurnType);
 			lotteryCalculateNineList.add(l);

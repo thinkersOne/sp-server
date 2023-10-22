@@ -92,9 +92,8 @@ public class LotteryCalculatePerService {
 		l.setNineTurn17(PersonalLawUtils.calNineTurn(v.getRed(), RuleConstants.NINE_TURN_SERIAL_DIAGRAM_17));
 		l.setNineTurn33(PersonalLawUtils.calNineTurn(v.getRed(), RuleConstants.NINE_TURN_SERIAL_DIAGRAM_33));
         //连号情况
-		List<String> list = Arrays.asList(v.getRed().split(","));
-		l.setConsecutiveNumbersCount(RuleUtils.countConsecutiveSets(list));
-		l.setMaxConsecutiveNumbers(RuleUtils.getConsecutiveInfo(list));
+		l.setConsecutiveNumbersCount(RuleUtils.countConsecutiveSets(v.getRed()));
+		l.setMaxConsecutiveNumbers(RuleUtils.getConsecutiveInfo(v.getRed()));
 		return l;
 	}
 

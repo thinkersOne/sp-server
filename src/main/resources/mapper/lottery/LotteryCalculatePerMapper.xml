@@ -105,7 +105,12 @@
 		delete from lottery_calculate_per
 	</delete>
 	
-	
+	<select id="getMinAndMax" resultType="com.pj.project.lottery.lottery_calculate_per.LotteryCalculatePerM">
+		select max(max_consecutive_numbers) as max_consecutive_numbers_max,min(max_consecutive_numbers) as max_consecutive_numbers_min,
+		MAX(consecutive_numbers_count) as consecutive_numbers_count_max,min(consecutive_numbers_count) as consecutive_numbers_count_min,
+		max(red_sum) as red_sum_max,min(red_sum) as red_sum_min
+		from lottery_calculate_per
+	</select>
 	
 	
 	

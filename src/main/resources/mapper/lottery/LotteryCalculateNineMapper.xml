@@ -5,14 +5,14 @@
 	<!-- 增 [G] -->
 	<insert id="add">
 		insert into
-		lottery_calculate_nine (id, year, month, cal_type, codes, nine_turn, nine_turn_count, nine_turn_type)
-		values (#{id}, #{year}, #{month}, #{calType}, #{codes}, #{nineTurn}, #{nineTurnCount}, #{nineTurnType})
+		lottery_calculate_nine (id, year, month, cal_type, codes, nine_turn, nine_turn_count, nine_turn_type, nine_turn_max, nine_turn_min)
+		values (#{id}, #{year}, #{month}, #{calType}, #{codes}, #{nineTurn}, #{nineTurnCount}, #{nineTurnType}, #{nineTurnMax}, #{nineTurnMin})
 	</insert>
 	<insert id="batchInsertLotteryCalculateNine" parameterType="java.util.List">
-		INSERT INTO lottery_calculate_nine (id, year, month, cal_type, codes, nine_turn, nine_turn_count, nine_turn_type)
+		INSERT INTO lottery_calculate_nine (id, year, month, cal_type, codes, nine_turn, nine_turn_count, nine_turn_type, nine_turn_max, nine_turn_min)
 		VALUES
 		<foreach collection="list" item="l" separator=",">
-			(#{l.id}, #{l.year}, #{l.month}, #{l.calType}, #{l.codes}, #{l.nineTurn}, #{l.nineTurnCount}, #{l.nineTurnType})
+			(#{l.id}, #{l.year}, #{l.month}, #{l.calType}, #{l.codes}, #{l.nineTurn}, #{l.nineTurnCount}, #{l.nineTurnType}, #{l.nineTurnMax}, #{l.nineTurnMin})
 		</foreach>
 	</insert>
 	<!-- 删 -->
@@ -31,7 +31,9 @@
 		codes = #{codes},
 		nine_turn = #{nineTurn},
 		nine_turn_count = #{nineTurnCount},
-		nine_turn_type = #{nineTurnType}
+		nine_turn_type = #{nineTurnType},
+		nine_turn_max = #{nineTurnMax},
+		nine_turn_min = #{nineTurnMin}
 		where id = #{id}
 	</update>
 
@@ -46,6 +48,8 @@
 		<result property="nineTurn" column="nine_turn" />
 		<result property="nineTurnCount" column="nine_turn_count" />
 		<result property="nineTurnType" column="nine_turn_type" />
+		<result property="nineTurnMax" column="nine_turn_max" />
+		<result property="nineTurnMin" column="nine_turn_min" />
 	</resultMap>
 
 	<!-- 公共查询sql片段 -->
@@ -72,6 +76,8 @@
 			<if test=' this.has("nineTurn") '> and nine_turn = #{nineTurn} </if>
 			<if test=' this.has("nineTurnCount") '> and nine_turn_count = #{nineTurnCount} </if>
 			<if test=' this.has("nineTurnType") '> and nine_turn_type = #{nineTurnType} </if>
+			<if test=' this.has("nineTurnMax") '> and nine_turn_max = #{nineTurnMax} </if>
+			<if test=' this.has("nineTurnMin") '> and nine_turn_min = #{nineTurnMin} </if>
 		</where>
 		order by
 		<choose>
@@ -83,6 +89,8 @@
 			<when test='sortType == 6'> nine_turn desc </when>
 			<when test='sortType == 7'> nine_turn_count desc </when>
 			<when test='sortType == 8'> nine_turn_type desc </when>
+			<when test='sortType == 9'> nine_turn_max desc </when>
+			<when test='sortType == 10'> nine_turn_min desc </when>
 			<otherwise> id desc </otherwise>
 		</choose>
 	</select>
@@ -90,8 +98,11 @@
 	<delete id="deleteAll">
 		delete from lottery_calculate_nine
 	</delete>
-	
-	
+
+	<select id="getMinAndMax" resultType="com.pj.project.lottery.lottery_calculate_nine.LotteryCalculateNineM">
+		select nine_turn_type,max(nine_turn_max) as nine_turn_max,min(nine_turn_min) as nine_turn_min
+		from lottery_calculate_nine group by nine_turn_type
+	</select>
 	
 	
 

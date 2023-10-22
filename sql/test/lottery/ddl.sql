@@ -185,6 +185,9 @@ CREATE TABLE `lottery_calculate_nine` (
   `nine_turn_type` int(11) DEFAULT NULL COMMENT '09,17,33',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=38182 DEFAULT CHARSET=utf8 COMMENT='九转连环图统计表';
+ALTER TABLE lottery.lottery_calculate_nine ADD nine_turn_max INT DEFAULT 0 NULL COMMENT '九转连环轴上最大个数';
+ALTER TABLE lottery.lottery_calculate_nine ADD nine_turn_min INT DEFAULT 0 NULL COMMENT '九转连环轴上最小个数';
+
 
 CREATE TABLE lottery.lottery_all (
 	id BIGINT auto_increment NOT NULL COMMENT '主键id',
@@ -195,4 +198,14 @@ ENGINE=InnoDB
 DEFAULT CHARSET=utf8
 COLLATE=utf8_general_ci
 COMMENT='所有可能得红球组合';
+
+CREATE TABLE lottery.lottery_select (
+	id BIGINT auto_increment NOT NULL COMMENT '主键id',
+	red varchar(100) NOT NULL COMMENT '红球',
+	CONSTRAINT lottery_select_PK PRIMARY KEY (id)
+)
+ENGINE=InnoDB
+DEFAULT CHARSET=utf8
+COLLATE=utf8_general_ci
+COMMENT='经过初步筛选后的全量双色球表';
 

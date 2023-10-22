@@ -69,6 +69,16 @@ public class LotteryCalculateNine implements Serializable {
 	 */
 	public Integer nineTurnType;	
 
+	/**
+	 * 九转连环轴上最大个数 
+	 */
+	public Integer nineTurnMax;	
+
+	/**
+	 * 九转连环轴上最小个数 
+	 */
+	public Integer nineTurnMin;	
+
 
 
 

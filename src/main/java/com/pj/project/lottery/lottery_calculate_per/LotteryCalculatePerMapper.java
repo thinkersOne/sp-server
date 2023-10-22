@@ -52,4 +52,6 @@ public interface LotteryCalculatePerMapper {
 	List<LotteryCalculatePer> getList(SoMap so);
 	void batchInsertLotteryCalculatePer(List<LotteryCalculatePer> list);
 	void deleteAll();
+
+	LotteryCalculatePerM getMinAndMax();
 }

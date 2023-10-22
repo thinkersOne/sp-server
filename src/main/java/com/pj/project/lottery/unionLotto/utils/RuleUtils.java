@@ -10,6 +10,7 @@ import com.pj.project.lottery.unionLotto.enums.BlueBigSmallEnum;
 import com.pj.project.lottery.unionLotto.enums.BlueBroadEnum;
 import com.pj.project.lottery.unionLotto.enums.BlueParityRatioEnum;
 import com.pj.utils.BigDecimalUtils;
+import com.pj.utils.IntegerUtils;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
@@ -332,6 +333,11 @@ public class RuleUtils {
         return consecutiveNumberCount;
     }
 
+    public static int  getConsecutiveInfo(String red){
+        List<String> list = Arrays.asList(red.split(","));
+        return getConsecutiveInfo(list);
+    }
+
     private static int calConsecutiveNumberCount(List<String> list, int nextVal,int i,
         int hisMaxConsecutiveNumberCount,int maxConsecutiveNumberCount,boolean enableConsive){
         if(i > 5){
@@ -380,6 +386,33 @@ public class RuleUtils {
             }
         }
         return count;
+    }
+
+    public static int countConsecutiveSets(String red){
+        List<String> list = Arrays.asList(red.split(","));
+        return countConsecutiveSets(list);
+    }
+
+    public static int getNineTurnMax(String k){
+        String[] split = k.split("_");
+        int maxNineTurn = 0;
+        for (int i = 0; i < split.length; i++) {
+            if(IntegerUtils.compareTo(split[i],maxNineTurn)){
+                maxNineTurn = Integer.valueOf(split[i]);
+            }
+        }
+        return maxNineTurn;
+    }
+
+    public static int getNineTurnMin(String k){
+        String[] split = k.split("_");
+        int minNineTurn = 0;
+        for (int i = 0; i < split.length; i++) {
+            if(IntegerUtils.compareTo(minNineTurn,split[i])){
+                minNineTurn = Integer.valueOf(split[i]);
+            }
+        }
+        return minNineTurn;
     }
 
     public static int countConsecutiveSets(List<String> numbers){
