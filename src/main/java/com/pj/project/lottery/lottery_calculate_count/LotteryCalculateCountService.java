@@ -66,6 +66,16 @@ public class LotteryCalculateCountService {
 		so.set("sortType", sortType);
 		return lotteryCalculateCountMapper.getList(so);	
 	}
+
+	List<LotteryCalculateCountAvgVo> getAvgList(SoMap so) {
+		String calType = (String)so.get("calType");
+		if("1".equals(calType)){
+			return lotteryCalculateCountMapper.getAvgListYear(so);
+		}else if("2".equals(calType)){
+			return lotteryCalculateCountMapper.getAvgListMonth(so);
+		}
+		return new ArrayList<>(1);
+	}
 	
 	void lotteryCalculateCount(){
 		//删除数据
@@ -143,6 +153,8 @@ public class LotteryCalculateCountService {
 			Map<String,Integer> blueAreaMap = new HashMap<>(100);
 			Map<String,Integer> blueParityRatioMap = new HashMap<>(100);
 			Map<String,Integer> redSumMap = new HashMap<>(100);
+			Map<Integer,Integer> maxConsecutiveNumbersMap = new HashMap<>(100);
+			Map<Integer,Integer> consecutiveNumbersCountMap = new HashMap<>(100);
 			value.stream().forEach(v->{
 				String[] redArrays = v.getRed().split(",");
 				redMap.put(redArrays[0], IntegerUtils.convertToInt(redMap.get(redArrays[0])) +1);
@@ -152,6 +164,10 @@ public class LotteryCalculateCountService {
 				redMap.put(redArrays[4], IntegerUtils.convertToInt(redMap.get(redArrays[4])) +1);
 				redMap.put(redArrays[5], IntegerUtils.convertToInt(redMap.get(redArrays[5])) +1);
 				blueMap.put(v.getBlue(), IntegerUtils.convertToInt(blueMap.get(v.getBlue())) +1);
+				maxConsecutiveNumbersMap.put(v.getMaxConsecutiveNumbers(),
+						IntegerUtils.convertToInt(maxConsecutiveNumbersMap.get(v.getMaxConsecutiveNumbers()))+1);
+				consecutiveNumbersCountMap.put(v.getConsecutiveNumbersCount(),
+						IntegerUtils.convertToInt(consecutiveNumbersCountMap.get(v.getConsecutiveNumbersCount()))+1);
 				redParityRatioMap.put(v.getRedParityRatio(), IntegerUtils.convertToInt(redParityRatioMap.get(v.getRedParityRatio())) +1);
 				redRangeMap.put(v.getRedRangeRatio(), IntegerUtils.convertToInt(redRangeMap.get(v.getRedRangeRatio())) +1);
 				blueBigSmallMap.put(v.getBlueBigSmall(), IntegerUtils.convertToInt(blueBigSmallMap.get(v.getBlueBigSmall())) +1);
@@ -278,6 +294,15 @@ public class LotteryCalculateCountService {
 			l.setRed127132(redSumMap.get(RuleUtils.RED_SUM_LIST.get(12)));
 			l.setRed121126(redSumMap.get(RuleUtils.RED_SUM_LIST.get(13)));
 			l.setRed145183(redSumMap.get(RuleUtils.RED_SUM_LIST.get(14)));
+
+			l.setMaxConsecutiveNumbers1(maxConsecutiveNumbersMap.get(1));
+			l.setMaxConsecutiveNumbers2(maxConsecutiveNumbersMap.get(2));
+			l.setMaxConsecutiveNumbers3(maxConsecutiveNumbersMap.get(3));
+			l.setMaxConsecutiveNumbers4(maxConsecutiveNumbersMap.get(4));
+			l.setMaxConsecutiveNumbers5(maxConsecutiveNumbersMap.get(5));
+			l.setConsecutiveNumbersCount0(consecutiveNumbersCountMap.get(0));
+			l.setConsecutiveNumbersCount1(consecutiveNumbersCountMap.get(1));
+			l.setConsecutiveNumbersCount2(consecutiveNumbersCountMap.get(2));
 			list.add(l);
 		});
 		return list;

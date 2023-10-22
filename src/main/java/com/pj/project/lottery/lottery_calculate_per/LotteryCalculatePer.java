@@ -50,14 +50,14 @@ public class LotteryCalculatePer implements Serializable {
 	public String blue;	
 
 	/**
-	 * 红球分区比例
+	 * 红球奇数/偶数比例 
 	 */
-	public String redRangeRatio;
+	public String redParityRatio;	
 
 	/**
-	 * 红球奇数/偶数比例
+	 * 红球分区比例 
 	 */
-	public String redParityRatio;
+	public String redRangeRatio;	
 
 	/**
 	 * 红球和 
@@ -65,9 +65,9 @@ public class LotteryCalculatePer implements Serializable {
 	public Integer redSum;	
 
 	/**
-	 * 蓝球分区
+	 * 蓝球奇数/偶数 
 	 */
-	public Integer blueRange;
+	public String blueParity;	
 
 	/**
 	 * 蓝球大/小 
@@ -75,9 +75,9 @@ public class LotteryCalculatePer implements Serializable {
 	public String blueBigSmall;	
 
 	/**
-	 * 蓝球奇偶
+	 * 蓝球分区 
 	 */
-	public String blueParity;
+	public Integer blueRange;	
 
 	/**
 	 * 年 
@@ -90,23 +90,35 @@ public class LotteryCalculatePer implements Serializable {
 	public Integer month;	
 
 	/**
-	 * 星期几 
+	 * 年-第几周 
 	 */
-	public String week;
-	/**
-	 * 九转连环图-09
-	 */
-	public String nineTurn09;
+	public String week;	
 
 	/**
-	 * 九转连环图17
+	 * 九转连环图-09 
 	 */
-	public String nineTurn17;
+	public String nineTurn09;	
 
 	/**
-	 * 九转连环图33
+	 * 九转连环图17 
 	 */
-	public String nineTurn33;
+	public String nineTurn17;	
+
+	/**
+	 * 九转连环图33 
+	 */
+	public String nineTurn33;	
+
+	/**
+	 * 最大连号数 
+	 */
+	public Integer maxConsecutiveNumbers;	
+
+	/**
+	 * 连号个数统计 
+	 */
+	public Integer consecutiveNumbersCount;	
+
 
 
 

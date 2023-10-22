@@ -53,6 +53,8 @@ ALTER TABLE lottery.lottery_calculate_per CHANGE blue_odd_even blue_parity varch
 ALTER TABLE lottery.lottery_calculate_per ADD nine_turn_09 varchar(100) NULL COMMENT '九转连环图-09';
 ALTER TABLE lottery.lottery_calculate_per ADD nine_turn_17 varchar(100) NULL COMMENT '九转连环图17';
 ALTER TABLE lottery.lottery_calculate_per ADD nine_turn_33 varchar(100) NULL COMMENT '九转连环图33';
+ALTER TABLE lottery.lottery_calculate_per ADD max_consecutive_numbers INT DEFAULT 0 NULL COMMENT '最大连号数';
+ALTER TABLE lottery.lottery_calculate_per ADD consecutive_numbers_count INT DEFAULT 0 NULL COMMENT '连号个数统计';
 
 -- lottery.lottery_calculate_count definition
 -- lottery.lottery_calculate_count definition
@@ -159,6 +161,15 @@ CREATE TABLE `lottery_calculate_count` (
   `red_145_183` int(11) DEFAULT '0' COMMENT '红球和145_183',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3488 DEFAULT CHARSET=utf8 COMMENT='按照不同时间维度统计每个红蓝球情况';
+ALTER TABLE lottery.lottery_calculate_count ADD consecutive_numbers_count_0 INT DEFAULT 0 NULL COMMENT '连号个数';
+ALTER TABLE lottery.lottery_calculate_count ADD consecutive_numbers_count_1 INT DEFAULT 0 NULL COMMENT '连号个数';
+ALTER TABLE lottery.lottery_calculate_count ADD consecutive_numbers_count_2 INT DEFAULT 0 NULL COMMENT '连号个数';
+ALTER TABLE lottery.lottery_calculate_count ADD max_consecutive_numbers_1 INT DEFAULT 0 NULL COMMENT '最大连号数';
+ALTER TABLE lottery.lottery_calculate_count ADD max_consecutive_numbers_2 INT DEFAULT 0 NULL COMMENT '最大连号数';
+ALTER TABLE lottery.lottery_calculate_count ADD max_consecutive_numbers_3 INT DEFAULT 0 NULL COMMENT '最大连号数';
+ALTER TABLE lottery.lottery_calculate_count ADD max_consecutive_numbers_4 INT DEFAULT 0 NULL COMMENT '最大连号数';
+ALTER TABLE lottery.lottery_calculate_count ADD max_consecutive_numbers_5 INT DEFAULT 0 NULL COMMENT '最大连号数';
+
 
 -- lottery.lottery_calculate_nine definition
 
@@ -175,4 +186,13 @@ CREATE TABLE `lottery_calculate_nine` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=38182 DEFAULT CHARSET=utf8 COMMENT='九转连环图统计表';
 
+CREATE TABLE lottery.lottery_all (
+	id BIGINT auto_increment NOT NULL COMMENT '主键id',
+	red varchar(100) NOT NULL COMMENT '红球',
+	CONSTRAINT lottery_all_PK PRIMARY KEY (id)
+)
+ENGINE=InnoDB
+DEFAULT CHARSET=utf8
+COLLATE=utf8_general_ci
+COMMENT='所有可能得红球组合';
 

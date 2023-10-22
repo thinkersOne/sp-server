@@ -39,9 +39,8 @@ public class CombinationUtils {
     }
 
     public static void main(String[] args) {
-        String chooseLotteryRed = "07,19,21,24,31,32," +
-        "06,08,12,18,27,"+"02,03,09,13,"+"04,10,"+"01,20,"+
-        "17,28,"+"15,16";
+        String chooseLotteryRed = "01,02,03,04,05,06,07,08,09,10,11,12,13,"+
+                "14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33";
         List<String> list = Arrays.asList(chooseLotteryRed.split(","));
         List<String> resList = new ArrayList<String>();
         recursive(list, "", 17,resList);

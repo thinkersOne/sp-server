@@ -519,6 +519,46 @@ public class LotteryCalculateCount implements Serializable {
 	 */
 	public Integer red145183;	
 
+	/**
+	 * 连号个数 
+	 */
+	public Integer consecutiveNumbersCount0;	
+
+	/**
+	 * 连号个数 
+	 */
+	public Integer consecutiveNumbersCount1;	
+
+	/**
+	 * 连号个数 
+	 */
+	public Integer consecutiveNumbersCount2;	
+
+	/**
+	 * 最大连号数 
+	 */
+	public Integer maxConsecutiveNumbers1;	
+
+	/**
+	 * 最大连号数 
+	 */
+	public Integer maxConsecutiveNumbers2;	
+
+	/**
+	 * 最大连号数 
+	 */
+	public Integer maxConsecutiveNumbers3;	
+
+	/**
+	 * 最大连号数 
+	 */
+	public Integer maxConsecutiveNumbers4;	
+
+	/**
+	 * 最大连号数 
+	 */
+	public Integer maxConsecutiveNumbers5;	
+
 
 
 

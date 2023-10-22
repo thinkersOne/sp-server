@@ -1,6 +1,7 @@
 package com.pj.project.lottery.lottery_calculate_per;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -86,10 +87,14 @@ public class LotteryCalculatePerService {
 		l.setYear(Ttime.getYear(date));
 		l.setMonth(Ttime.getMonth(date));
 		l.setWeek(Ttime.getWeekOfYear(Ttime.getYearMonthDay(date)));
-
+        //九转连环图
 		l.setNineTurn09(PersonalLawUtils.calNineTurn(v.getRed(), RuleConstants.NINE_TURN_SERIAL_DIAGRAM_09));
 		l.setNineTurn17(PersonalLawUtils.calNineTurn(v.getRed(), RuleConstants.NINE_TURN_SERIAL_DIAGRAM_17));
 		l.setNineTurn33(PersonalLawUtils.calNineTurn(v.getRed(), RuleConstants.NINE_TURN_SERIAL_DIAGRAM_33));
+        //连号情况
+		List<String> list = Arrays.asList(v.getRed().split(","));
+		l.setConsecutiveNumbersCount(RuleUtils.countConsecutiveSets(list));
+		l.setMaxConsecutiveNumbers(RuleUtils.getConsecutiveInfo(list));
 		return l;
 	}
 

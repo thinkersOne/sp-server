@@ -66,6 +66,13 @@ public class LotteryCalculateCountController {
 		return AjaxJson.getPageData(so.getDataCount(), list);
 	}
 
+	@RequestMapping("getAvgList")
+	public AjaxJson getAvgList() {
+		SoMap so = SoMap.getRequestSoMap();
+		List<LotteryCalculateCountAvgVo> list = lotteryCalculateCountService.getAvgList(so.startPage());
+		return AjaxJson.getPageData(so.getDataCount(), list);
+	}
+
 	/**
 	 * 从lottery_calculate_per表计算后同步数据-》LotteryCalculateCount
 	 * @return

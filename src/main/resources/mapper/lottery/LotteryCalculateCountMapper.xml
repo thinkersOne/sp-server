@@ -5,14 +5,14 @@
 	<!-- 增 [G] -->
 	<insert id="add">
 		insert into
-		lottery_calculate_count (id, year, month, week, codes, red1, red2, red3, red4, red5, red6, red7, red8, red9, red10, red11, red12, red13, red14, red15, red16, red17, red18, red19, red20, red21, red22, red23, red24, red25, red26, red27, red28, red29, red30, red31, red32, red33, blue1, blue2, blue3, blue4, blue5, blue6, blue7, blue8, blue9, blue10, blue11, blue12, blue13, blue14, blue15, blue16, cal_type, red_parity_ratio_2_4, red_parity_ratio_4_2, red_parity_ratio_5_1, red_parity_ratio_1_5, red_parity_ratio_3_3, red_parity_ratio_6_0, red_parity_ratio_0_6, red_range_2_3_1, red_range_2_2_2, red_range_3_2_1, red_range_1_2_3, red_range_2_0_4, red_range_2_4_0, red_range_4_0_2, red_range_4_2_0, red_range_3_1_2, red_range_2_1_3, red_range_4_1_1, red_range_1_1_4, red_range_1_4_1, blue_small, blue_big, blue_area_one, blue_area_two, blue_area_three, blue_area_four, blue_parity, blue_ratio, red_21_60, red_73_78, red_61_66, red_103_108, red_91_96, red_79_84, red_67_72, red_109_114, red_115_120, red_133_138, red_97_102, red_139_144, red_127_132, red_121_126, red_145_183)
-		values (#{id}, #{year}, #{month}, #{week}, #{codes}, #{red1}, #{red2}, #{red3}, #{red4}, #{red5}, #{red6}, #{red7}, #{red8}, #{red9}, #{red10}, #{red11}, #{red12}, #{red13}, #{red14}, #{red15}, #{red16}, #{red17}, #{red18}, #{red19}, #{red20}, #{red21}, #{red22}, #{red23}, #{red24}, #{red25}, #{red26}, #{red27}, #{red28}, #{red29}, #{red30}, #{red31}, #{red32}, #{red33}, #{blue1}, #{blue2}, #{blue3}, #{blue4}, #{blue5}, #{blue6}, #{blue7}, #{blue8}, #{blue9}, #{blue10}, #{blue11}, #{blue12}, #{blue13}, #{blue14}, #{blue15}, #{blue16}, #{calType}, #{redParityRatio24}, #{redParityRatio42}, #{redParityRatio51}, #{redParityRatio15}, #{redParityRatio33}, #{redParityRatio60}, #{redParityRatio06}, #{redRange231}, #{redRange222}, #{redRange321}, #{redRange123}, #{redRange204}, #{redRange240}, #{redRange402}, #{redRange420}, #{redRange312}, #{redRange213}, #{redRange411}, #{redRange114}, #{redRange141}, #{blueSmall}, #{blueBig}, #{blueAreaOne}, #{blueAreaTwo}, #{blueAreaThree}, #{blueAreaFour}, #{blueParity}, #{blueRatio}, #{red2160}, #{red7378}, #{red6166}, #{red103108}, #{red9196}, #{red7984}, #{red6772}, #{red109114}, #{red115120}, #{red133138}, #{red97102}, #{red139144}, #{red127132}, #{red121126}, #{red145183})
+		lottery_calculate_count (id, year, month, week, codes, red1, red2, red3, red4, red5, red6, red7, red8, red9, red10, red11, red12, red13, red14, red15, red16, red17, red18, red19, red20, red21, red22, red23, red24, red25, red26, red27, red28, red29, red30, red31, red32, red33, blue1, blue2, blue3, blue4, blue5, blue6, blue7, blue8, blue9, blue10, blue11, blue12, blue13, blue14, blue15, blue16, cal_type, red_parity_ratio_2_4, red_parity_ratio_4_2, red_parity_ratio_5_1, red_parity_ratio_1_5, red_parity_ratio_3_3, red_parity_ratio_6_0, red_parity_ratio_0_6, red_range_2_3_1, red_range_2_2_2, red_range_3_2_1, red_range_1_2_3, red_range_2_0_4, red_range_2_4_0, red_range_4_0_2, red_range_4_2_0, red_range_3_1_2, red_range_2_1_3, red_range_4_1_1, red_range_1_1_4, red_range_1_4_1, blue_small, blue_big, blue_area_one, blue_area_two, blue_area_three, blue_area_four, blue_parity, blue_ratio, red_21_60, red_73_78, red_61_66, red_103_108, red_91_96, red_79_84, red_67_72, red_109_114, red_115_120, red_133_138, red_97_102, red_139_144, red_127_132, red_121_126, red_145_183, consecutive_numbers_count_0, consecutive_numbers_count_1, consecutive_numbers_count_2, max_consecutive_numbers_1, max_consecutive_numbers_2, max_consecutive_numbers_3, max_consecutive_numbers_4, max_consecutive_numbers_5)
+		values (#{id}, #{year}, #{month}, #{week}, #{codes}, #{red1}, #{red2}, #{red3}, #{red4}, #{red5}, #{red6}, #{red7}, #{red8}, #{red9}, #{red10}, #{red11}, #{red12}, #{red13}, #{red14}, #{red15}, #{red16}, #{red17}, #{red18}, #{red19}, #{red20}, #{red21}, #{red22}, #{red23}, #{red24}, #{red25}, #{red26}, #{red27}, #{red28}, #{red29}, #{red30}, #{red31}, #{red32}, #{red33}, #{blue1}, #{blue2}, #{blue3}, #{blue4}, #{blue5}, #{blue6}, #{blue7}, #{blue8}, #{blue9}, #{blue10}, #{blue11}, #{blue12}, #{blue13}, #{blue14}, #{blue15}, #{blue16}, #{calType}, #{redParityRatio24}, #{redParityRatio42}, #{redParityRatio51}, #{redParityRatio15}, #{redParityRatio33}, #{redParityRatio60}, #{redParityRatio06}, #{redRange231}, #{redRange222}, #{redRange321}, #{redRange123}, #{redRange204}, #{redRange240}, #{redRange402}, #{redRange420}, #{redRange312}, #{redRange213}, #{redRange411}, #{redRange114}, #{redRange141}, #{blueSmall}, #{blueBig}, #{blueAreaOne}, #{blueAreaTwo}, #{blueAreaThree}, #{blueAreaFour}, #{blueParity}, #{blueRatio}, #{red2160}, #{red7378}, #{red6166}, #{red103108}, #{red9196}, #{red7984}, #{red6772}, #{red109114}, #{red115120}, #{red133138}, #{red97102}, #{red139144}, #{red127132}, #{red121126}, #{red145183}, #{consecutiveNumbersCount0}, #{consecutiveNumbersCount1}, #{consecutiveNumbersCount2}, #{maxConsecutiveNumbers1}, #{maxConsecutiveNumbers2}, #{maxConsecutiveNumbers3}, #{maxConsecutiveNumbers4}, #{maxConsecutiveNumbers5})
 	</insert>
 	<insert id="batchInsertLotteryCalculateCount" parameterType="java.util.List">
-		INSERT INTO lottery_calculate_count (id,year, month, week,codes, red1, red2, red3, red4, red5, red6, red7, red8, red9, red10, red11, red12, red13, red14, red15, red16, red17, red18, red19, red20, red21, red22, red23, red24, red25, red26, red27, red28, red29, red30, red31, red32, red33, blue1, blue2, blue3, blue4, blue5, blue6, blue7, blue8, blue9, blue10, blue11, blue12, blue13, blue14, blue15, blue16, cal_type, red_parity_ratio_2_4, red_parity_ratio_4_2, red_parity_ratio_5_1, red_parity_ratio_1_5, red_parity_ratio_3_3, red_parity_ratio_6_0, red_parity_ratio_0_6, red_range_2_3_1, red_range_2_2_2, red_range_3_2_1, red_range_1_2_3, red_range_2_0_4, red_range_2_4_0, red_range_4_0_2, red_range_4_2_0, red_range_3_1_2, red_range_2_1_3, red_range_4_1_1, red_range_1_1_4, red_range_1_4_1, blue_small, blue_big, blue_area_one, blue_area_two, blue_area_three, blue_area_four, blue_parity, blue_ratio, red_21_60, red_73_78, red_61_66, red_103_108, red_91_96, red_79_84, red_67_72, red_109_114, red_115_120, red_133_138, red_97_102, red_139_144, red_127_132, red_121_126, red_145_183)
+		INSERT INTO lottery_calculate_count (id,year, month, week,codes, red1, red2, red3, red4, red5, red6, red7, red8, red9, red10, red11, red12, red13, red14, red15, red16, red17, red18, red19, red20, red21, red22, red23, red24, red25, red26, red27, red28, red29, red30, red31, red32, red33, blue1, blue2, blue3, blue4, blue5, blue6, blue7, blue8, blue9, blue10, blue11, blue12, blue13, blue14, blue15, blue16, cal_type, red_parity_ratio_2_4, red_parity_ratio_4_2, red_parity_ratio_5_1, red_parity_ratio_1_5, red_parity_ratio_3_3, red_parity_ratio_6_0, red_parity_ratio_0_6, red_range_2_3_1, red_range_2_2_2, red_range_3_2_1, red_range_1_2_3, red_range_2_0_4, red_range_2_4_0, red_range_4_0_2, red_range_4_2_0, red_range_3_1_2, red_range_2_1_3, red_range_4_1_1, red_range_1_1_4, red_range_1_4_1, blue_small, blue_big, blue_area_one, blue_area_two, blue_area_three, blue_area_four, blue_parity, blue_ratio, red_21_60, red_73_78, red_61_66, red_103_108, red_91_96, red_79_84, red_67_72, red_109_114, red_115_120, red_133_138, red_97_102, red_139_144, red_127_132, red_121_126, red_145_183, consecutive_numbers_count_0, consecutive_numbers_count_1, consecutive_numbers_count_2, max_consecutive_numbers_1, max_consecutive_numbers_2, max_consecutive_numbers_3, max_consecutive_numbers_4, max_consecutive_numbers_5)
 		VALUES
 		<foreach collection="list" item="l" separator=",">
-			(#{l.id},#{l.year}, #{l.month}, #{l.week},#{l.codes}, #{l.red1}, #{l.red2}, #{l.red3}, #{l.red4}, #{l.red5}, #{l.red6}, #{l.red7}, #{l.red8}, #{l.red9}, #{l.red10}, #{l.red11}, #{l.red12}, #{l.red13}, #{l.red14}, #{l.red15}, #{l.red16}, #{l.red17}, #{l.red18}, #{l.red19}, #{l.red20}, #{l.red21}, #{l.red22}, #{l.red23}, #{l.red24}, #{l.red25}, #{l.red26}, #{l.red27}, #{l.red28}, #{l.red29}, #{l.red30}, #{l.red31}, #{l.red32}, #{l.red33}, #{l.blue1}, #{l.blue2}, #{l.blue3}, #{l.blue4}, #{l.blue5}, #{l.blue6}, #{l.blue7}, #{l.blue8}, #{l.blue9}, #{l.blue10}, #{l.blue11}, #{l.blue12}, #{l.blue13}, #{l.blue14}, #{l.blue15}, #{l.blue16}, #{l.calType}, #{l.redParityRatio24}, #{l.redParityRatio42}, #{l.redParityRatio51}, #{l.redParityRatio15}, #{l.redParityRatio33}, #{l.redParityRatio60}, #{l.redParityRatio06}, #{l.redRange231}, #{l.redRange222}, #{l.redRange321}, #{l.redRange123}, #{l.redRange204}, #{l.redRange240}, #{l.redRange402}, #{l.redRange420}, #{l.redRange312}, #{l.redRange213}, #{l.redRange411}, #{l.redRange114}, #{l.redRange141}, #{l.blueSmall}, #{l.blueBig}, #{l.blueAreaOne}, #{l.blueAreaTwo}, #{l.blueAreaThree}, #{l.blueAreaFour}, #{l.blueParity}, #{l.blueRatio}, #{l.red2160}, #{l.red7378}, #{l.red6166}, #{l.red103108}, #{l.red9196}, #{l.red7984}, #{l.red6772}, #{l.red109114}, #{l.red115120}, #{l.red133138}, #{l.red97102}, #{l.red139144}, #{l.red127132}, #{l.red121126}, #{l.red145183})
+			(#{l.id},#{l.year}, #{l.month}, #{l.week},#{l.codes}, #{l.red1}, #{l.red2}, #{l.red3}, #{l.red4}, #{l.red5}, #{l.red6}, #{l.red7}, #{l.red8}, #{l.red9}, #{l.red10}, #{l.red11}, #{l.red12}, #{l.red13}, #{l.red14}, #{l.red15}, #{l.red16}, #{l.red17}, #{l.red18}, #{l.red19}, #{l.red20}, #{l.red21}, #{l.red22}, #{l.red23}, #{l.red24}, #{l.red25}, #{l.red26}, #{l.red27}, #{l.red28}, #{l.red29}, #{l.red30}, #{l.red31}, #{l.red32}, #{l.red33}, #{l.blue1}, #{l.blue2}, #{l.blue3}, #{l.blue4}, #{l.blue5}, #{l.blue6}, #{l.blue7}, #{l.blue8}, #{l.blue9}, #{l.blue10}, #{l.blue11}, #{l.blue12}, #{l.blue13}, #{l.blue14}, #{l.blue15}, #{l.blue16}, #{l.calType}, #{l.redParityRatio24}, #{l.redParityRatio42}, #{l.redParityRatio51}, #{l.redParityRatio15}, #{l.redParityRatio33}, #{l.redParityRatio60}, #{l.redParityRatio06}, #{l.redRange231}, #{l.redRange222}, #{l.redRange321}, #{l.redRange123}, #{l.redRange204}, #{l.redRange240}, #{l.redRange402}, #{l.redRange420}, #{l.redRange312}, #{l.redRange213}, #{l.redRange411}, #{l.redRange114}, #{l.redRange141}, #{l.blueSmall}, #{l.blueBig}, #{l.blueAreaOne}, #{l.blueAreaTwo}, #{l.blueAreaThree}, #{l.blueAreaFour}, #{l.blueParity}, #{l.blueRatio}, #{l.red2160}, #{l.red7378}, #{l.red6166}, #{l.red103108}, #{l.red9196}, #{l.red7984}, #{l.red6772}, #{l.red109114}, #{l.red115120}, #{l.red133138}, #{l.red97102}, #{l.red139144}, #{l.red127132}, #{l.red121126}, #{l.red145183}, #{l.consecutiveNumbersCount0}, #{l.consecutiveNumbersCount1}, #{l.consecutiveNumbersCount2}, #{l.maxConsecutiveNumbers1}, #{l.maxConsecutiveNumbers2}, #{l.maxConsecutiveNumbers3}, #{l.maxConsecutiveNumbers4}, #{l.maxConsecutiveNumbers5})
 		</foreach>
 	</insert>
 	<!-- 删 -->
@@ -229,6 +229,14 @@
 		<result property="red127132" column="red_127_132" />
 		<result property="red121126" column="red_121_126" />
 		<result property="red145183" column="red_145_183" />
+		<result property="consecutiveNumbersCount0" column="consecutive_numbers_count_0" />
+		<result property="consecutiveNumbersCount1" column="consecutive_numbers_count_1" />
+		<result property="consecutiveNumbersCount2" column="consecutive_numbers_count_2" />
+		<result property="maxConsecutiveNumbers1" column="max_consecutive_numbers_1" />
+		<result property="maxConsecutiveNumbers2" column="max_consecutive_numbers_2" />
+		<result property="maxConsecutiveNumbers3" column="max_consecutive_numbers_3" />
+		<result property="maxConsecutiveNumbers4" column="max_consecutive_numbers_4" />
+		<result property="maxConsecutiveNumbers5" column="max_consecutive_numbers_5" />
 	</resultMap>
 	
 	<!-- 公共查询sql片段 -->
@@ -344,6 +352,14 @@
 			<if test=' this.has("red127132") '> and red_127_132 = #{red127132} </if>
 			<if test=' this.has("red121126") '> and red_121_126 = #{red121126} </if>
 			<if test=' this.has("red145183") '> and red_145_183 = #{red145183} </if>
+			<if test=' this.has("consecutiveNumbersCount0") '> and consecutive_numbers_count_0 = #{consecutiveNumbersCount0} </if>
+			<if test=' this.has("consecutiveNumbersCount1") '> and consecutive_numbers_count_1 = #{consecutiveNumbersCount1} </if>
+			<if test=' this.has("consecutiveNumbersCount2") '> and consecutive_numbers_count_2 = #{consecutiveNumbersCount2} </if>
+			<if test=' this.has("maxConsecutiveNumbers1") '> and max_consecutive_numbers_1 = #{maxConsecutiveNumbers1} </if>
+			<if test=' this.has("maxConsecutiveNumbers2") '> and max_consecutive_numbers_2 = #{maxConsecutiveNumbers2} </if>
+			<if test=' this.has("maxConsecutiveNumbers3") '> and max_consecutive_numbers_3 = #{maxConsecutiveNumbers3} </if>
+			<if test=' this.has("maxConsecutiveNumbers4") '> and max_consecutive_numbers_4 = #{maxConsecutiveNumbers4} </if>
+			<if test=' this.has("maxConsecutiveNumbers5") '> and max_consecutive_numbers_5 = #{maxConsecutiveNumbers5} </if>
 		</where>
 		order by
 		<choose>
@@ -445,6 +461,14 @@
 			<when test='sortType == 96'> red_127_132 desc </when>
 			<when test='sortType == 97'> red_121_126 desc </when>
 			<when test='sortType == 98'> red_145_183 desc </when>
+			<when test='sortType == 99'> consecutive_numbers_count_0 desc </when>
+			<when test='sortType == 100'> consecutive_numbers_count_1 desc </when>
+			<when test='sortType == 101'> consecutive_numbers_count_2 desc </when>
+			<when test='sortType == 102'> max_consecutive_numbers_1 desc </when>
+			<when test='sortType == 103'> max_consecutive_numbers_2 desc </when>
+			<when test='sortType == 104'> max_consecutive_numbers_3 desc </when>
+			<when test='sortType == 105'> max_consecutive_numbers_4 desc </when>
+			<when test='sortType == 106'> max_consecutive_numbers_5 desc </when>
 			<otherwise> id desc </otherwise>
 		</choose>
 	</select>
@@ -453,9 +477,37 @@
 		delete from lottery_calculate_count
 	</delete>
 	
-	
-	
-	
+	<select id="getAvgListYear" resultType="com.pj.project.lottery.lottery_calculate_count.LotteryCalculateCountAvgVo">
+		select AVG(red_parity_ratio_2_4) as red_parity_ratio_2_4,AVG(red_parity_ratio_4_2) as red_parity_ratio_4_2,
+		AVG(red_parity_ratio_5_1) as red_parity_ratio_5_1,AVG(red_parity_ratio_1_5) as red_parity_ratio_1_5,
+		AVG(red_parity_ratio_3_3) as red_parity_ratio_3_3,AVG(red_parity_ratio_6_0) as red_parity_ratio_6_0,
+		AVG(red_parity_ratio_0_6) as red_parity_ratio_0_6,AVG(red_range_2_3_1) as red_range_2_3_1,AVG(red_range_2_2_2) as red_range_2_2_2,
+		AVG(red_range_3_2_1) as red_range_3_2_1,AVG(red_range_1_2_3) as red_range_1_2_3,AVG(red_range_2_0_4) as red_range_2_0_4,
+		AVG(red_range_2_4_0) as red_range_2_4_0,AVG(red_range_4_0_2) as red_range_4_0_2,AVG(red_range_4_2_0) as red_range_4_2_0,
+		AVG(red_range_3_1_2) as red_range_3_1_2,AVG(red_range_2_1_3) as red_range_2_1_3,AVG(red_range_4_1_1) as red_range_4_1_1,
+		AVG(red_range_1_1_4) as red_range_1_1_4,AVG(red_range_1_4_1) as red_range_1_4_1,avg(red_21_60) as red_21_60,
+		AVG(red_73_78) as red_73_78,AVG(red_61_66) as red_61_66,AVG(red_103_108) as red_103_108,avg(red_91_96) as red_91_96,
+		AVG(red_79_84) as red_79_84,AVG(red_67_72) as red_67_72,AVG(red_109_114) as red_109_114,AVG(red_115_120) as red_115_120,
+		AVG(red_133_138) as red_133_138,AVG(red_97_102) as red_97_102,AVG(red_139_144) as red_139_144,
+		avg(red_127_132) as red_127_132,avg(red_121_126) as red_121_126,AVG(red_145_183) as red_145_183
+		from lottery_calculate_count where cal_type = 1
+	</select>
+
+	<select id="getAvgListMonth" resultType="com.pj.project.lottery.lottery_calculate_count.LotteryCalculateCountAvgVo">
+		select year,AVG(red_parity_ratio_2_4) as red_parity_ratio_2_4,AVG(red_parity_ratio_4_2) as red_parity_ratio_4_2,
+		AVG(red_parity_ratio_5_1) as red_parity_ratio_5_1,AVG(red_parity_ratio_1_5) as red_parity_ratio_1_5,
+		AVG(red_parity_ratio_3_3) as red_parity_ratio_3_3,AVG(red_parity_ratio_6_0) as red_parity_ratio_6_0,
+		AVG(red_parity_ratio_0_6) as red_parity_ratio_0_6,AVG(red_range_2_3_1) as red_range_2_3_1,AVG(red_range_2_2_2) as red_range_2_2_2,
+		AVG(red_range_3_2_1) as red_range_3_2_1,AVG(red_range_1_2_3) as red_range_1_2_3,AVG(red_range_2_0_4) as red_range_2_0_4,
+		AVG(red_range_2_4_0) as red_range_2_4_0,AVG(red_range_4_0_2) as red_range_4_0_2,AVG(red_range_4_2_0) as red_range_4_2_0,
+		AVG(red_range_3_1_2) as red_range_3_1_2,AVG(red_range_2_1_3) as red_range_2_1_3,AVG(red_range_4_1_1) as red_range_4_1_1,
+		AVG(red_range_1_1_4) as red_range_1_1_4,AVG(red_range_1_4_1) as red_range_1_4_1,avg(red_21_60) as red_21_60,
+		AVG(red_73_78) as red_73_78,AVG(red_61_66) as red_61_66,AVG(red_103_108) as red_103_108,avg(red_91_96) as red_91_96,
+		AVG(red_79_84) as red_79_84,AVG(red_67_72) as red_67_72,AVG(red_109_114) as red_109_114,AVG(red_115_120) as red_115_120,
+		AVG(red_133_138) as red_133_138,AVG(red_97_102) as red_97_102,AVG(red_139_144) as red_139_144,
+		avg(red_127_132) as red_127_132,avg(red_121_126) as red_121_126,AVG(red_145_183) as red_145_183
+		from lottery_calculate_count where cal_type = 2 group by year order by `year` DESC
+	</select>
 	
 	
 	

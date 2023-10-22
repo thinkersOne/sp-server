@@ -76,7 +76,7 @@ public class LotteryService {
 	 */
 	public List<String> convertDoubleSpheres(ConvertDoubleSpheresReq req) {
 		List<String> list = RuleUtils.getAllGenerateCompose(Arrays.asList(
-				getChooseLotteryRed(req).split(",")));
+				RuleUtils.getChooseLotteryRed(req).split(",")));
 		//按照app上所选的进行过滤，不超过5个相同
 		if(!CollectionUtils.isEmpty(req.getLotteryReds())){
 			list = RuleUtils.filterLotterysAmount(list, req.getLotteryReds(), 3);
@@ -152,32 +152,6 @@ public class LotteryService {
 		return result;
 
 //        return filterLotterys;
-	}
-
-	/**
-	 * 获取 组合
-	 * @param req
-	 * @return
-	 */
-	private String getChooseLotteryRed(ConvertDoubleSpheresReq req){
-		StringBuffer sb = new StringBuffer();
-		append( sb,req.getNoneRed());
-		append( sb,req.getOneRed());
-		append( sb,req.getTwoRed());
-		append( sb,req.getThreeRed());
-		append( sb,req.getFourRed());
-		return sb.toString();
-	}
-
-	private String append(StringBuffer sb,String str){
-		if(org.springframework.util.StringUtils.hasLength(str)){
-			if(org.springframework.util.StringUtils.hasLength(sb.toString())){
-				sb.append(",").append(str);
-			}else{
-				sb.append(str);
-			}
-		}
-		return str;
 	}
 
 	/**

@@ -6,6 +6,8 @@ import com.pj.project.aps.password.PasswordMapper;
 import com.pj.project.aps.password.PasswordService;
 import com.pj.project.aps.user.UserMapper;
 import com.pj.project.aps.user.UserService;
+import com.pj.project.lottery.lottery_all.LotteryAllMapper;
+import com.pj.project.lottery.lottery_all.LotteryAllService;
 import com.pj.project.lottery.lottery_calculate_count.LotteryCalculateCountMapper;
 import com.pj.project.lottery.lottery_calculate_count.LotteryCalculateCountService;
 import com.pj.project.lottery.lottery_calculate_nine.LotteryCalculateNineMapper;
@@ -30,7 +32,7 @@ public class LOTTERY_FC {
     public static LotteryCalculatePerMapper lotteryCalculatePerMapper;		// Mapper：统计计算每期双色球表
     public static LotteryCalculateCountMapper lotteryCalculateCountMapper;		// Mapper：按照不同时间维度统计每个红蓝球情况
     public static LotteryCalculateNineMapper lotteryCalculateNineMapper;		// Mapper：九转连环图统计表
-
+    public static LotteryAllMapper lotteryAllMapper;		// Mapper：所有可能得红球组合
 
 
     // ======================================== 所有Service ==============================================
@@ -40,6 +42,7 @@ public class LOTTERY_FC {
     public static LotteryCalculatePerService lotteryCalculatePerService;		// Service：统计计算每期双色球表
     public static LotteryCalculateCountService lotteryCalculateCountService;		// Service：按照不同时间维度统计每个红蓝球情况
     public static LotteryCalculateNineService lotteryCalculateNineService;		// Service：九转连环图统计表
+    public static LotteryAllService lotteryAllService;		// Service：所有可能得红球组合
 
     // ======================================== 所有注入所有Bean ==============================================
 
@@ -51,12 +54,13 @@ public class LOTTERY_FC {
             LotteryCalculatePerMapper lotteryCalculatePerMapper,
             LotteryCalculateCountMapper lotteryCalculateCountMapper,
             LotteryCalculateNineMapper lotteryCalculateNineMapper,
-
+            LotteryAllMapper lotteryAllMapper,
 
             LotteryService lotteryService,
             LotteryCalculatePerService lotteryCalculatePerService,
             LotteryCalculateCountService lotteryCalculateCountService,
             LotteryCalculateNineService lotteryCalculateNineService,
+            LotteryAllService lotteryAllService,
             PublicService publicService
     ) {
         LOTTERY_FC.lotteryMapper = lotteryMapper;
@@ -64,13 +68,14 @@ public class LOTTERY_FC {
         LOTTERY_FC.lotteryCalculatePerMapper = lotteryCalculatePerMapper;
         LOTTERY_FC.lotteryCalculateCountMapper = lotteryCalculateCountMapper;
         LOTTERY_FC.lotteryCalculateNineMapper = lotteryCalculateNineMapper;
+        LOTTERY_FC.lotteryAllMapper = lotteryAllMapper;
 
         LOTTERY_FC.lotteryService = lotteryService;
         LOTTERY_FC.publicService = publicService;
         LOTTERY_FC.lotteryCalculatePerService = lotteryCalculatePerService;
         LOTTERY_FC.lotteryCalculateCountService = lotteryCalculateCountService;
         LOTTERY_FC.lotteryCalculateNineService = lotteryCalculateNineService;
-
+        LOTTERY_FC.lotteryAllService = lotteryAllService;
     }
 
 }

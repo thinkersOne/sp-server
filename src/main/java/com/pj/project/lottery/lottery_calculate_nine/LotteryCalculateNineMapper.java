@@ -52,4 +52,7 @@ public interface LotteryCalculateNineMapper {
 	List<LotteryCalculateNine> getList(SoMap so);
 	void batchInsertLotteryCalculateNine(List<LotteryCalculateNine> list);
 	void deleteAll();
+
+
+
 }

@@ -1,6 +1,7 @@
 package com.pj.project.lottery.unionLotto.utils;
 
 import com.pj.current.global.RuleConstants;
+import com.pj.project.lottery.unionLotto.domain.ConvertDoubleSpheresReq;
 import com.pj.project.lottery.unionLotto.domain.Lottery;
 import com.pj.project.lottery.unionLotto.domain.LotteryCalVo;
 import com.pj.project.lottery.unionLotto.domain.LotteryInterval;
@@ -310,6 +311,105 @@ public class RuleUtils {
         List<String> resList = new ArrayList<String>();
         CombinationUtils.recursive(list, "", 17,resList);
         return resList;
+    }
+
+    /**
+     * 获取最大连号数，如 2,3,4,6,7,9  最大连号数为3.最小为1
+     * @param list
+     * @return
+     */
+    public static int  getConsecutiveInfo(List<String> list){
+        if(CollectionUtils.isEmpty(list)){
+            throw new IllegalArgumentException("list is empty");
+        }
+        if(list.size() < 6){
+            throw new IllegalArgumentException("list size is less than 6");
+        }
+        String firstRed = list.get(0);
+        int consecutiveNumberCount = 1;
+        int nextVal = Integer.valueOf(firstRed) + 1;
+        consecutiveNumberCount = calConsecutiveNumberCount(list, nextVal, 1, consecutiveNumberCount, 1, false);
+        return consecutiveNumberCount;
+    }
+
+    private static int calConsecutiveNumberCount(List<String> list, int nextVal,int i,
+        int hisMaxConsecutiveNumberCount,int maxConsecutiveNumberCount,boolean enableConsive){
+        if(i > 5){
+            System.out.println("maxConsecutiveNumberCount: " + maxConsecutiveNumberCount);
+            System.out.println("hisMaxConsecutiveNumberCount: " + hisMaxConsecutiveNumberCount);
+            return hisMaxConsecutiveNumberCount;
+        }
+        if(list.contains((nextVal)+"")){
+            maxConsecutiveNumberCount++;
+            if(hisMaxConsecutiveNumberCount < maxConsecutiveNumberCount){
+                hisMaxConsecutiveNumberCount = maxConsecutiveNumberCount;
+            }
+            nextVal++;
+            i++;
+        }else{
+            nextVal = Integer.valueOf(list.get(i)) + 1;
+            enableConsive = false;
+            maxConsecutiveNumberCount = 1;
+            i++;
+        }
+        return calConsecutiveNumberCount(list,nextVal,i,hisMaxConsecutiveNumberCount, maxConsecutiveNumberCount, enableConsive);
+    }
+
+
+    /**
+     * 统计 连号个数
+     * @param numbers
+     * @param count
+     * @param index
+     * @param enableConsecutive
+     * @return
+     */
+    public static int countConsecutiveSets(List<String> numbers,int count,int index,boolean enableConsecutive) {
+        Set<String> set = new HashSet<>(numbers);
+        for (int i = index; i < numbers.size(); i++) {
+            Integer currentRed = Integer.valueOf(numbers.get(i));
+            if(set.contains((currentRed + 1)+"")){
+                if(!enableConsecutive){
+                    count ++;
+                    index++;
+                    enableConsecutive = true;
+                    countConsecutiveSets(numbers,count,index,enableConsecutive);
+                }
+            }else{
+                enableConsecutive = false;
+            }
+        }
+        return count;
+    }
+
+    public static int countConsecutiveSets(List<String> numbers){
+        return countConsecutiveSets(numbers,0,0,false);
+    }
+
+    /**
+     * 获取 组合
+     * @param req
+     * @return
+     */
+    public static String getChooseLotteryRed(ConvertDoubleSpheresReq req){
+        StringBuffer sb = new StringBuffer();
+        append( sb,req.getNoneRed());
+        append( sb,req.getOneRed());
+        append( sb,req.getTwoRed());
+        append( sb,req.getThreeRed());
+        append( sb,req.getFourRed());
+        return sb.toString();
+    }
+
+    public static String append(StringBuffer sb,String str){
+        if(org.springframework.util.StringUtils.hasLength(str)){
+            if(org.springframework.util.StringUtils.hasLength(sb.toString())){
+                sb.append(",").append(str);
+            }else{
+                sb.append(str);
+            }
+        }
+        return str;
     }
 
     /**
@@ -784,6 +884,14 @@ public class RuleUtils {
         }
         int calRedSum = RuleUtils.calRedSum(currentLotteryRed);
         return !list.stream().anyMatch(v-> v.getIntervalMin() <= calRedSum && v.getIntervalMax() >= calRedSum);
+    }
+
+    public static void main(String[] args) {
+        List<String> numbers = Arrays.asList("1", "3", "5", "7", "9","18");
+        int consecutiveSets = countConsecutiveSets(numbers);
+        System.out.println("连号数个数: " + consecutiveSets);
+        int consecutiveInfo = getConsecutiveInfo(numbers);
+        System.out.println(consecutiveInfo);
     }
 
 
