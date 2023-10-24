@@ -209,3 +209,23 @@ DEFAULT CHARSET=utf8
 COLLATE=utf8_general_ci
 COMMENT='经过初步筛选后的全量双色球表';
 
+-- lottery.lottery_forecast definition
+-- lottery.lottery_forecast definition
+-- lottery.lottery_forecast definition
+
+CREATE TABLE `lottery_forecast` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键id',
+  `red` varchar(100) NOT NULL COMMENT '预测红球',
+  `red_parity_ratio` varchar(100) DEFAULT NULL COMMENT '奇偶比',
+  `red_range_ratio` varchar(100) DEFAULT NULL COMMENT '分区比',
+  `red_sum` varchar(100) DEFAULT NULL COMMENT '红球和值',
+  `consecutive_numbers_count` int(11) DEFAULT NULL COMMENT '连号个数',
+  `max_consecutive_numbers_count` int(11) DEFAULT NULL COMMENT '最大连号数',
+  `nine_turn_09` varchar(100) DEFAULT NULL COMMENT '九转连环-09',
+  `nine_turn_17` varchar(100) DEFAULT NULL COMMENT '九转连环-17',
+  `nine_turn_33` varchar(100) DEFAULT NULL COMMENT '九转连环-33',
+  `code` varchar(100) DEFAULT NULL COMMENT '预测期号',
+  `forecast_red` varchar(1000) DEFAULT NULL COMMENT '预测中奖号码',
+  `blue` varchar(100) DEFAULT NULL COMMENT '预测蓝球',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='号码预测';

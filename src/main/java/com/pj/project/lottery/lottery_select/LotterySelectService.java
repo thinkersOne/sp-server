@@ -65,7 +65,7 @@ public class LotterySelectService {
 		return lotterySelectMapper.getList(so);	
 	}
 
-	void lotterySelect(){
+	public void lotterySelect(){
 		//删除数据
 		lotterySelectMapper.deleteAll();
 

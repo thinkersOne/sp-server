@@ -5,6 +5,7 @@ import com.pj.project.lottery.lottery_calculate_count.LotteryCalculateCountServi
 import com.pj.project.lottery.lottery_calculate_nine.LotteryCalculateNineService;
 import com.pj.project.lottery.lottery_calculate_per.LotteryCalculatePerMapper;
 import com.pj.project.lottery.lottery_calculate_per.LotteryCalculatePerService;
+import com.pj.project.lottery.lottery_select.LotterySelectService;
 import com.pj.project.lottery.unionLotto.domain.Lottery;
 import com.pj.project.lottery.LotteryMapper;
 import com.pj.project.lottery.LotteryService;
@@ -29,9 +30,11 @@ public class LotteryTask {
     @Autowired
     private LotteryCalculateNineService lotteryCalculateNineService;
     @Autowired
+    private LotterySelectService lotterySelectService;
+    @Autowired
     UnionLotto unionLotto;
 
-    @Scheduled(cron = "0 0 22 * * ?")
+    @Scheduled(cron = "0 0 23 * * ?")
     @Transactional(rollbackFor = Exception.class)
     public void syncAllLottery() {
         try{
@@ -44,7 +47,7 @@ public class LotteryTask {
 
             lotteryCalculateNineService.lotteryCalculateNine();
 
-
+            lotterySelectService.lotterySelect();
         }catch (Exception e){
             log.error("同步失败", e);
             throw new RuntimeException("同步失败");

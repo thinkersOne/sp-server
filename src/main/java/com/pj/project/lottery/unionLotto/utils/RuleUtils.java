@@ -184,7 +184,7 @@ public class RuleUtils {
 
     public static boolean redSumContainer(List<String> redSumList,int redSum){
         for (String redSumItem: redSumList){
-            String[] split = redSumItem.split("-");
+            String[] split = redSumItem.split("_");
             int min = Integer.parseInt(split[0]);
             int max = Integer.parseInt(split[1]);
             if(redSum >= min && redSum <= max){
