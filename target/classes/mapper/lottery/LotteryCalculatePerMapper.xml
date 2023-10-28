@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pj.project.lottery.lottery_calculate_per.LotteryCalculatePerMapper">
+
+	<!-- 增 [G] -->
+	<insert id="add">
+		insert into
+		lottery_calculate_per (id, code, red, blue, red_range_ratio, red_parity_ratio, red_sum, blue_range, blue_big_small, blue_parity, year, month, week, nine_turn_09, nine_turn_17, nine_turn_33, max_consecutive_numbers, consecutive_numbers_count)
+		values (#{id}, #{code}, #{red}, #{blue}, #{redRangeRatio}, #{redParityRatio}, #{redSum}, #{blueRange}, #{blueBigSmall}, #{blueParity}, #{year}, #{month}, #{week}, #{nineTurn09}, #{nineTurn17}, #{nineTurn33}, #{maxConsecutiveNumbers}, #{consecutiveNumbersCount})
+	</insert>
+	<insert id="batchInsertLotteryCalculatePer" parameterType="java.util.List">
+		INSERT INTO lottery_calculate_per (id, code, red, blue, red_range_ratio, red_parity_ratio, red_sum, blue_range, blue_big_small, blue_parity, year, month, week, nine_turn_09, nine_turn_17, nine_turn_33, max_consecutive_numbers, consecutive_numbers_count)
+		VALUES
+		<foreach collection="list" item="l" separator=",">
+			(#{l.id}, #{l.code}, #{l.red}, #{l.blue}, #{l.redRangeRatio}, #{l.redParityRatio}, #{l.redSum}, #{l.blueRange}, #{l.blueBigSmall}, #{l.blueParity}, #{l.year}, #{l.month}, #{l.week}, #{l.nineTurn09}, #{l.nineTurn17}, #{l.nineTurn33}, #{l.maxConsecutiveNumbers}, #{l.consecutiveNumbersCount})
+		</foreach>
+	</insert>
+	<!-- 删 -->
+	<delete id="delete">
+		delete from lottery_calculate_per 
+		where id = #{id}
+	</delete>
+
+	<!-- 改 [G] -->
+	<update id="update">
+		update lottery_calculate_per set
+		id = #{id},
+		code = #{code},
+		red = #{red},
+		blue = #{blue},
+		red_range_ratio = #{redRangeRatio},
+		red_parity_ratio = #{redParityRatio},
+		red_sum = #{redSum},
+		blue_range = #{blueRange},
+		blue_big_small = #{blueBigSmall},
+		blue_parity = #{blueParity},
+		year = #{year},
+		month = #{month},
+		week = #{week}
+		where id = #{id}
+	</update>
+
+
+	<!-- ================================== 查询相关 ================================== -->
+	<!-- select id, code, red, blue, red_odd_even_ratio, red_partition_ratio, red_sum, blue_odd_even, blue_big_small, blue_partition from lottery_calculate_per  -->
+
+	<!-- 通用映射：手动模式 -->
+	<resultMap id="model" type="com.pj.project.lottery.lottery_calculate_per.LotteryCalculatePer">
+		<result property="id" column="id" />
+		<result property="code" column="code" />
+		<result property="red" column="red" />
+		<result property="blue" column="blue" />
+		<result property="redRangeRatio" column="red_range_ratio" />
+		<result property="redParityRatio" column="red_parity_ratio" />
+		<result property="redSum" column="red_sum" />
+		<result property="blueRange" column="blue_range" />
+		<result property="blueBigSmall" column="blue_big_small" />
+		<result property="blueParity" column="blue_parity" />
+		<result property="year" column="year" />
+		<result property="month" column="month" />
+		<result property="week" column="week" />
+		<result property="nineTurn09" column="nine_turn_09" />
+		<result property="nineTurn17" column="nine_turn_17" />
+		<result property="nineTurn33" column="nine_turn_33" />
+		<result property="maxConsecutiveNumbers" column="max_consecutive_numbers" />
+		<result property="consecutiveNumbersCount" column="consecutive_numbers_count" />
+	</resultMap>
+	
+	<!-- 公共查询sql片段 -->
+	<sql id="select_sql">
+		select * 
+		from lottery_calculate_per 
+	</sql>
+	
+	<!-- 查 - 根据id -->
+	<select id="getById" resultMap="model">
+		<include refid="select_sql"></include>
+		where id = #{id}
+	</select>
+
+	<select id="getBeforeInfo" resultMap="model">
+		<include refid="select_sql"></include>
+		order by code  DESC limit 1
+	</select>
+
+	<!-- 查集合 - 根据条件（参数为空时代表忽略指定条件） [G] -->
+	<select id="getList" resultMap="model">
+		<include refid="select_sql"></include>
+		<where>
+			<if test=' this.has("id") '> and id = #{id} </if>
+			<if test=' this.has("code") '> and code = #{code} </if>
+			<if test=' this.has("red") '> and red = #{red} </if>
+			<if test=' this.has("blue") '> and blue = #{blue} </if>
+			<if test=' this.has("redRangeRatio") '> and red_range_ratio = #{redRangeRatio} </if>
+			<if test=' this.has("redParityRatio") '> and red_parity_ratio = #{redParityRatio} </if>
+			<if test=' this.has("redSum") '> and red_sum = #{redSum} </if>
+			<if test=' this.has("blueRange") '> and blue_range = #{blueRange} </if>
+			<if test=' this.has("blueBigSmall") '> and blue_big_small = #{blueBigSmall} </if>
+			<if test=' this.has("blueParity") '> and blue_party = #{blueParity} </if>
+			<if test=' this.has("nineTurn09") '> and nine_turn_09 = #{nineTurn09} </if>
+			<if test=' this.has("nineTurn17") '> and nine_turn_17 = #{nineTurn17} </if>
+			<if test=' this.has("nineTurn33") '> and nine_turn_33 = #{nineTurn33} </if>
+			<if test=' this.has("maxConsecutiveNumbers") '> and max_consecutive_numbers = #{maxConsecutiveNumbers} </if>
+			<if test=' this.has("consecutiveNumbersCount") '> and consecutive_numbers_count = #{consecutiveNumbersCount} </if>
+		</where>
+		order by code desc
+	</select>
+	
+	<delete id="deleteAll">
+		delete from lottery_calculate_per
+	</delete>
+	
+	<select id="getMinAndMax" resultType="com.pj.project.lottery.lottery_calculate_per.LotteryCalculatePerM">
+		select max(max_consecutive_numbers) as max_consecutive_numbers_max,min(max_consecutive_numbers) as max_consecutive_numbers_min,
+		MAX(consecutive_numbers_count) as consecutive_numbers_count_max,min(consecutive_numbers_count) as consecutive_numbers_count_min,
+		max(red_sum) as red_sum_max,min(red_sum) as red_sum_min
+		from lottery_calculate_per
+	</select>
+	
+	
+	
+	
+	
+
+</mapper>

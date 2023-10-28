@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pj.project.aav.sp_image.SpImageMapper">
+
+    <!-- 增 [G] -->
+    <insert id="add">
+        insert into
+        sp_image (id, url, type, create_time, create_by, update_by, update_time,description)
+        values (#{id}, #{url}, #{type}, #{createTime}, #{createBy}, #{updateBy}, #{updateTime},#{description})
+    </insert>
+
+    <!-- 删 -->
+    <delete id="delete">
+        delete from sp_image
+        where id = #{id}
+    </delete>
+
+    <!-- 改 [G] -->
+    <update id="update">
+        update sp_image set
+        id = #{id},
+        url = #{url},
+        type = #{type},
+        create_time = #{createTime},
+        create_by = #{createBy},
+        update_by = #{updateBy},
+        update_time = #{updateTime},
+        description = #{description},
+        status = #{status}
+        where id = #{id}
+    </update>
+
+
+    <!-- ================================== 查询相关 ================================== -->
+    <!-- select id, url, type, create_time, create_by, update_by, update_time from sp_image  -->
+
+    <!-- 通用映射：手动模式 -->
+    <resultMap id="model" type="com.pj.project.aav.sp_image.SpImage">
+        <result property="id" column="id" />
+        <result property="url" column="url" />
+        <result property="type" column="type" />
+        <result property="createTime" column="create_time" />
+        <result property="createBy" column="create_by" />
+        <result property="updateBy" column="update_by" />
+        <result property="updateTime" column="update_time" />
+        <result property="description" column="description" />
+        <result property="status" column="status" />
+    </resultMap>
+
+    <!-- 公共查询sql片段 -->
+    <sql id="select_sql">
+        select *
+        from sp_image
+    </sql>
+
+    <!-- 查 - 根据id -->
+    <select id="getById" resultMap="model">
+        <include refid="select_sql"></include>
+        where id = #{id}
+    </select>
+
+    <!-- 查集合 - 根据条件（参数为空时代表忽略指定条件） [G] -->
+    <select id="getList" resultMap="model">
+        <include refid="select_sql"></include>
+        <where>
+            <if test=' this.has("id") '> and id = #{id} </if>
+            <if test=' this.has("url") '> and url = #{url} </if>
+            <if test=' this.has("type") '> and type = #{type} </if>
+            <if test=' this.has("createTime") '> and create_time = #{createTime} </if>
+            <if test=' this.has("createBy") '> and create_by = #{createBy} </if>
+            <if test=' this.has("updateBy") '> and update_by = #{updateBy} </if>
+            <if test=' this.has("updateTime") '> and update_time = #{updateTime} </if>
+        </where>
+        order by
+        <choose>
+            <when test='sortType == 1'> id desc </when>
+            <when test='sortType == 2'> url desc </when>
+            <when test='sortType == 3'> type desc </when>
+            <when test='sortType == 4'> create_time desc </when>
+            <when test='sortType == 5'> create_by desc </when>
+            <when test='sortType == 6'> update_by desc </when>
+            <when test='sortType == 7'> update_time desc </when>
+            <otherwise> id desc </otherwise>
+        </choose>
+    </select>
+
+    <select id="getImgUrl" resultType="java.lang.String">
+        select url from sp_image where status = 1 and type = #{type}
+    </select>
+
+</mapper>

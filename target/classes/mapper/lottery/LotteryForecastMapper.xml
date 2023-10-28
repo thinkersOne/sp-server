@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pj.project.lottery.lottery_forecast.LotteryForecastMapper">
+
+	<!-- 增 [G] -->
+	<insert id="add">
+		insert into 
+		lottery_forecast (id, red, red_parity_ratio, red_range_ratio, red_sum, consecutive_numbers_count, max_consecutive_numbers_count, nine_turn_09, nine_turn_17, nine_turn_33, code, forecast_red, blue) 
+		values (#{id}, #{red}, #{redParityRatio}, #{redRangeRatio}, #{redSum}, #{consecutiveNumbersCount}, #{maxConsecutiveNumbersCount}, #{nineTurn09}, #{nineTurn17}, #{nineTurn33}, #{code}, #{forecastRed}, #{blue}) 
+	</insert>
+
+	<!-- 删 -->
+	<delete id="delete">
+		delete from lottery_forecast 
+		where id = #{id}
+	</delete>
+
+	<delete id="deleteByIds">
+		delete from lottery_forecast
+		where id in
+		<foreach collection="ids" item="id" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+	<!-- 改 [G] -->
+	<update id="update">
+		update lottery_forecast set
+		id = #{id}, 
+		red = #{red}, 
+		red_parity_ratio = #{redParityRatio}, 
+		red_range_ratio = #{redRangeRatio}, 
+		red_sum = #{redSum}, 
+		consecutive_numbers_count = #{consecutiveNumbersCount}, 
+		max_consecutive_numbers_count = #{maxConsecutiveNumbersCount}, 
+		nine_turn_09 = #{nineTurn09}, 
+		nine_turn_17 = #{nineTurn17}, 
+		nine_turn_33 = #{nineTurn33}, 
+		code = #{code}, 
+		forecast_red = #{forecastRed}, 
+		blue = #{blue}
+		where id = #{id}
+	</update>
+
+
+	<!-- ================================== 查询相关 ================================== -->
+	<!-- select id, red, red_parity_ratio, red_range_ratio, red_sum, consecutive_numbers_count, max_consecutive_numbers_count, nine_turn_09, nine_turn_17, nine_turn_33, code, forecast_red, blue from lottery_forecast  -->
+	
+	<!-- 通用映射：手动模式 -->
+	<resultMap id="model" type="com.pj.project.lottery.lottery_forecast.LotteryForecast">
+		<result property="id" column="id" />
+		<result property="red" column="red" />
+		<result property="redParityRatio" column="red_parity_ratio" />
+		<result property="redRangeRatio" column="red_range_ratio" />
+		<result property="redSum" column="red_sum" />
+		<result property="consecutiveNumbersCount" column="consecutive_numbers_count" />
+		<result property="maxConsecutiveNumbersCount" column="max_consecutive_numbers_count" />
+		<result property="nineTurn09" column="nine_turn_09" />
+		<result property="nineTurn17" column="nine_turn_17" />
+		<result property="nineTurn33" column="nine_turn_33" />
+		<result property="code" column="code" />
+		<result property="forecastRed" column="forecast_red" />
+		<result property="blue" column="blue" />
+	</resultMap>
+	
+	<!-- 公共查询sql片段 -->
+	<sql id="select_sql">
+		select * 
+		from lottery_forecast 
+	</sql>
+	
+	<!-- 查 - 根据id -->
+	<select id="getById" resultMap="model">
+		<include refid="select_sql"></include>
+		where id = #{id}
+	</select>
+	
+	<!-- 查集合 - 根据条件（参数为空时代表忽略指定条件） [G] -->
+	<select id="getList" resultMap="model">
+		<include refid="select_sql"></include>
+		<where>
+			<if test=' this.has("id") '> and id = #{id} </if>
+			<if test=' this.has("red") '> and red = #{red} </if>
+			<if test=' this.has("redParityRatio") '> and red_parity_ratio = #{redParityRatio} </if>
+			<if test=' this.has("redRangeRatio") '> and red_range_ratio = #{redRangeRatio} </if>
+			<if test=' this.has("redSum") '> and red_sum = #{redSum} </if>
+			<if test=' this.has("consecutiveNumbersCount") '> and consecutive_numbers_count = #{consecutiveNumbersCount} </if>
+			<if test=' this.has("maxConsecutiveNumbersCount") '> and max_consecutive_numbers_count = #{maxConsecutiveNumbersCount} </if>
+			<if test=' this.has("nineTurn09") '> and nine_turn_09 = #{nineTurn09} </if>
+			<if test=' this.has("nineTurn17") '> and nine_turn_17 = #{nineTurn17} </if>
+			<if test=' this.has("nineTurn33") '> and nine_turn_33 = #{nineTurn33} </if>
+			<if test=' this.has("code") '> and code = #{code} </if>
+			<if test=' this.has("forecastRed") '> and forecast_red = #{forecastRed} </if>
+			<if test=' this.has("blue") '> and blue = #{blue} </if>
+		</where>
+		order by
+		<choose>
+			<when test='sortType == 1'> id desc </when>
+			<when test='sortType == 2'> red desc </when>
+			<when test='sortType == 3'> red_parity_ratio desc </when>
+			<when test='sortType == 4'> red_range_ratio desc </when>
+			<when test='sortType == 5'> red_sum desc </when>
+			<when test='sortType == 6'> consecutive_numbers_count desc </when>
+			<when test='sortType == 7'> max_consecutive_numbers_count desc </when>
+			<when test='sortType == 8'> nine_turn_09 desc </when>
+			<when test='sortType == 9'> nine_turn_17 desc </when>
+			<when test='sortType == 10'> nine_turn_33 desc </when>
+			<when test='sortType == 11'> code desc </when>
+			<when test='sortType == 12'> forecast_red desc </when>
+			<when test='sortType == 13'> blue desc </when>
+			<otherwise> id desc </otherwise>
+		</choose>
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+</mapper>

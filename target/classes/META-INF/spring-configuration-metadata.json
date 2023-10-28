@@ -1,0 +1,141 @@
+{
+  "groups": [
+    {
+      "name": "spring.myconfig",
+      "type": "com.pj.current.config.MyConfig",
+      "sourceType": "com.pj.current.config.MyConfig"
+    },
+    {
+      "name": "spring.upload-config",
+      "type": "com.pj.project.sp_dev.uploadfile.UploadConfig",
+      "sourceType": "com.pj.project.sp_dev.uploadfile.UploadConfig"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.myconfig.color-sql",
+      "type": "java.lang.Boolean",
+      "description": "是否彩色SQL日志",
+      "sourceType": "com.pj.current.config.MyConfig",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.myconfig.domain",
+      "type": "java.lang.String",
+      "description": "本项目部署到的服务器域名（文件上传、微信支付等等模块  要用到）",
+      "sourceType": "com.pj.current.config.MyConfig"
+    },
+    {
+      "name": "spring.myconfig.is-pw",
+      "type": "java.lang.Boolean",
+      "description": "是否明文存储密码",
+      "sourceType": "com.pj.current.config.MyConfig"
+    },
+    {
+      "name": "spring.myconfig.log-to-db",
+      "type": "java.lang.Boolean",
+      "description": "是否把API请求日志记录在数据库",
+      "sourceType": "com.pj.current.config.MyConfig",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.myconfig.log-to-file",
+      "type": "java.lang.Boolean",
+      "description": "是否把API请求日志输出在控制台",
+      "sourceType": "com.pj.current.config.MyConfig",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.myconfig.md5-salt",
+      "type": "java.lang.String",
+      "description": "md5的盐",
+      "sourceType": "com.pj.current.config.MyConfig"
+    },
+    {
+      "name": "spring.myconfig.throw-sql",
+      "type": "java.lang.Boolean",
+      "description": "是否抛出SQL（将sql报错抛出到前端，方便调试，请只在开发环境打开，在生产模式请关闭）",
+      "sourceType": "com.pj.current.config.MyConfig",
+      "defaultValue": true
+    },
+    {
+      "name": "spring.upload-config.apk-folder",
+      "type": "java.lang.String",
+      "sourceType": "com.pj.project.sp_dev.uploadfile.UploadConfig",
+      "defaultValue": "\/apk"
+    },
+    {
+      "name": "spring.upload-config.apk-suffix",
+      "type": "java.lang.String",
+      "sourceType": "com.pj.project.sp_dev.uploadfile.UploadConfig",
+      "defaultValue": "apk"
+    },
+    {
+      "name": "spring.upload-config.audio-folder",
+      "type": "java.lang.String",
+      "sourceType": "com.pj.project.sp_dev.uploadfile.UploadConfig",
+      "defaultValue": "\/audio"
+    },
+    {
+      "name": "spring.upload-config.audio-suffix",
+      "type": "java.lang.String",
+      "sourceType": "com.pj.project.sp_dev.uploadfile.UploadConfig",
+      "defaultValue": "mp3,aac,wav,wma,cda,flac,m4a,mid,mka,mp2,mpa,mpc,ape,ofr,ogg,ra,wv,tta,ac3,dts"
+    },
+    {
+      "name": "spring.upload-config.file-folder",
+      "type": "java.lang.String",
+      "sourceType": "com.pj.project.sp_dev.uploadfile.UploadConfig",
+      "defaultValue": "\/file"
+    },
+    {
+      "name": "spring.upload-config.file-suffix",
+      "type": "java.lang.String",
+      "sourceType": "com.pj.project.sp_dev.uploadfile.UploadConfig",
+      "defaultValue": "jpg,exe,txt,zip,json,xml"
+    },
+    {
+      "name": "spring.upload-config.http-prefix",
+      "type": "java.lang.String",
+      "sourceType": "com.pj.project.sp_dev.uploadfile.UploadConfig",
+      "defaultValue": "\/upload"
+    },
+    {
+      "name": "spring.upload-config.image-folder",
+      "type": "java.lang.String",
+      "sourceType": "com.pj.project.sp_dev.uploadfile.UploadConfig",
+      "defaultValue": "\/image"
+    },
+    {
+      "name": "spring.upload-config.image-suffix",
+      "type": "java.lang.String",
+      "sourceType": "com.pj.project.sp_dev.uploadfile.UploadConfig",
+      "defaultValue": "jpg,jpeg,png,gif,ico,bmp,tiff,raw"
+    },
+    {
+      "name": "spring.upload-config.max-size",
+      "type": "java.lang.Long",
+      "sourceType": "com.pj.project.sp_dev.uploadfile.UploadConfig",
+      "defaultValue": 0
+    },
+    {
+      "name": "spring.upload-config.root-folder",
+      "type": "java.lang.String",
+      "sourceType": "com.pj.project.sp_dev.uploadfile.UploadConfig",
+      "defaultValue": "\/upload-file"
+    },
+    {
+      "name": "spring.upload-config.video-folder",
+      "type": "java.lang.String",
+      "sourceType": "com.pj.project.sp_dev.uploadfile.UploadConfig",
+      "defaultValue": "\/video"
+    },
+    {
+      "name": "spring.upload-config.video-suffix",
+      "type": "java.lang.String",
+      "sourceType": "com.pj.project.sp_dev.uploadfile.UploadConfig",
+      "defaultValue": "mp4,avi,rmvb,mov,flv,mkv"
+    }
+  ],
+  "hints": []
+}
