@@ -16,5 +16,6 @@ RUN bash -c 'touch /sp-server.jar'
 # 将容器的8000端口暴露，给外部访问。
 EXPOSE 8099
 
+ENV SPRING_PROFILES_ACTIVE dev
 # 当容器运行起来时执行使用运行jar的指令
 ENTRYPOINT ["java", "-jar", "sp-server.jar"]
