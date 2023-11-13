@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.google.common.collect.Lists;
+import com.pj.current.global.LotteryConstant;
 import com.pj.models.so.SoMap;
 import com.pj.project.lottery.unionLotto.domain.ConvertDoubleSpheresReq;
 import com.pj.project.lottery.unionLotto.utils.CombinationUtils;
@@ -29,8 +31,7 @@ public class LotteryAllService {
 	}
 
 	void batchAdd(){
-		String chooseLotteryRed = "01,02,03,04,05,06,07,08,09,10,11,12,13,"+
-				"14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33";
+		String chooseLotteryRed = LotteryConstant.LOTTERY_RED;
 		List<String> list = Arrays.asList(chooseLotteryRed.split(","));
 		List<String> resList = new ArrayList<String>();
 		CombinationUtils.recursive(list, "", 17,resList);
@@ -39,7 +40,11 @@ public class LotteryAllService {
 			l.setRed(v);
 			return l;
 		}).collect(Collectors.toList());
-		lotteryAllMapper.batchInsertLotteryAll(lotteryAlls);
+		//分片：1000
+		List<List<LotteryAll>> listList = Lists.partition(lotteryAlls, 1000);
+		listList.stream().forEach(v->{
+			lotteryAllMapper.batchInsertLotteryAll(v);
+		});
 	}
 
 	/** 删 */

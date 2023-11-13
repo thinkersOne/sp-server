@@ -3,8 +3,8 @@ spring:
     application.name: sa-plus
     profiles:
         # 启动环境加载，同时加载两个的写法：common,prod  优先级左>右
-#        active: local
-        active: dev
+        active: local
+#        active: dev
         # active: test
         # active: prod
 

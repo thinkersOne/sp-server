@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import com.google.common.collect.Lists;
 import com.pj.models.so.SoMap;
 import com.pj.project.lottery.lottery_calculate_count.LotteryCalculateCount;
 import com.pj.project.lottery.lottery_calculate_per.LotteryCalculatePer;
@@ -122,7 +123,10 @@ public class LotteryCalculateNineService {
 		Map<String, List<LotteryCalculatePer>> yearMonthList =
 				lotteryCalculatePerMapperList.stream().collect(Collectors.groupingBy(v-> v.getYear()+"_"+v.getMonth()));
 		List<LotteryCalculateNine> monthLotteryCalculateNineList = getList(yearMonthList,CalTypeEnum.MONTH.getCalType());
-		lotteryCalculateNineMapper.batchInsertLotteryCalculateNine(monthLotteryCalculateNineList);
+		List<List<LotteryCalculateNine>> listList = Lists.partition(monthLotteryCalculateNineList, 1000);
+		listList.stream().forEach(v->{
+			lotteryCalculateNineMapper.batchInsertLotteryCalculateNine(v);
+		});
 	}
 
 	public <T> List<LotteryCalculateNine> getList(Map<T, List<LotteryCalculatePer>> map,int calType) {

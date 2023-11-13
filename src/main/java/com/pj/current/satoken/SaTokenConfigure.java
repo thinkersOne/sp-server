@@ -35,7 +35,7 @@ public class SaTokenConfigure implements WebMvcConfigurer {
     public SaServletFilter getSaServletFilter() {
         return new SaServletFilter()
         		// 拦截与排除 path 
-        		.addInclude("/**").addExclude("/favicon.ico")
+        		.addInclude("/**").addExclude("/static/favicon.ico")
         		
         		// 全局认证函数 
         		.setAuth(obj -> {

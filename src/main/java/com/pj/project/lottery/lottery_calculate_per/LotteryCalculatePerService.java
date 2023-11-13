@@ -5,9 +5,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.google.common.collect.Lists;
 import com.pj.current.global.RuleConstants;
 import com.pj.models.so.SoMap;
 import com.pj.project.lottery.LotteryMapper;
+import com.pj.project.lottery.lottery_all.LotteryAll;
 import com.pj.project.lottery.unionLotto.domain.Lottery;
 import com.pj.project.lottery.unionLotto.enums.UnionLottoWeekEnum;
 import com.pj.project.lottery.unionLotto.utils.PersonalLawUtils;
@@ -67,7 +69,10 @@ public class LotteryCalculatePerService {
 		}
 
 		List<LotteryCalculatePer> lotteryCalculatePers = list.stream().map(v -> getLotteryCalculatePer(v)).collect(Collectors.toList());
-		lotteryCalculatePerMapper.batchInsertLotteryCalculatePer(lotteryCalculatePers);
+		List<List<LotteryCalculatePer>> listList = Lists.partition(lotteryCalculatePers, 1000);
+		listList.stream().forEach(v->{
+			lotteryCalculatePerMapper.batchInsertLotteryCalculatePer(v);
+		});
 	}
 
 	@NotNull

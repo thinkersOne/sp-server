@@ -7,7 +7,9 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import com.google.common.collect.Lists;
 import com.pj.models.so.SoMap;
+import com.pj.project.lottery.lottery_all.LotteryAll;
 import com.pj.project.lottery.lottery_calculate_per.LotteryCalculatePer;
 import com.pj.project.lottery.lottery_calculate_per.LotteryCalculatePerMapper;
 import com.pj.project.lottery.unionLotto.enums.*;
@@ -137,7 +139,10 @@ public class LotteryCalculateCountService {
 		Map<String, List<LotteryCalculatePer>> weekList = lotteryCalculatePerMapperList.stream()
 				.collect(Collectors.groupingBy(v-> v.getWeek()));
 		List<LotteryCalculateCount> weekLotteryCalculateCountList = getList(weekList,CalTypeEnum.WEEK.getCalType());
-		lotteryCalculateCountMapper.batchInsertLotteryCalculateCount(weekLotteryCalculateCountList);
+		List<List<LotteryCalculateCount>> listList = Lists.partition(weekLotteryCalculateCountList, 1000);
+		listList.stream().forEach(v->{
+			lotteryCalculateCountMapper.batchInsertLotteryCalculateCount(v);
+		});
 		System.out.println("----------------");
 	}
 

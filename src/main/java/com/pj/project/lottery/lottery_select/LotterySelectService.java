@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import cn.hutool.core.collection.ListUtil;
+import com.google.common.collect.Lists;
 import com.pj.current.global.RuleConstants;
 import com.pj.models.so.SoMap;
 import com.pj.project.lottery.lottery_all.LotteryAll;
@@ -116,7 +117,10 @@ public class LotterySelectService {
 		});
 
 		if(!CollectionUtils.isEmpty(resultList)){
-			lotterySelectMapper.batchInsertLotterySelect(resultList);
+			List<List<LotterySelect>> listList = Lists.partition(resultList, 1000);
+			listList.stream().forEach(v->{
+				lotterySelectMapper.batchInsertLotterySelect(v);
+			});
 		}
 
 	}
