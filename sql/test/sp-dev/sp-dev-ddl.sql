@@ -1,39 +1,4 @@
 -- `sp-dev`.ser_article definition
-
-CREATE TABLE `ser_article` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '记录id [num no-add]',
-  `title` varchar(150) DEFAULT NULL COMMENT '文章标题 [t j=like, fast-update]',
-  `content` longtext COMMENT '文章内容 [f]',
-  `type_id` bigint(20) DEFAULT NULL COMMENT '所属分类 [num]',
-  `goods_id` bigint(20) DEFAULT NULL COMMENT '推荐商品 [num click=ser_goods.id]',
-  `eff_time` datetime DEFAULT NULL COMMENT '有效日期 [date]',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期 [date-create]',
-  `status` int(11) DEFAULT '2' COMMENT '所属状态(1=正常,2=禁用) [j switch]',
-  `is_eff` int(11) DEFAULT '1' COMMENT '是否有效 [lc-del yes=1, no=0]',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=1009 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='文章表 \r\n[table icon=el-icon-document-remove]\r\n[fk-s js=(type_id=sys_type.id), show=name.所属分类, drop]\r\n[fk-s js=(goods_id=ser_goods.id), show=name.商品名称, click]';
-
-
--- `sp-dev`.ser_goods definition
-
-CREATE TABLE `ser_goods` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '记录id [num no-add]',
-  `name` varchar(200) DEFAULT NULL COMMENT '商品名称 [text j=like]',
-  `avatar` varchar(512) DEFAULT NULL COMMENT '商品头像 [img]',
-  `image_list` varchar(2048) DEFAULT NULL COMMENT '轮播图片 [img-list]',
-  `content` text COMMENT '图文介绍 [f]',
-  `money` int(11) DEFAULT '0' COMMENT '商品价格 [num]',
-  `type_id` bigint(20) DEFAULT NULL COMMENT '所属分类 [num]',
-  `stock_count` int(11) DEFAULT '0' COMMENT '剩余库存 [num]',
-  `status` int(11) DEFAULT '1' COMMENT '商品状态 (1=上架,2=下架) [j]',
-  `create_time` datetime DEFAULT NULL COMMENT '创建日期 [date-create]',
-  `update_time` datetime DEFAULT NULL COMMENT '更新日期 [date-update]',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=1009 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='商品表\r\n[table icon=el-icon-apple]\r\n[fk-s js=(type_id=sys_type.id), show=name.所属分类, drop]\r\n';
-
-
--- `sp-dev`.sp_admin definition
-
 CREATE TABLE `sp_admin` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id，--主键、自增',
   `name` varchar(100) NOT NULL COMMENT 'admin名称',
@@ -122,17 +87,18 @@ CREATE TABLE `sp_order` (
 
 
 -- `sp-dev`.sp_product definition
-
 CREATE TABLE `sp_product` (
   `id` bigint(20) NOT NULL COMMENT '主键id',
   `name` varchar(100) NOT NULL COMMENT '商品名称',
   `type` char(1) NOT NULL COMMENT '商品类别  1:包天  2:包月  3: 三个月  4: 包季度  5:包年 6:永久',
+  `unit_price` decimal(10,0) DEFAULT NULL COMMENT '单价',
+  `img_url` varchar(100) DEFAULT NULL COMMENT '商品图片',
+  `status` char(1) DEFAULT NULL COMMENT '1：上架  2:下架',
   `create_time` datetime NOT NULL COMMENT '创建时间',
   `create_by` varchar(32) NOT NULL COMMENT '创建人',
   `update_time` datetime NOT NULL COMMENT '更新时间',
   `update_by` varchar(32) NOT NULL COMMENT '更新人'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商品信息表';
-
 
 -- `sp-dev`.sp_role definition
 

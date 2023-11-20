@@ -29,6 +29,9 @@ public class SpProductUtil {
 		AjaxError.throwByIsNull(s.id, "[主键id] 不能为空");		// 验证: 主键id 
 		AjaxError.throwByIsNull(s.name, "[商品名称] 不能为空");		// 验证: 商品名称 
 		AjaxError.throwByIsNull(s.type, "[商品类别1:包天2:包月3:三个月4:包季度5:包年6:永久] 不能为空");		// 验证: 商品类别  1:包天  2:包月  3: 三个月  4: 包季度  5:包年 6:永久 
+		AjaxError.throwByIsNull(s.unitPrice, "[单价] 不能为空");		// 验证: 单价 
+		AjaxError.throwByIsNull(s.imgUrl, "[商品图片] 不能为空");		// 验证: 商品图片 
+		AjaxError.throwByIsNull(s.status, "[1：上架2:下架] 不能为空");		// 验证: 1：上架  2:下架 
 		AjaxError.throwByIsNull(s.createTime, "[创建时间] 不能为空");		// 验证: 创建时间 
 		AjaxError.throwByIsNull(s.createBy, "[创建人] 不能为空");		// 验证: 创建人 
 		AjaxError.throwByIsNull(s.updateTime, "[更新时间] 不能为空");		// 验证: 更新时间 
@@ -40,9 +43,12 @@ public class SpProductUtil {
 	 */ 
 	static SpProduct getSpProduct() {
 		SpProduct s = new SpProduct();	// 声明对象 
-		s.id = "";		// 主键id
+		s.id = 0L;		// 主键id 
 		s.name = "";		// 商品名称 
 		s.type = "";		// 商品类别  1:包天  2:包月  3: 三个月  4: 包季度  5:包年 6:永久 
+		s.unitPrice = 0.0;		// 单价 
+		s.imgUrl = "";		// 商品图片 
+		s.status = "";		// 1：上架  2:下架 
 		s.createTime = "";		// 创建时间 
 		s.createBy = "";		// 创建人 
 		s.updateTime = "";		// 更新时间 

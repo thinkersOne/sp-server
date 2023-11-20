@@ -2,22 +2,20 @@ package com.pj.project.sp_dev.sp_product;
 
 import java.util.List;
 
-import com.pj.current.global.SnowflakeIdGenerator;
 import com.pj.models.so.SoMap;
+import com.pj.project.sp_dev.SP_DEV_SP;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import com.pj.current.satoken.AuthConst;
 import com.pj.utils.sg.*;
-import com.pj.project.sp_dev.SP_DEV_SP;
-
 import com.pj.current.satoken.StpUserUtil;
 import cn.dev33.satoken.annotation.SaCheckPermission;
 
 
 /**
  * Controller: sp_product -- 商品信息表
- * @author lizhihao
+ * @author lizhihao 
  */
 @RestController
 @RequestMapping("/spProduct/")
@@ -26,29 +24,25 @@ public class SpProductController {
 	/** 底层 Service 对象 */
 	@Autowired
 	SpProductService spProductService;
-	@Autowired
-	private SnowflakeIdGenerator snowflakeIdGenerator;
 
-	/** 增 */
+	/** 增 */  
 	@RequestMapping("add")
 	@SaCheckPermission(AuthConst.SP_PRODUCT_ADD)
 	@Transactional(rollbackFor = Exception.class)
 	public AjaxJson add(SpProduct s){
-		s.setId(snowflakeIdGenerator.generateId()+"");
 		spProductService.add(s);
-		s = spProductService.getById(SP_DEV_SP.publicMapper.getPrimarykey());
 		return AjaxJson.getSuccessData(s);
 	}
 
-	/** 删 */
+	/** 删 */  
 	@RequestMapping("delete")
 	@SaCheckPermission(AuthConst.SP_PRODUCT_DELETE)
 	public AjaxJson delete(Long id){
 		int line = spProductService.delete(id);
 		return AjaxJson.getByLine(line);
 	}
-
-	/** 删 - 根据id列表 */
+	
+	/** 删 - 根据id列表 */  
 	@RequestMapping("deleteByIds")
 	@SaCheckPermission(AuthConst.SP_PRODUCT_DELETE_BY_IDS)
 	public AjaxJson deleteByIds(){
@@ -56,8 +50,8 @@ public class SpProductController {
 		int line = SP_DEV_SP.publicMapper.deleteByIds(SpProduct.TABLE_NAME, ids);
 		return AjaxJson.getByLine(line);
 	}
-
-	/** 改 */
+	
+	/** 改 */  
 	@RequestMapping("update")
 	@SaCheckPermission(AuthConst.SP_PRODUCT_UPDATE)
 	public AjaxJson update(SpProduct s){
@@ -65,7 +59,7 @@ public class SpProductController {
 		return AjaxJson.getByLine(line);
 	}
 
-	/** 查 - 根据id */
+	/** 查 - 根据id */  
 	@RequestMapping("getById")
 	@SaCheckPermission(AuthConst.SP_PRODUCT_GETBY＿ID)
 	public AjaxJson getById(Long id){
@@ -73,7 +67,7 @@ public class SpProductController {
 		return AjaxJson.getSuccessData(s);
 	}
 
-	/** 查集合 - 根据条件（参数为空时代表忽略指定条件） */
+	/** 查集合 - 根据条件（参数为空时代表忽略指定条件） */  
 	@RequestMapping("getList")
 	@SaCheckPermission(AuthConst.SP_PRODUCT_GETLIST)
 	public AjaxJson getList() {
@@ -81,31 +75,5 @@ public class SpProductController {
 		List<SpProduct> list = spProductService.getList(so.startPage());
 		return AjaxJson.getPageData(so.getDataCount(), list);
 	}
-
-
-
-
-	// ------------------------- 前端接口 -------------------------
-
-
-	/** 改 - 不传不改 [G] */
-	@RequestMapping("updateByNotNull")
-	public AjaxJson updateByNotNull(Long id){
-		AjaxError.throwBy(true, "如需正常调用此接口，请删除此行代码");
-		// 鉴别身份，是否为数据创建者
-		long userId = SP_DEV_SP.publicMapper.getColumnByIdToLong(SpProduct.TABLE_NAME, "user_id", id);
-		AjaxError.throwBy(userId != StpUserUtil.getLoginIdAsLong(), "此数据您无权限修改");
-		// 开始修改 (请只保留需要修改的字段)
-		SoMap so = SoMap.getRequestSoMap();
-		so.clearNotIn("id", "name", "type", "createTime", "createBy", "updateTime", "updateBy").clearNull().humpToLineCase();
-		int line = SP_DEV_SP.publicMapper.updateBySoMapById(SpProduct.TABLE_NAME, so, id);
-		return AjaxJson.getByLine(line);
-	}
-
-
-
-
-
-
 
 }

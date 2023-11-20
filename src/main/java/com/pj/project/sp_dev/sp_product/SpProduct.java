@@ -32,7 +32,7 @@ public class SpProduct implements Serializable {
 	/**
 	 * 主键id 
 	 */
-	public String id;
+	public Long id;	
 
 	/**
 	 * 商品名称 
@@ -43,7 +43,21 @@ public class SpProduct implements Serializable {
 	 * 商品类别  1:包天  2:包月  3: 三个月  4: 包季度  5:包年 6:永久 
 	 */
 	public String type;	
-	public String typeName;
+
+	/**
+	 * 单价 
+	 */
+	public Double unitPrice;	
+
+	/**
+	 * 商品图片 
+	 */
+	public String imgUrl;	
+
+	/**
+	 * 1：上架  2:下架 
+	 */
+	public String status;	
 
 	/**
 	 * 创建时间 
