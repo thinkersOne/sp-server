@@ -87,17 +87,19 @@ CREATE TABLE `sp_order` (
 
 
 -- `sp-dev`.sp_product definition
+
 CREATE TABLE `sp_product` (
-  `id` bigint(20) NOT NULL COMMENT '主键id',
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键id',
   `name` varchar(100) NOT NULL COMMENT '商品名称',
-  `type` char(1) NOT NULL COMMENT '商品类别  1:包天  2:包月  3: 三个月  4: 包季度  5:包年 6:永久',
+  `type` char(1) NOT NULL COMMENT '商品类别  1:包天  2:包月  3:  包季度  4:包年 5:永久',
   `unit_price` decimal(10,0) DEFAULT NULL COMMENT '单价',
   `img_url` varchar(100) DEFAULT NULL COMMENT '商品图片',
   `status` char(1) DEFAULT NULL COMMENT '1：上架  2:下架',
   `create_time` datetime NOT NULL COMMENT '创建时间',
   `create_by` varchar(32) NOT NULL COMMENT '创建人',
   `update_time` datetime NOT NULL COMMENT '更新时间',
-  `update_by` varchar(32) NOT NULL COMMENT '更新人'
+  `update_by` varchar(32) NOT NULL COMMENT '更新人',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商品信息表';
 
 -- `sp-dev`.sp_role definition

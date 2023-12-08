@@ -1,17 +1,14 @@
 package com.pj.current.enums;
 
-public enum ProductTypeEnum {
-    ONE("1","包天"),
-    TWO("2","包月"),
-    FOUR("3","包季度"),
-    FIVE("4","包年"),
-    SIX("5","永久"),
+public enum ProductStatusEnum {
+    UP("1","上架"),
+    DOWN("2","下架"),
     ;
 
     private String type;
     private String typeName;
 
-    private ProductTypeEnum(String type, String name){
+    private ProductStatusEnum(String type, String name){
         this.type = type;
         this.typeName = name;
     }
@@ -23,7 +20,7 @@ public enum ProductTypeEnum {
     }
 
     public static String getTypeName(String type){
-        for(ProductTypeEnum vt : ProductTypeEnum.values()) {
+        for(ProductStatusEnum vt : ProductStatusEnum.values()) {
             if (type.equals(vt.getType())) {
                 return vt.getTypeName();
             }

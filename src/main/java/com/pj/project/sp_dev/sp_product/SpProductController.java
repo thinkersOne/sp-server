@@ -2,6 +2,7 @@ package com.pj.project.sp_dev.sp_product;
 
 import java.util.List;
 
+import com.pj.current.enums.ProductStatusEnum;
 import com.pj.models.so.SoMap;
 import com.pj.project.sp_dev.SP_DEV_SP;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,6 @@ public class SpProductController {
 
 	/** 增 */  
 	@RequestMapping("add")
-	@SaCheckPermission(AuthConst.SP_PRODUCT_ADD)
 	@Transactional(rollbackFor = Exception.class)
 	public AjaxJson add(SpProduct s){
 		spProductService.add(s);
@@ -36,7 +36,6 @@ public class SpProductController {
 
 	/** 删 */  
 	@RequestMapping("delete")
-	@SaCheckPermission(AuthConst.SP_PRODUCT_DELETE)
 	public AjaxJson delete(Long id){
 		int line = spProductService.delete(id);
 		return AjaxJson.getByLine(line);
@@ -44,7 +43,6 @@ public class SpProductController {
 	
 	/** 删 - 根据id列表 */  
 	@RequestMapping("deleteByIds")
-	@SaCheckPermission(AuthConst.SP_PRODUCT_DELETE_BY_IDS)
 	public AjaxJson deleteByIds(){
 		List<Long> ids = SoMap.getRequestSoMap().getListByComma("ids", long.class);
 		int line = SP_DEV_SP.publicMapper.deleteByIds(SpProduct.TABLE_NAME, ids);
@@ -53,7 +51,6 @@ public class SpProductController {
 	
 	/** 改 */  
 	@RequestMapping("update")
-	@SaCheckPermission(AuthConst.SP_PRODUCT_UPDATE)
 	public AjaxJson update(SpProduct s){
 		int line = spProductService.update(s);
 		return AjaxJson.getByLine(line);
@@ -73,6 +70,7 @@ public class SpProductController {
 	public AjaxJson getList() {
 		SoMap so = SoMap.getRequestSoMap();
 		List<SpProduct> list = spProductService.getList(so.startPage());
+		list.stream().forEach(v-> v.setStatusName(ProductStatusEnum.getTypeName(v.getStatus())));
 		return AjaxJson.getPageData(so.getDataCount(), list);
 	}
 

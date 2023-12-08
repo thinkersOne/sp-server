@@ -40,7 +40,7 @@ public class SpProduct implements Serializable {
 	public String name;	
 
 	/**
-	 * 商品类别  1:包天  2:包月  3: 三个月  4: 包季度  5:包年 6:永久 
+	 * 商品类别  1:包天  2:包月  3:  包季度  4:包年 5:永久
 	 */
 	public String type;	
 
@@ -58,6 +58,7 @@ public class SpProduct implements Serializable {
 	 * 1：上架  2:下架 
 	 */
 	public String status;	
+	public String statusName;
 
 	/**
 	 * 创建时间 

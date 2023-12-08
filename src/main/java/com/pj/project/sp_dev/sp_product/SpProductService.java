@@ -2,6 +2,8 @@ package com.pj.project.sp_dev.sp_product;
 
 import java.util.List;
 
+import com.pj.current.enums.ProductStatusEnum;
+import com.pj.current.enums.ProductTypeEnum;
 import com.pj.models.so.SoMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,8 @@ public class SpProductService {
 
 	/** 增 */
 	int add(SpProduct s){
+		s.setName(ProductTypeEnum.getTypeName(s.getType()));
+		s.setStatus(ProductStatusEnum.UP.getType());
 		return spProductMapper.add(s);
 	}
 

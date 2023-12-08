@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
 
+import com.pj.current.config.MyConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -38,7 +39,7 @@ public class UploadUtil {
 		String fileFolder = new File(uploadConfig.rootFolder).getAbsolutePath() + "/" +
 				uploadConfig.httpPrefix + flieTypeFolder + currDateFolder + "/";	
 		// 对外暴露的http路径
-		String httpUrl = uploadConfig.httpPrefix + flieTypeFolder + currDateFolder + "/" + fileName;
+		String httpUrl = getDoMain() + uploadConfig.httpPrefix + flieTypeFolder + currDateFolder + "/" + fileName;
 		
 		// 2、如果文件夹不存在，则先创建 
 		File dirFile = new File(fileFolder);

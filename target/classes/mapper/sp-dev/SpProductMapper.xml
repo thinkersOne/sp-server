@@ -5,8 +5,8 @@
 	<!-- 增 [G] -->
 	<insert id="add">
 		insert into 
-		sp_product (id, name, type, create_time, create_by, update_time, update_by) 
-		values (#{id}, #{name}, #{type}, #{createTime}, #{createBy}, #{updateTime}, #{updateBy}) 
+		sp_product (id, name, type, unit_price, img_url, status, create_time, create_by, update_time, update_by) 
+		values (#{id}, #{name}, #{type}, #{unitPrice}, #{imgUrl}, #{status}, #{createTime}, #{createBy}, #{updateTime}, #{updateBy}) 
 	</insert>
 
 	<!-- 删 -->
@@ -21,6 +21,9 @@
 		id = #{id}, 
 		name = #{name}, 
 		type = #{type}, 
+		unit_price = #{unitPrice}, 
+		img_url = #{imgUrl}, 
+		status = #{status}, 
 		create_time = #{createTime}, 
 		create_by = #{createBy}, 
 		update_time = #{updateTime}, 
@@ -30,13 +33,16 @@
 
 
 	<!-- ================================== 查询相关 ================================== -->
-	<!-- select id, name, type, create_time, create_by, update_time, update_by from sp_product  -->
+	<!-- select id, name, type, unit_price, img_url, status, create_time, create_by, update_time, update_by from sp_product  -->
 	
 	<!-- 通用映射：手动模式 -->
 	<resultMap id="model" type="com.pj.project.sp_dev.sp_product.SpProduct">
 		<result property="id" column="id" />
 		<result property="name" column="name" />
 		<result property="type" column="type" />
+		<result property="unitPrice" column="unit_price" />
+		<result property="imgUrl" column="img_url" />
+		<result property="status" column="status" />
 		<result property="createTime" column="create_time" />
 		<result property="createBy" column="create_by" />
 		<result property="updateTime" column="update_time" />
@@ -62,6 +68,9 @@
 			<if test=' this.has("id") '> and id = #{id} </if>
 			<if test=' this.has("name") '> and name = #{name} </if>
 			<if test=' this.has("type") '> and type = #{type} </if>
+			<if test=' this.has("unitPrice") '> and unit_price = #{unitPrice} </if>
+			<if test=' this.has("imgUrl") '> and img_url = #{imgUrl} </if>
+			<if test=' this.has("status") '> and status = #{status} </if>
 			<if test=' this.has("createTime") '> and create_time = #{createTime} </if>
 			<if test=' this.has("createBy") '> and create_by = #{createBy} </if>
 			<if test=' this.has("updateTime") '> and update_time = #{updateTime} </if>
@@ -72,10 +81,13 @@
 			<when test='sortType == 1'> id desc </when>
 			<when test='sortType == 2'> name desc </when>
 			<when test='sortType == 3'> type desc </when>
-			<when test='sortType == 4'> create_time desc </when>
-			<when test='sortType == 5'> create_by desc </when>
-			<when test='sortType == 6'> update_time desc </when>
-			<when test='sortType == 7'> update_by desc </when>
+			<when test='sortType == 4'> unit_price desc </when>
+			<when test='sortType == 5'> img_url desc </when>
+			<when test='sortType == 6'> status desc </when>
+			<when test='sortType == 7'> create_time desc </when>
+			<when test='sortType == 8'> create_by desc </when>
+			<when test='sortType == 9'> update_time desc </when>
+			<when test='sortType == 10'> update_by desc </when>
 			<otherwise> id desc </otherwise>
 		</choose>
 	</select>
