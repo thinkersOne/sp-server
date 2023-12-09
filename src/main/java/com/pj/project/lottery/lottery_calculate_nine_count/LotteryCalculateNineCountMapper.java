@@ -1,28 +1,27 @@
-package com.pj.project.lottery.lottery_calculate_per;
+package com.pj.project.lottery.lottery_calculate_nine_count;
 
 import java.util.List;
 
 import com.pj.models.so.SoMap;
-import com.pj.project.lottery.lottery_calculate_nine_count.LotteryCalculateNineCount;
-import com.pj.project.lottery.unionLotto.domain.Lottery;
+import com.pj.project.lottery.lottery_calculate_per.LotteryCalculatePer;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 /**
- * Mapper: lottery_calculate_per -- 统计计算每期双色球表
+ * Mapper: lottery_calculate_nine_count -- 统计九转中四行数据每行上出现个数的统计表
  * @author lizhihao 
  */
 
 @Mapper
 @Repository
-public interface LotteryCalculatePerMapper {
+public interface LotteryCalculateNineCountMapper {
 
 	/**
 	 * 增  
 	 * @param l 实体对象 
 	 * @return 受影响行数 
 	 */
-	int add(LotteryCalculatePer l);
+	int add(LotteryCalculateNineCount l);
 
 	/**
 	 * 删  
@@ -36,28 +35,21 @@ public interface LotteryCalculatePerMapper {
 	 * @param l 实体对象 
 	 * @return 受影响行数 
 	 */
-	int update(LotteryCalculatePer l);
+	int update(LotteryCalculateNineCount l);
 
 	/** 
 	 * 查 - 根据id  
 	 * @param id 要查询的数据id 
 	 * @return 实体对象 
 	 */
-	LotteryCalculatePer getById(Long id);
-
-	LotteryCalculatePer getBeforeInfo();
+	LotteryCalculateNineCount getById(Long id);	 
 
 	/**
 	 * 查集合 - 根据条件（参数为空时代表忽略指定条件）
 	 * @param so 参数集合 
 	 * @return 数据列表 
 	 */
-	List<LotteryCalculatePer> getList(SoMap so);
-	void batchInsertLotteryCalculatePer(List<LotteryCalculatePer> list);
+	List<LotteryCalculateNineCount> getList(SoMap so);
+	void batchInsertLotteryCalculateNineCount(List<LotteryCalculateNineCount> list);
 	void deleteAll();
-
-	LotteryCalculatePerM getMinAndMax();
-
-	List<LotteryCalculateNineCount> getNineCountList();
-
 }

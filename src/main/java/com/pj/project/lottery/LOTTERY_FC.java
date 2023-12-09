@@ -12,6 +12,8 @@ import com.pj.project.lottery.lottery_calculate_count.LotteryCalculateCountMappe
 import com.pj.project.lottery.lottery_calculate_count.LotteryCalculateCountService;
 import com.pj.project.lottery.lottery_calculate_nine.LotteryCalculateNineMapper;
 import com.pj.project.lottery.lottery_calculate_nine.LotteryCalculateNineService;
+import com.pj.project.lottery.lottery_calculate_nine_count.LotteryCalculateNineCountMapper;
+import com.pj.project.lottery.lottery_calculate_nine_count.LotteryCalculateNineCountService;
 import com.pj.project.lottery.lottery_calculate_per.LotteryCalculatePerMapper;
 import com.pj.project.lottery.lottery_calculate_per.LotteryCalculatePerService;
 import com.pj.project.lottery.lottery_forecast.LotteryForecastMapper;
@@ -39,7 +41,7 @@ public class LOTTERY_FC {
     public static LotteryAllMapper lotteryAllMapper;		// Mapper：所有可能得红球组合
     public static LotterySelectMapper lotterySelectMapper;		// Mapper：经过初步筛选后的全量双色球表
     public static LotteryForecastMapper lotteryForecastMapper;		// Mapper：号码预测
-
+    public static LotteryCalculateNineCountMapper lotteryCalculateNineCountMapper;		// Mapper：统计九转中四行数据每行上出现个数的统计表
 
     // ======================================== 所有Service ==============================================
 
@@ -51,6 +53,7 @@ public class LOTTERY_FC {
     public static LotteryAllService lotteryAllService;		// Service：所有可能得红球组合
     public static LotterySelectService lotterySelectService;		// Service：经过初步筛选后的全量双色球表
     public static LotteryForecastService lotteryForecastService;		// Service：号码预测
+    public static LotteryCalculateNineCountService lotteryCalculateNineCountService;		// Service：统计九转中四行数据每行上出现个数的统计表
 
 
 
@@ -67,10 +70,12 @@ public class LOTTERY_FC {
             LotteryAllMapper lotteryAllMapper,
             LotterySelectMapper lotterySelectMapper,
             LotteryForecastMapper lotteryForecastMapper,
+            LotteryCalculateNineCountMapper lotteryCalculateNineCountMapper,
 
             LotteryService lotteryService,
             LotteryCalculatePerService lotteryCalculatePerService,
             LotteryCalculateCountService lotteryCalculateCountService,
+            LotteryCalculateNineCountService lotteryCalculateNineCountService,
             LotteryCalculateNineService lotteryCalculateNineService,
             LotteryAllService lotteryAllService,
             LotterySelectService lotterySelectService,
@@ -82,6 +87,7 @@ public class LOTTERY_FC {
         LOTTERY_FC.lotteryCalculatePerMapper = lotteryCalculatePerMapper;
         LOTTERY_FC.lotteryCalculateCountMapper = lotteryCalculateCountMapper;
         LOTTERY_FC.lotteryCalculateNineMapper = lotteryCalculateNineMapper;
+        LOTTERY_FC.lotteryCalculateNineCountMapper = lotteryCalculateNineCountMapper;
         LOTTERY_FC.lotteryAllMapper = lotteryAllMapper;
         LOTTERY_FC.lotterySelectMapper = lotterySelectMapper;
         LOTTERY_FC.lotteryForecastMapper = lotteryForecastMapper;
@@ -91,6 +97,7 @@ public class LOTTERY_FC {
         LOTTERY_FC.lotteryCalculatePerService = lotteryCalculatePerService;
         LOTTERY_FC.lotteryCalculateCountService = lotteryCalculateCountService;
         LOTTERY_FC.lotteryCalculateNineService = lotteryCalculateNineService;
+        LOTTERY_FC.lotteryCalculateNineCountService = lotteryCalculateNineCountService;
         LOTTERY_FC.lotteryAllService = lotteryAllService;
         LOTTERY_FC.lotterySelectService = lotterySelectService;
         LOTTERY_FC.lotteryForecastService = lotteryForecastService;

@@ -70,7 +70,7 @@ public class LotteryCalculateNineController {
 	 * 从lottery_calculate_per表计算后同步数据-》LotteryCalculateNine
 	 * @return
 	 */
-	@GetMapping("/sync/LotteryCalculateNine")
+	@GetMapping("/sync/lotteryCalculateNine")
 	public AjaxJson LotteryCalculateNine() {
 		lotteryCalculateNineService.lotteryCalculateNine();
 		return AjaxJson.getSuccess();

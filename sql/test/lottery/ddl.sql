@@ -229,3 +229,17 @@ CREATE TABLE `lottery_forecast` (
   `blue` varchar(100) DEFAULT NULL COMMENT '预测蓝球',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='号码预测';
+
+CREATE TABLE lottery.lottery_calculate_nine_count (
+	id BIGINT auto_increment NOT NULL COMMENT '主键id',
+	count INT DEFAULT 0 NOT NULL COMMENT '统计出现的个数',
+	nine INT NOT NULL COMMENT '分组统计个数',
+	`type` INT NOT NULL COMMENT '类型：9、17、33',
+	location_type INT NOT NULL COMMENT '方位类型 1、2、3、4',
+	CONSTRAINT lottery_calculate_nine_count_PK PRIMARY KEY (id)
+)
+ENGINE=InnoDB
+DEFAULT CHARSET=utf8
+COLLATE=utf8_general_ci
+COMMENT='统计九转中四行数据每行上出现个数的统计表';
+

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pj.project.lottery.lottery_calculate_nine_count.LotteryCalculateNineCountMapper">
+
+	<!-- 增 [G] -->
+	<insert id="add">
+		insert into 
+		lottery_calculate_nine_count (id, `count`, nine, type, location_type)
+		values (#{id}, #{count}, #{nine}, #{type}, #{locationType}) 
+	</insert>
+	<insert id="batchInsertLotteryCalculateNineCount" parameterType="java.util.List">
+		INSERT INTO lottery_calculate_nine_count (id, `count`, nine, type, location_type)
+		VALUES
+		<foreach collection="list" item="l" separator=",">
+			(#{l.id}, #{l.count}, #{l.nine}, #{l.type}, #{l.locationType})
+		</foreach>
+	</insert>
+	<!-- 删 -->
+	<delete id="delete">
+		delete from lottery_calculate_nine_count 
+		where id = #{id}
+	</delete>
+
+	<!-- 改 [G] -->
+	<update id="update">
+		update lottery_calculate_nine_count set
+		id = #{id}, 
+		count = #{count}, 
+		nine = #{nine}, 
+		type = #{type}, 
+		location_type = #{locationType}
+		where id = #{id}
+	</update>
+
+
+	<!-- ================================== 查询相关 ================================== -->
+	<!-- select id, count, nine, type, location_type from lottery_calculate_nine_count  -->
+	
+	<!-- 通用映射：手动模式 -->
+	<resultMap id="model" type="com.pj.project.lottery.lottery_calculate_nine_count.LotteryCalculateNineCount">
+		<result property="id" column="id" />
+		<result property="count" column="count" />
+		<result property="nine" column="nine" />
+		<result property="type" column="type" />
+		<result property="locationType" column="location_type" />
+	</resultMap>
+	
+	<!-- 公共查询sql片段 -->
+	<sql id="select_sql">
+		select * 
+		from lottery_calculate_nine_count 
+	</sql>
+	
+	<!-- 查 - 根据id -->
+	<select id="getById" resultMap="model">
+		<include refid="select_sql"></include>
+		where id = #{id}
+	</select>
+	
+	<!-- 查集合 - 根据条件（参数为空时代表忽略指定条件） [G] -->
+	<select id="getList" resultMap="model">
+		<include refid="select_sql"></include>
+		<where>
+			<if test=' this.has("id") '> and id = #{id} </if>
+			<if test=' this.has("count") '> and count = #{count} </if>
+			<if test=' this.has("nine") '> and nine = #{nine} </if>
+			<if test=' this.has("type") '> and type = #{type} </if>
+			<if test=' this.has("locationType") '> and location_type = #{locationType} </if>
+		</where>
+		order by
+		<choose>
+			<when test='sortType == 1'> id desc </when>
+			<when test='sortType == 2'> count desc </when>
+			<when test='sortType == 3'> nine desc </when>
+			<when test='sortType == 4'> type desc </when>
+			<when test='sortType == 5'> location_type desc </when>
+			<otherwise> id desc </otherwise>
+		</choose>
+	</select>
+
+
+	<delete id="deleteAll">
+		delete from lottery_calculate_nine_count
+	</delete>
+	
+	
+	
+	
+
+</mapper>
