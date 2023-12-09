@@ -116,9 +116,56 @@
 		max(red_sum) as red_sum_max,min(red_sum) as red_sum_min
 		from lottery_calculate_per
 	</select>
-	
-	
-	
+
+	<select id="getNineCountList" resultType="com.pj.project.lottery.lottery_calculate_nine_count.LotteryCalculateNineCount">
+		select count(*) as count,nine,09 as type,1 as location_type from (
+		select SUBSTR(nine_turn_09,1,1) as nine,code from lottery_calculate_per order by code DESC
+		) a group by nine
+		union
+		select count(*) as count,nine,09 as type,2 as location_type from (
+		select SUBSTR(nine_turn_09,3,1) as nine,code from lottery_calculate_per order by code DESC
+		) a group by nine
+		union
+		select count(*) as count,nine,09 as type,3 as location_type from (
+		select SUBSTR(nine_turn_09,5,1) as nine,code from lottery_calculate_per order by code DESC
+		) a group by nine
+		union
+		select count(*) as count,nine,09 as type,4 as location_type from (
+		select SUBSTR(nine_turn_09,7,1) as nine,code from lottery_calculate_per order by code DESC
+		) a group by nine
+		union
+		select count(*) as count,nine,17 as type,1 as location_type from (
+		select SUBSTR(nine_turn_17,1,1) as nine,code from lottery_calculate_per order by code DESC
+		) a group by nine
+		union
+		select count(*) as count,nine,17 as type,2 as location_type from (
+		select SUBSTR(nine_turn_17,3,1) as nine,code from lottery_calculate_per order by code DESC
+		) a group by nine
+		union
+		select count(*) as count,nine,17 as type,3 as location_type from (
+		select SUBSTR(nine_turn_17,5,1) as nine,code from lottery_calculate_per order by code DESC
+		) a group by nine
+		union
+		select count(*) as count,nine,17 as type,4 as location_type from (
+		select SUBSTR(nine_turn_17,7,1) as nine,code from lottery_calculate_per order by code DESC
+		) a group by nine
+		union
+		select count(*) as count,nine,33 as type,1 as location_type from (
+		select SUBSTR(nine_turn_33,1,1) as nine,code from lottery_calculate_per order by code DESC
+		) a group by nine
+		union
+		select count(*) as count,nine,33 as type,2 as location_type from (
+		select SUBSTR(nine_turn_33,3,1) as nine,code from lottery_calculate_per order by code DESC
+		) a group by nine
+		union
+		select count(*) as count,nine,33 as type,3 as location_type from (
+		select SUBSTR(nine_turn_33,5,1) as nine,code from lottery_calculate_per order by code DESC
+		) a group by nine
+		union
+		select count(*) as count,nine,33 as type,4 as location_type from (
+		select SUBSTR(nine_turn_33,7,1) as nine,code from lottery_calculate_per order by code DESC
+		) a group by nine;
+	</select>
 	
 	
 
