@@ -13,6 +13,9 @@ import com.pj.project.lottery.lottery_all.LotteryAll;
 import com.pj.project.lottery.lottery_all.LotteryAllMapper;
 import com.pj.project.lottery.lottery_calculate_nine.LotteryCalculateNineM;
 import com.pj.project.lottery.lottery_calculate_nine.LotteryCalculateNineMapper;
+import com.pj.project.lottery.lottery_calculate_nine_count.LotteryCalculateNineCount;
+import com.pj.project.lottery.lottery_calculate_nine_count.LotteryCalculateNineCountMapper;
+import com.pj.project.lottery.lottery_calculate_nine_count.NineMinAndMaxDTO;
 import com.pj.project.lottery.lottery_calculate_per.LotteryCalculatePer;
 import com.pj.project.lottery.lottery_calculate_per.LotteryCalculatePerM;
 import com.pj.project.lottery.lottery_calculate_per.LotteryCalculatePerMapper;
@@ -20,6 +23,7 @@ import com.pj.project.lottery.unionLotto.enums.NineTypeEnum;
 import com.pj.project.lottery.unionLotto.utils.PersonalLawUtils;
 import com.pj.project.lottery.unionLotto.utils.RuleUtils;
 import com.pj.utils.IntegerUtils;
+import org.apache.tomcat.util.digester.Rule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -38,6 +42,8 @@ public class LotterySelectService {
 	LotteryAllMapper lotteryAllMapper;
 	@Autowired
 	LotteryCalculatePerMapper lotteryCalculatePerMapper;
+	@Autowired
+	LotteryCalculateNineCountMapper lotteryCalculateNineCountMapper;
 	@Autowired
 	LotteryCalculateNineMapper lotteryCalculateNineMapper;
 
@@ -82,6 +88,7 @@ public class LotterySelectService {
 		//查询历史和值最小值、最大值,连号个数：0~2、最大连号数：1~5
 		LotteryCalculatePerM lotteryCalculatePerM = lotteryCalculatePerMapper.getMinAndMax();
 		List<LotteryCalculateNineM> lotteryCalculateNineMs = lotteryCalculateNineMapper.getMinAndMax();
+		List<NineMinAndMaxDTO> nineMinAndMaxs = lotteryCalculateNineCountMapper.getNineMinAndMaxs();
 		LotteryCalculateNineM lotteryCalculateNineM09 = lotteryCalculateNineMs.stream().filter(v ->
 						v.getNineTurnType() == NineTypeEnum.NINE09.getType()).findFirst().get();
 		LotteryCalculateNineM lotteryCalculateNineM17 = lotteryCalculateNineMs.stream().filter(v ->
@@ -102,13 +109,14 @@ public class LotterySelectService {
 					lotteryCalculatePerM.getConsecutiveNumbersCountMin() && consecutiveNumbersCount <=
 					lotteryCalculatePerM.getConsecutiveNumbersCountMax()
 					&& maxConsecutiveNumbers >= lotteryCalculatePerM.getMaxConsecutiveNumbersMin() &&
-					maxConsecutiveNumbers <= lotteryCalculatePerM.getMaxConsecutiveNumbersMax() &&
-					nineTurnArray09[0] <= lotteryCalculateNineM09.getNineTurnMax()
-					&& nineTurnArray09[1] >= lotteryCalculateNineM09.getNineTurnMin() &&
-					nineTurnArray17[0] <= lotteryCalculateNineM17.getNineTurnMax()
-					&& nineTurnArray17[1] >= lotteryCalculateNineM17.getNineTurnMin() &&
-					nineTurnArray33[0] <= lotteryCalculateNineM33.getNineTurnMax()
+					maxConsecutiveNumbers <= lotteryCalculatePerM.getMaxConsecutiveNumbersMax()
+					&& nineTurnArray09[0] <= lotteryCalculateNineM09.getNineTurnMax()
+					&& nineTurnArray09[1] >= lotteryCalculateNineM09.getNineTurnMin()
+					&& nineTurnArray17[0] <= lotteryCalculateNineM17.getNineTurnMax()
+					&& nineTurnArray17[1] >= lotteryCalculateNineM17.getNineTurnMin()
+					&& nineTurnArray33[0] <= lotteryCalculateNineM33.getNineTurnMax()
 					&& nineTurnArray33[1] >= lotteryCalculateNineM33.getNineTurnMin()
+					&& RuleUtils.enableContainNine(v.getRed(),nineMinAndMaxs)
 					){
 				LotterySelect lotterySelect = new LotterySelect();
 				lotterySelect.setRed(v.getRed());

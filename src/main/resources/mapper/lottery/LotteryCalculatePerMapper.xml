@@ -5,14 +5,14 @@
 	<!-- 增 [G] -->
 	<insert id="add">
 		insert into
-		lottery_calculate_per (id, code, red, blue, red_range_ratio, red_parity_ratio, red_sum, blue_range, blue_big_small, blue_parity, year, month, week, nine_turn_09, nine_turn_17, nine_turn_33, max_consecutive_numbers, consecutive_numbers_count)
-		values (#{id}, #{code}, #{red}, #{blue}, #{redRangeRatio}, #{redParityRatio}, #{redSum}, #{blueRange}, #{blueBigSmall}, #{blueParity}, #{year}, #{month}, #{week}, #{nineTurn09}, #{nineTurn17}, #{nineTurn33}, #{maxConsecutiveNumbers}, #{consecutiveNumbersCount})
+		lottery_calculate_per (id, code, red, blue, red_range_ratio, red_parity_ratio, red_sum, blue_range, blue_big_small, blue_parity, year, month, week, nine_turn_09, nine_turn_17, nine_turn_33, max_consecutive_numbers, consecutive_numbers_count,before_code_count,before_common_code_count)
+		values (#{id}, #{code}, #{red}, #{blue}, #{redRangeRatio}, #{redParityRatio}, #{redSum}, #{blueRange}, #{blueBigSmall}, #{blueParity}, #{year}, #{month}, #{week}, #{nineTurn09}, #{nineTurn17}, #{nineTurn33}, #{maxConsecutiveNumbers}, #{consecutiveNumbersCount},#{beforeCodeCount},#{beforeCommonCodeCount})
 	</insert>
 	<insert id="batchInsertLotteryCalculatePer" parameterType="java.util.List">
-		INSERT INTO lottery_calculate_per (id, code, red, blue, red_range_ratio, red_parity_ratio, red_sum, blue_range, blue_big_small, blue_parity, year, month, week, nine_turn_09, nine_turn_17, nine_turn_33, max_consecutive_numbers, consecutive_numbers_count)
+		INSERT INTO lottery_calculate_per (id, code, red, blue, red_range_ratio, red_parity_ratio, red_sum, blue_range, blue_big_small, blue_parity, year, month, week, nine_turn_09, nine_turn_17, nine_turn_33, max_consecutive_numbers, consecutive_numbers_count,before_code_count,before_common_code_count)
 		VALUES
 		<foreach collection="list" item="l" separator=",">
-			(#{l.id}, #{l.code}, #{l.red}, #{l.blue}, #{l.redRangeRatio}, #{l.redParityRatio}, #{l.redSum}, #{l.blueRange}, #{l.blueBigSmall}, #{l.blueParity}, #{l.year}, #{l.month}, #{l.week}, #{l.nineTurn09}, #{l.nineTurn17}, #{l.nineTurn33}, #{l.maxConsecutiveNumbers}, #{l.consecutiveNumbersCount})
+			(#{l.id}, #{l.code}, #{l.red}, #{l.blue}, #{l.redRangeRatio}, #{l.redParityRatio}, #{l.redSum}, #{l.blueRange}, #{l.blueBigSmall}, #{l.blueParity}, #{l.year}, #{l.month}, #{l.week}, #{l.nineTurn09}, #{l.nineTurn17}, #{l.nineTurn33}, #{l.maxConsecutiveNumbers}, #{l.consecutiveNumbersCount},#{l.beforeCodeCount},#{l.beforeCommonCodeCount})
 		</foreach>
 	</insert>
 	<!-- 删 -->
@@ -164,7 +164,7 @@
 		union
 		select count(*) as count,nine,33 as type,4 as location_type from (
 		select SUBSTR(nine_turn_33,7,1) as nine,code from lottery_calculate_per order by code DESC
-		) a group by nine;
+		) a group by nine
 	</select>
 	
 	

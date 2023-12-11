@@ -1,14 +1,13 @@
 package com.pj.project.lottery.unionLotto.utils;
 
 import com.pj.current.global.RuleConstants;
+import com.pj.project.lottery.lottery_calculate_nine_count.LotteryCalculateNineCount;
+import com.pj.project.lottery.lottery_calculate_nine_count.NineMinAndMaxDTO;
 import com.pj.project.lottery.unionLotto.domain.ConvertDoubleSpheresReq;
 import com.pj.project.lottery.unionLotto.domain.Lottery;
 import com.pj.project.lottery.unionLotto.domain.LotteryCalVo;
 import com.pj.project.lottery.unionLotto.domain.LotteryInterval;
-import com.pj.project.lottery.unionLotto.enums.BlueAreaEnum;
-import com.pj.project.lottery.unionLotto.enums.BlueBigSmallEnum;
-import com.pj.project.lottery.unionLotto.enums.BlueBroadEnum;
-import com.pj.project.lottery.unionLotto.enums.BlueParityRatioEnum;
+import com.pj.project.lottery.unionLotto.enums.*;
 import com.pj.utils.BigDecimalUtils;
 import com.pj.utils.IntegerUtils;
 import org.springframework.util.CollectionUtils;
@@ -116,6 +115,51 @@ public class RuleUtils {
     public static boolean isMeetRuleConstants09(String currentLotteryRed){
         return isMeetRuleConstants( currentLotteryRed,RuleConstants.NINE_TURN_SERIAL_DIAGRAM_09);
     }
+
+    public static boolean enableContainNine(String code,int min,int max,String[] strings){
+        int count = com.pj.utils.StringUtils.arraysContainerStr(strings,code);
+        return count >= min && count <= max;
+    }
+
+    public static boolean enableContainNine(String code,List<NineMinAndMaxDTO> nineMinAndMaxDTOS){
+        List<NineMinAndMaxDTO> nineMinAndMaxDTO9List = nineMinAndMaxDTOS.stream()
+                .filter(v -> v.getType() == NineTypeEnum.NINE09.getType())
+                .collect(Collectors.toList());
+        boolean a = enableNinePerCount(nineMinAndMaxDTO9List, code, RuleConstants.NINE_TURN_SERIAL_DIAGRAM_09);
+        if(!a){
+            return false;
+        }
+        List<NineMinAndMaxDTO> nineMinAndMaxDTO17List = nineMinAndMaxDTOS.stream()
+                .filter(v -> v.getType() == NineTypeEnum.NINE17.getType())
+                .collect(Collectors.toList());
+        boolean b = enableNinePerCount(nineMinAndMaxDTO17List, code, RuleConstants.NINE_TURN_SERIAL_DIAGRAM_17);
+        if(!b){
+            return false;
+        }
+        List<NineMinAndMaxDTO> nineMinAndMaxDTO33List = nineMinAndMaxDTOS.stream()
+                .filter(v -> v.getType() == NineTypeEnum.NINE33.getType())
+                .collect(Collectors.toList());
+        boolean c = enableNinePerCount(nineMinAndMaxDTO33List, code, RuleConstants.NINE_TURN_SERIAL_DIAGRAM_33);
+        if(!c){
+            return false;
+        }
+        return true;
+    }
+
+    private static boolean enableNinePerCount(List<NineMinAndMaxDTO> nineMinAndMaxDTO9List,String code,String[][] strings){
+        for (int i = 0; i < 4; i++) {
+            int finalI = i;
+            NineMinAndMaxDTO nineMinAndMaxDTO1 = nineMinAndMaxDTO9List.stream()
+                    .filter(v -> v.getLocationType() == finalI +1).findFirst().get();
+            String[] strings1 = strings[i];
+            boolean a = enableContainNine(code, nineMinAndMaxDTO1.getMin(), nineMinAndMaxDTO1.getMax(), strings1);
+            if(!a){
+                return false;
+            }
+        }
+        return true;
+    }
+
 
     /**
      * 是否同时满足三种九转连环图情况

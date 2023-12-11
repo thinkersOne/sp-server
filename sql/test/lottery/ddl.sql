@@ -243,3 +243,5 @@ DEFAULT CHARSET=utf8
 COLLATE=utf8_general_ci
 COMMENT='统计九转中四行数据每行上出现个数的统计表';
 
+ALTER TABLE lottery.lottery_calculate_per ADD before_code_count INT DEFAULT 0 NOT NULL COMMENT '与上一期比较相同的红球数';
+ALTER TABLE lottery.lottery_calculate_per ADD before_common_code_count INT DEFAULT 0 NOT NULL COMMENT '同期号上一期相同红球数';

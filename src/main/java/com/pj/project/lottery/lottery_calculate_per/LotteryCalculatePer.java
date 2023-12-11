@@ -120,9 +120,9 @@ public class LotteryCalculatePer implements Serializable {
 	public Integer consecutiveNumbersCount;	
 
 
+	public Integer beforeCodeCount = 0;
 
-
-
+	public Integer beforeCommonCodeCount = 0;
 	
 
 

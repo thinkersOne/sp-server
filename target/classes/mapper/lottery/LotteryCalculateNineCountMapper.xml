@@ -83,7 +83,10 @@
 		delete from lottery_calculate_nine_count
 	</delete>
 	
-	
+	<select id="getNineMinAndMaxs" resultType="com.pj.project.lottery.lottery_calculate_nine_count.NineMinAndMaxDTO">
+		select min(nine) as `min`,max(nine) as `max`,type,location_type from lottery_calculate_nine_count
+		group by type,location_type
+	</select>
 	
 	
 
