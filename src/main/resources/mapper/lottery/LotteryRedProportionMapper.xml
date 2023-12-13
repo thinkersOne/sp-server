@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pj.project.lottery.lottery_red_proportion.LotteryRedProportionMapper">
+
+	<!-- 增 [G] -->
+	<insert id="add">
+		insert into 
+		lottery_red_proportion (id, code, red1, red2, red3, red4, red5, red6, red7, red8, red9, red10, red11, red12, red13, red14, red15, red16, red17, red18, red19, red20, red21, red22, red23, red24, red25, red26, red27, red28, red29, red30, red31, red32, red33, red) 
+		values (#{id}, #{code}, #{red1}, #{red2}, #{red3}, #{red4}, #{red5}, #{red6}, #{red7}, #{red8}, #{red9}, #{red10}, #{red11}, #{red12}, #{red13}, #{red14}, #{red15}, #{red16}, #{red17}, #{red18}, #{red19}, #{red20}, #{red21}, #{red22}, #{red23}, #{red24}, #{red25}, #{red26}, #{red27}, #{red28}, #{red29}, #{red30}, #{red31}, #{red32}, #{red33}, #{red}) 
+	</insert>
+
+	<!-- 删 -->
+	<delete id="delete">
+		delete from lottery_red_proportion 
+		where id = #{id}
+	</delete>
+
+	<!-- 改 [G] -->
+	<update id="update">
+		update lottery_red_proportion set
+		id = #{id}, 
+		code = #{code}, 
+		red1 = #{red1}, 
+		red2 = #{red2}, 
+		red3 = #{red3}, 
+		red4 = #{red4}, 
+		red5 = #{red5}, 
+		red6 = #{red6}, 
+		red7 = #{red7}, 
+		red8 = #{red8}, 
+		red9 = #{red9}, 
+		red10 = #{red10}, 
+		red11 = #{red11}, 
+		red12 = #{red12}, 
+		red13 = #{red13}, 
+		red14 = #{red14}, 
+		red15 = #{red15}, 
+		red16 = #{red16}, 
+		red17 = #{red17}, 
+		red18 = #{red18}, 
+		red19 = #{red19}, 
+		red20 = #{red20}, 
+		red21 = #{red21}, 
+		red22 = #{red22}, 
+		red23 = #{red23}, 
+		red24 = #{red24}, 
+		red25 = #{red25}, 
+		red26 = #{red26}, 
+		red27 = #{red27}, 
+		red28 = #{red28}, 
+		red29 = #{red29}, 
+		red30 = #{red30}, 
+		red31 = #{red31}, 
+		red32 = #{red32}, 
+		red33 = #{red33}, 
+		red = #{red}
+		where id = #{id}
+	</update>
+
+
+	<!-- ================================== 查询相关 ================================== -->
+	<!-- select id, code, red1, red2, red3, red4, red5, red6, red7, red8, red9, red10, red11, red12, red13, red14, red15, red16, red17, red18, red19, red20, red21, red22, red23, red24, red25, red26, red27, red28, red29, red30, red31, red32, red33, red from lottery_red_proportion  -->
+	
+	<!-- 通用映射：手动模式 -->
+	<resultMap id="model" type="com.pj.project.lottery.lottery_red_proportion.LotteryRedProportion">
+		<result property="id" column="id" />
+		<result property="code" column="code" />
+		<result property="red1" column="red1" />
+		<result property="red2" column="red2" />
+		<result property="red3" column="red3" />
+		<result property="red4" column="red4" />
+		<result property="red5" column="red5" />
+		<result property="red6" column="red6" />
+		<result property="red7" column="red7" />
+		<result property="red8" column="red8" />
+		<result property="red9" column="red9" />
+		<result property="red10" column="red10" />
+		<result property="red11" column="red11" />
+		<result property="red12" column="red12" />
+		<result property="red13" column="red13" />
+		<result property="red14" column="red14" />
+		<result property="red15" column="red15" />
+		<result property="red16" column="red16" />
+		<result property="red17" column="red17" />
+		<result property="red18" column="red18" />
+		<result property="red19" column="red19" />
+		<result property="red20" column="red20" />
+		<result property="red21" column="red21" />
+		<result property="red22" column="red22" />
+		<result property="red23" column="red23" />
+		<result property="red24" column="red24" />
+		<result property="red25" column="red25" />
+		<result property="red26" column="red26" />
+		<result property="red27" column="red27" />
+		<result property="red28" column="red28" />
+		<result property="red29" column="red29" />
+		<result property="red30" column="red30" />
+		<result property="red31" column="red31" />
+		<result property="red32" column="red32" />
+		<result property="red33" column="red33" />
+		<result property="red" column="red" />
+	</resultMap>
+	
+	<!-- 公共查询sql片段 -->
+	<sql id="select_sql">
+		select * 
+		from lottery_red_proportion 
+	</sql>
+	
+	<!-- 查 - 根据id -->
+	<select id="getById" resultMap="model">
+		<include refid="select_sql"></include>
+		where id = #{id}
+	</select>
+	
+	<!-- 查集合 - 根据条件（参数为空时代表忽略指定条件） [G] -->
+	<select id="getList" resultMap="model">
+		<include refid="select_sql"></include>
+		<where>
+			<if test=' this.has("id") '> and id = #{id} </if>
+			<if test=' this.has("code") '> and code = #{code} </if>
+			<if test=' this.has("red1") '> and red1 = #{red1} </if>
+			<if test=' this.has("red2") '> and red2 = #{red2} </if>
+			<if test=' this.has("red3") '> and red3 = #{red3} </if>
+			<if test=' this.has("red4") '> and red4 = #{red4} </if>
+			<if test=' this.has("red5") '> and red5 = #{red5} </if>
+			<if test=' this.has("red6") '> and red6 = #{red6} </if>
+			<if test=' this.has("red7") '> and red7 = #{red7} </if>
+			<if test=' this.has("red8") '> and red8 = #{red8} </if>
+			<if test=' this.has("red9") '> and red9 = #{red9} </if>
+			<if test=' this.has("red10") '> and red10 = #{red10} </if>
+			<if test=' this.has("red11") '> and red11 = #{red11} </if>
+			<if test=' this.has("red12") '> and red12 = #{red12} </if>
+			<if test=' this.has("red13") '> and red13 = #{red13} </if>
+			<if test=' this.has("red14") '> and red14 = #{red14} </if>
+			<if test=' this.has("red15") '> and red15 = #{red15} </if>
+			<if test=' this.has("red16") '> and red16 = #{red16} </if>
+			<if test=' this.has("red17") '> and red17 = #{red17} </if>
+			<if test=' this.has("red18") '> and red18 = #{red18} </if>
+			<if test=' this.has("red19") '> and red19 = #{red19} </if>
+			<if test=' this.has("red20") '> and red20 = #{red20} </if>
+			<if test=' this.has("red21") '> and red21 = #{red21} </if>
+			<if test=' this.has("red22") '> and red22 = #{red22} </if>
+			<if test=' this.has("red23") '> and red23 = #{red23} </if>
+			<if test=' this.has("red24") '> and red24 = #{red24} </if>
+			<if test=' this.has("red25") '> and red25 = #{red25} </if>
+			<if test=' this.has("red26") '> and red26 = #{red26} </if>
+			<if test=' this.has("red27") '> and red27 = #{red27} </if>
+			<if test=' this.has("red28") '> and red28 = #{red28} </if>
+			<if test=' this.has("red29") '> and red29 = #{red29} </if>
+			<if test=' this.has("red30") '> and red30 = #{red30} </if>
+			<if test=' this.has("red31") '> and red31 = #{red31} </if>
+			<if test=' this.has("red32") '> and red32 = #{red32} </if>
+			<if test=' this.has("red33") '> and red33 = #{red33} </if>
+			<if test=' this.has("red") '> and red = #{red} </if>
+		</where>
+		order by
+		<choose>
+			<when test='sortType == 1'> id desc </when>
+			<when test='sortType == 2'> code desc </when>
+			<when test='sortType == 3'> red1 desc </when>
+			<when test='sortType == 4'> red2 desc </when>
+			<when test='sortType == 5'> red3 desc </when>
+			<when test='sortType == 6'> red4 desc </when>
+			<when test='sortType == 7'> red5 desc </when>
+			<when test='sortType == 8'> red6 desc </when>
+			<when test='sortType == 9'> red7 desc </when>
+			<when test='sortType == 10'> red8 desc </when>
+			<when test='sortType == 11'> red9 desc </when>
+			<when test='sortType == 12'> red10 desc </when>
+			<when test='sortType == 13'> red11 desc </when>
+			<when test='sortType == 14'> red12 desc </when>
+			<when test='sortType == 15'> red13 desc </when>
+			<when test='sortType == 16'> red14 desc </when>
+			<when test='sortType == 17'> red15 desc </when>
+			<when test='sortType == 18'> red16 desc </when>
+			<when test='sortType == 19'> red17 desc </when>
+			<when test='sortType == 20'> red18 desc </when>
+			<when test='sortType == 21'> red19 desc </when>
+			<when test='sortType == 22'> red20 desc </when>
+			<when test='sortType == 23'> red21 desc </when>
+			<when test='sortType == 24'> red22 desc </when>
+			<when test='sortType == 25'> red23 desc </when>
+			<when test='sortType == 26'> red24 desc </when>
+			<when test='sortType == 27'> red25 desc </when>
+			<when test='sortType == 28'> red26 desc </when>
+			<when test='sortType == 29'> red27 desc </when>
+			<when test='sortType == 30'> red28 desc </when>
+			<when test='sortType == 31'> red29 desc </when>
+			<when test='sortType == 32'> red30 desc </when>
+			<when test='sortType == 33'> red31 desc </when>
+			<when test='sortType == 34'> red32 desc </when>
+			<when test='sortType == 35'> red33 desc </when>
+			<when test='sortType == 36'> red desc </when>
+			<otherwise> id desc </otherwise>
+		</choose>
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+</mapper>

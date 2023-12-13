@@ -245,3 +245,50 @@ COMMENT='统计九转中四行数据每行上出现个数的统计表';
 
 ALTER TABLE lottery.lottery_calculate_per ADD before_code_count INT DEFAULT 0 NOT NULL COMMENT '与上一期比较相同的红球数';
 ALTER TABLE lottery.lottery_calculate_per ADD before_common_code_count INT DEFAULT 0 NOT NULL COMMENT '同期号上一期相同红球数';
+
+
+CREATE TABLE lottery.lottery_red_proportion (
+	id bigint(20) auto_increment NOT NULL COMMENT '主键id',
+	code varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '期号',
+	red1 decimal(10,0) DEFAULT 0 NULL COMMENT '红球1占比',
+	red2 decimal(10,0) DEFAULT 0 NULL COMMENT '红球2占比',
+	red3 decimal(10,0) DEFAULT 0 NULL COMMENT '红球3占比',
+	red4 decimal(10,0) DEFAULT 0 NULL COMMENT '红球4占比',
+	red5 decimal(10,0) DEFAULT 0 NULL COMMENT '红球5占比',
+	red6 decimal(10,0) DEFAULT 0 NULL COMMENT '红球6占比',
+	red7 decimal(10,0) DEFAULT 0 NULL COMMENT '红球7占比',
+	red8 decimal(10,0) DEFAULT 0 NULL COMMENT '红球8占比',
+	red9 decimal(10,0) DEFAULT 0 NULL COMMENT '红球9占比',
+	red10 decimal(10,0) DEFAULT 0 NULL COMMENT '红球10占比',
+	red11 decimal(10,0) DEFAULT 0 NULL COMMENT '红球11占比',
+	red12 decimal(10,0) DEFAULT 0 NULL COMMENT '红球12占比',
+	red13 decimal(10,0) DEFAULT 0 NULL COMMENT '红球13占比',
+	red14 decimal(10,0) DEFAULT 0 NULL COMMENT '红球14占比',
+	red15 decimal(10,0) DEFAULT 0 NULL COMMENT '红球15占比',
+	red16 decimal(10,0) DEFAULT 0 NULL COMMENT '红球16占比',
+	red17 decimal(10,0) DEFAULT 0 NULL COMMENT '红球17占比',
+	red18 decimal(10,0) DEFAULT 0 NULL COMMENT '红球18占比',
+	red19 decimal(10,0) DEFAULT 0 NULL COMMENT '红球19占比',
+	red20 decimal(10,0) DEFAULT 0 NULL COMMENT '红球20占比',
+	red21 decimal(10,0) DEFAULT 0 NULL COMMENT '红球21占比',
+	red22 decimal(10,0) DEFAULT 0 NULL COMMENT '红球22占比',
+	red23 decimal(10,0) DEFAULT 0 NULL COMMENT '红球23占比',
+	red24 decimal(10,0) DEFAULT 0 NULL COMMENT '红球24占比',
+	red25 decimal(10,0) DEFAULT 0 NULL COMMENT '红球25占比',
+	red26 decimal(10,0) DEFAULT 0 NULL COMMENT '红球26占比',
+	red27 decimal(10,0) DEFAULT 0 NULL COMMENT '红球27占比',
+	red28 decimal(10,0) DEFAULT 0 NULL COMMENT '红球28占比',
+	red29 decimal(10,0) DEFAULT 0 NULL COMMENT '红球29占比',
+	red30 decimal(10,0) DEFAULT 0 NULL COMMENT '红球30占比',
+	red31 decimal(10,0) DEFAULT 0 NULL COMMENT '红球31占比',
+	red32 decimal(10,0) DEFAULT 0 NULL COMMENT '红球32占比',
+	red33 decimal(10,0) DEFAULT 0 NULL COMMENT '红球33占比',
+	red varchar(100) NULL COMMENT '红球号',
+	CONSTRAINT `PRIMARY` PRIMARY KEY (id)
+)
+ENGINE=InnoDB
+DEFAULT CHARSET=utf8
+COLLATE=utf8_general_ci
+COMMENT='各红球号占比';
+
+
