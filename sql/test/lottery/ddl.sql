@@ -291,4 +291,37 @@ DEFAULT CHARSET=utf8
 COLLATE=utf8_general_ci
 COMMENT='各红球号占比';
 
+ALTER TABLE lottery.lottery_red_proportion MODIFY COLUMN red1 decimal(10,4) DEFAULT 0 NULL COMMENT '红球1占比';
+ALTER TABLE lottery.lottery_red_proportion MODIFY COLUMN red2 decimal(10,4) DEFAULT 0 NULL COMMENT '红球2占比';
+ALTER TABLE lottery.lottery_red_proportion MODIFY COLUMN red3 decimal(10,4) DEFAULT 0 NULL COMMENT '红球3占比';
+ALTER TABLE lottery.lottery_red_proportion MODIFY COLUMN red4 decimal(10,4) DEFAULT 0 NULL COMMENT '红球4占比';
+ALTER TABLE lottery.lottery_red_proportion MODIFY COLUMN red5 decimal(10,4) DEFAULT 0 NULL COMMENT '红球5占比';
+ALTER TABLE lottery.lottery_red_proportion MODIFY COLUMN red6 decimal(10,4) DEFAULT 0 NULL COMMENT '红球6占比';
+ALTER TABLE lottery.lottery_red_proportion MODIFY COLUMN red7 decimal(10,4) DEFAULT 0 NULL COMMENT '红球7占比';
+ALTER TABLE lottery.lottery_red_proportion MODIFY COLUMN red8 decimal(10,4) DEFAULT 0 NULL COMMENT '红球8占比';
+ALTER TABLE lottery.lottery_red_proportion MODIFY COLUMN red9 decimal(10,4) DEFAULT 0 NULL COMMENT '红球9占比';
+ALTER TABLE lottery.lottery_red_proportion MODIFY COLUMN red10 decimal(10,4) DEFAULT 0 NULL COMMENT '红球10占比';
+ALTER TABLE lottery.lottery_red_proportion MODIFY COLUMN red11 decimal(10,4) DEFAULT 0 NULL COMMENT '红球11占比';
+ALTER TABLE lottery.lottery_red_proportion MODIFY COLUMN red12 decimal(10,4) DEFAULT 0 NULL COMMENT '红球12占比';
+ALTER TABLE lottery.lottery_red_proportion MODIFY COLUMN red13 decimal(10,4) DEFAULT 0 NULL COMMENT '红球13占比';
+ALTER TABLE lottery.lottery_red_proportion MODIFY COLUMN red14 decimal(10,4) DEFAULT 0 NULL COMMENT '红球14占比';
+ALTER TABLE lottery.lottery_red_proportion MODIFY COLUMN red15 decimal(10,4) DEFAULT 0 NULL COMMENT '红球15占比';
+ALTER TABLE lottery.lottery_red_proportion MODIFY COLUMN red16 decimal(10,4) DEFAULT 0 NULL COMMENT '红球16占比';
+ALTER TABLE lottery.lottery_red_proportion MODIFY COLUMN red17 decimal(10,4) DEFAULT 0 NULL COMMENT '红球17占比';
+ALTER TABLE lottery.lottery_red_proportion MODIFY COLUMN red18 decimal(10,4) DEFAULT 0 NULL COMMENT '红球18占比';
+ALTER TABLE lottery.lottery_red_proportion MODIFY COLUMN red19 decimal(10,4) DEFAULT 0 NULL COMMENT '红球19占比';
+ALTER TABLE lottery.lottery_red_proportion MODIFY COLUMN red20 decimal(10,4) DEFAULT 0 NULL COMMENT '红球20占比';
+ALTER TABLE lottery.lottery_red_proportion MODIFY COLUMN red21 decimal(10,4) DEFAULT 0 NULL COMMENT '红球21占比';
+ALTER TABLE lottery.lottery_red_proportion MODIFY COLUMN red22 decimal(10,4) DEFAULT 0 NULL COMMENT '红球22占比';
+ALTER TABLE lottery.lottery_red_proportion MODIFY COLUMN red23 decimal(10,4) DEFAULT 0 NULL COMMENT '红球23占比';
+ALTER TABLE lottery.lottery_red_proportion MODIFY COLUMN red24 decimal(10,4) DEFAULT 0 NULL COMMENT '红球24占比';
+ALTER TABLE lottery.lottery_red_proportion MODIFY COLUMN red25 decimal(10,4) DEFAULT 0 NULL COMMENT '红球25占比';
+ALTER TABLE lottery.lottery_red_proportion MODIFY COLUMN red26 decimal(10,4) DEFAULT 0 NULL COMMENT '红球26占比';
+ALTER TABLE lottery.lottery_red_proportion MODIFY COLUMN red27 decimal(10,4) DEFAULT 0 NULL COMMENT '红球27占比';
+ALTER TABLE lottery.lottery_red_proportion MODIFY COLUMN red28 decimal(10,4) DEFAULT 0 NULL COMMENT '红球28占比';
+ALTER TABLE lottery.lottery_red_proportion MODIFY COLUMN red29 decimal(10,4) DEFAULT 0 NULL COMMENT '红球29占比';
+ALTER TABLE lottery.lottery_red_proportion MODIFY COLUMN red30 decimal(10,4) DEFAULT 0 NULL COMMENT '红球30占比';
+ALTER TABLE lottery.lottery_red_proportion MODIFY COLUMN red31 decimal(10,4) DEFAULT 0 NULL COMMENT '红球31占比';
+ALTER TABLE lottery.lottery_red_proportion MODIFY COLUMN red32 decimal(10,4) DEFAULT 0 NULL COMMENT '红球32占比';
+ALTER TABLE lottery.lottery_red_proportion MODIFY COLUMN red33 decimal(10,4) DEFAULT 0 NULL COMMENT '红球33占比';
 

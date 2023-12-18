@@ -3,6 +3,7 @@ package com.pj.project.lottery.lottery_red_proportion;
 import java.util.List;
 
 import com.pj.models.so.SoMap;
+import com.pj.project.lottery.lottery_calculate_per.LotteryCalculatePer;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -51,4 +52,6 @@ public interface LotteryRedProportionMapper {
 	List<LotteryRedProportion> getList(SoMap so);
 
 	void deleteAll();
+
+	void batchInsertLotteryRedProportion(List<LotteryRedProportion> list);
 }
