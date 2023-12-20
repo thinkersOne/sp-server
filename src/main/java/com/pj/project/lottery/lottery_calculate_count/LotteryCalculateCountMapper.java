@@ -56,4 +56,7 @@ public interface LotteryCalculateCountMapper {
 	void batchInsertLotteryCalculateCount(List<LotteryCalculateCount> list);
 
 	void deleteAll();
+
+	LotteryCalculateCount getMaxLotteryCalculateCount(int calType);
+
 }

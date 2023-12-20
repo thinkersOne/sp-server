@@ -325,3 +325,4 @@ ALTER TABLE lottery.lottery_red_proportion MODIFY COLUMN red31 decimal(10,4) DEF
 ALTER TABLE lottery.lottery_red_proportion MODIFY COLUMN red32 decimal(10,4) DEFAULT 0 NULL COMMENT '红球32占比';
 ALTER TABLE lottery.lottery_red_proportion MODIFY COLUMN red33 decimal(10,4) DEFAULT 0 NULL COMMENT '红球33占比';
 
+ALTER TABLE lottery.lottery_calculate_count MODIFY COLUMN cal_type int(11) DEFAULT 1 NOT NULL COMMENT '1：按年统计  2：按月统计  3：按周统计 4：按码统计';

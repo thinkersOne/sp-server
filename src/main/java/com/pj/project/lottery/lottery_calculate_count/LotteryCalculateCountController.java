@@ -82,6 +82,11 @@ public class LotteryCalculateCountController {
 		lotteryCalculateCountService.lotteryCalculateCount();
 		return AjaxJson.getSuccess();
 	}
+
+	@GetMapping("/getMaxLotteryCalculateCount")
+	public AjaxJson getMaxLotteryCalculateCount(@RequestParam("calType") int calType) {;
+		return AjaxJson.getSuccessData(lotteryCalculateCountService.getMaxLotteryCalculateCount(calType));
+	}
 	
 
 }

@@ -313,4 +313,10 @@ public class LotteryCalculateCountService {
 		return list;
 	}
 
+	public LotteryCalculateCount getMaxLotteryCalculateCount(int calType){
+		return lotteryCalculateCountMapper.getMaxLotteryCalculateCount(calType);
+	}
+
+
+
 }
