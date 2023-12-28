@@ -1,13 +1,24 @@
 package com.pj.utils;
 
+import cn.hutool.core.io.resource.ClassPathResource;
+import org.springframework.util.ResourceUtils;
+
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
 public class FileGenerator {
     public static void generateFile(String directory, String fileName, String fileContent) {
-        String filePath = directory + fileName;
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+        try{
+            File writeName = new File(directory + fileName);
+            if(!writeName.getParentFile().exists()){
+                writeName.mkdirs();
+            }
+            if(!writeName.exists()){
+                writeName.createNewFile();
+            }
+            BufferedWriter writer = new BufferedWriter(new FileWriter(writeName));
             writer.write(fileContent);
             System.out.println("文件生成成功！");
         } catch (IOException e) {
@@ -16,8 +27,8 @@ public class FileGenerator {
     }
 
     public static void main(String[] args) {
-        String directory = "/src/resources/json/";
-        String fileName = "文件名.json";
+        String directory = "src/main/resources/";
+        String fileName = "aa.json";
         String jsonData = "{\"key\": \"value\"}"; // 替换为您需要生成的JSON数据
         generateFile(directory, fileName, jsonData);
     }

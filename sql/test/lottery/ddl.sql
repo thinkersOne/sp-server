@@ -326,3 +326,23 @@ ALTER TABLE lottery.lottery_red_proportion MODIFY COLUMN red32 decimal(10,4) DEF
 ALTER TABLE lottery.lottery_red_proportion MODIFY COLUMN red33 decimal(10,4) DEFAULT 0 NULL COMMENT '红球33占比';
 
 ALTER TABLE lottery.lottery_calculate_count MODIFY COLUMN cal_type int(11) DEFAULT 1 NOT NULL COMMENT '1：按年统计  2：按月统计  3：按周统计 4：按码统计';
+
+CREATE TABLE lottery.lottery_config (
+	id BIGINT auto_increment NOT NULL COMMENT '主键id',
+	red_rate DECIMAL(10,2) NULL COMMENT '红球比例',
+	red_parity_rate DECIMAL(10,2) NULL COMMENT '奇偶比例',
+	red_range_rate DECIMAL(10,2) NULL COMMENT '区间比例',
+	red_sum_rate DECIMAL(10,2) NULL COMMENT '和值比例',
+	consecutive_numbers_count_rate DECIMAL(10,2) NULL COMMENT '连号个数比例',
+	max_consecutive_numbers_rate DECIMAL(10,2) NULL COMMENT '最大连号数比例',
+	CONSTRAINT lottery_config_PK PRIMARY KEY (id)
+)
+ENGINE=InnoDB
+DEFAULT CHARSET=utf8
+COLLATE=utf8_general_ci
+COMMENT='配置表';
+ALTER TABLE lottery.lottery_config ADD `type` TINYINT NULL COMMENT '1:年 2:月 3:周  4:类型';
+
+
+
+

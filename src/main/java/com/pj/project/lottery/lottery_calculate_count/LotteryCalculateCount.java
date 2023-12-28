@@ -37,17 +37,17 @@ public class LotteryCalculateCount implements Serializable {
 	/**
 	 * 年份 
 	 */
-	public Integer year;	
+	public int year;	
 
 	/**
 	 * 月份 
 	 */
-	public Integer month;	
+	public int month;	
 
 	/**
 	 * 周 
 	 */
-	public Integer week;	
+	public int week;	
 
 	/**
 	 * 期号XX1-XX0 
@@ -57,507 +57,507 @@ public class LotteryCalculateCount implements Serializable {
 	/**
 	 * 红球1个数 
 	 */
-	public Integer red1;	
+	public int red1;	
 
 	/**
 	 * 红球2个数 
 	 */
-	public Integer red2;	
+	public int red2;	
 
 	/**
 	 * 红球3个数 
 	 */
-	public Integer red3;	
+	public int red3;	
 
 	/**
 	 * 红球4个数 
 	 */
-	public Integer red4;	
+	public int red4;	
 
 	/**
 	 * 红球5个数 
 	 */
-	public Integer red5;	
+	public int red5;	
 
 	/**
 	 * 红球6个数 
 	 */
-	public Integer red6;	
+	public int red6;	
 
 	/**
 	 * 红球7个数 
 	 */
-	public Integer red7;	
+	public int red7;	
 
 	/**
 	 * 红球8个数 
 	 */
-	public Integer red8;	
+	public int red8;	
 
 	/**
 	 * 红球9个数 
 	 */
-	public Integer red9;	
+	public int red9;	
 
 	/**
 	 * 红球10个数 
 	 */
-	public Integer red10;	
+	public int red10;	
 
 	/**
 	 * 红球11个数 
 	 */
-	public Integer red11;	
+	public int red11;	
 
 	/**
 	 * 红球12个数 
 	 */
-	public Integer red12;	
+	public int red12;	
 
 	/**
 	 * 红球13个数 
 	 */
-	public Integer red13;	
+	public int red13;	
 
 	/**
 	 * 红球14个数 
 	 */
-	public Integer red14;	
+	public int red14;	
 
 	/**
 	 * 红球15个数 
 	 */
-	public Integer red15;	
+	public int red15;	
 
 	/**
 	 * 红球16个数 
 	 */
-	public Integer red16;	
+	public int red16;	
 
 	/**
 	 * 红球17个数 
 	 */
-	public Integer red17;	
+	public int red17;	
 
 	/**
 	 * 红球18个数 
 	 */
-	public Integer red18;	
+	public int red18;	
 
 	/**
 	 * 红球19个数 
 	 */
-	public Integer red19;	
+	public int red19;	
 
 	/**
 	 * 红球20个数 
 	 */
-	public Integer red20;	
+	public int red20;	
 
 	/**
 	 * 红球21个数 
 	 */
-	public Integer red21;	
+	public int red21;	
 
 	/**
 	 * 红球22个数 
 	 */
-	public Integer red22;	
+	public int red22;	
 
 	/**
 	 * 红球23个数 
 	 */
-	public Integer red23;	
+	public int red23;	
 
 	/**
 	 * 红球24个数 
 	 */
-	public Integer red24;	
+	public int red24;	
 
 	/**
 	 * 红球25个数 
 	 */
-	public Integer red25;	
+	public int red25;	
 
 	/**
 	 * 红球26个数 
 	 */
-	public Integer red26;	
+	public int red26;	
 
 	/**
 	 * 红球27个数 
 	 */
-	public Integer red27;	
+	public int red27;	
 
 	/**
 	 * 红球28个数 
 	 */
-	public Integer red28;	
+	public int red28;	
 
 	/**
 	 * 红球29个数 
 	 */
-	public Integer red29;	
+	public int red29;	
 
 	/**
 	 * 红球30个数 
 	 */
-	public Integer red30;	
+	public int red30;	
 
 	/**
 	 * 红球31个数 
 	 */
-	public Integer red31;	
+	public int red31;	
 
 	/**
 	 * 红球32个数 
 	 */
-	public Integer red32;	
+	public int red32;	
 
 	/**
 	 * 红球33个数 
 	 */
-	public Integer red33;	
+	public int red33;	
 
 	/**
 	 * 蓝球1个数 
 	 */
-	public Integer blue1;	
+	public int blue1;	
 
 	/**
 	 * 蓝球2个数 
 	 */
-	public Integer blue2;	
+	public int blue2;	
 
 	/**
 	 * 蓝球3个数 
 	 */
-	public Integer blue3;	
+	public int blue3;	
 
 	/**
 	 * 蓝球4个数 
 	 */
-	public Integer blue4;	
+	public int blue4;	
 
 	/**
 	 * 蓝球5个数 
 	 */
-	public Integer blue5;	
+	public int blue5;	
 
 	/**
 	 * 蓝球6个数 
 	 */
-	public Integer blue6;	
+	public int blue6;	
 
 	/**
 	 * 蓝球7个数 
 	 */
-	public Integer blue7;	
+	public int blue7;	
 
 	/**
 	 * 蓝球8个数 
 	 */
-	public Integer blue8;	
+	public int blue8;	
 
 	/**
 	 * 蓝球9个数 
 	 */
-	public Integer blue9;	
+	public int blue9;	
 
 	/**
 	 * 蓝球10个数 
 	 */
-	public Integer blue10;	
+	public int blue10;	
 
 	/**
 	 * 蓝球11个数 
 	 */
-	public Integer blue11;	
+	public int blue11;	
 
 	/**
 	 * 蓝球12个数 
 	 */
-	public Integer blue12;	
+	public int blue12;	
 
 	/**
 	 * 蓝球13个数 
 	 */
-	public Integer blue13;	
+	public int blue13;	
 
 	/**
 	 * 蓝球14个数 
 	 */
-	public Integer blue14;	
+	public int blue14;	
 
 	/**
 	 * 蓝球15个数 
 	 */
-	public Integer blue15;	
+	public int blue15;	
 
 	/**
 	 * 蓝球16个数 
 	 */
-	public Integer blue16;	
+	public int blue16;	
 
 	/**
 	 * 1：按月统计  2：按年统计  3：按周统计 
 	 */
-	public Integer calType;	
+	public int calType;	
 
 	/**
 	 * 红球奇偶2:4 
 	 */
-	public Integer redParityRatio24;	
+	public int redParityRatio24;	
 
 	/**
 	 * 红球奇偶4:2 
 	 */
-	public Integer redParityRatio42;	
+	public int redParityRatio42;	
 
 	/**
 	 * 红球奇偶5:1 
 	 */
-	public Integer redParityRatio51;	
+	public int redParityRatio51;	
 
 	/**
 	 * 红球奇偶1:5 
 	 */
-	public Integer redParityRatio15;	
+	public int redParityRatio15;	
 
 	/**
 	 * 红球奇偶3:3 
 	 */
-	public Integer redParityRatio33;	
+	public int redParityRatio33;	
 
 	/**
 	 * 红球奇偶6:0 
 	 */
-	public Integer redParityRatio60;	
+	public int redParityRatio60;	
 
 	/**
 	 * 红球奇偶0:6 
 	 */
-	public Integer redParityRatio06;	
+	public int redParityRatio06;	
 
 	/**
 	 * 红球区间比2_3_1 
 	 */
-	public Integer redRange231;	
+	public int redRange231;	
 
 	/**
 	 * 红球区间比2_2_2 
 	 */
-	public Integer redRange222;	
+	public int redRange222;	
 
 	/**
 	 * 红球区间比3_2_1 
 	 */
-	public Integer redRange321;	
+	public int redRange321;	
 
 	/**
 	 * 红球区间比1_2_3 
 	 */
-	public Integer redRange123;	
+	public int redRange123;	
 
 	/**
 	 * 红球区间比2_0_4 
 	 */
-	public Integer redRange204;	
+	public int redRange204;	
 
 	/**
 	 * 红球区间比2_4_0 
 	 */
-	public Integer redRange240;	
+	public int redRange240;	
 
 	/**
 	 * 红球区间比4_0_2 
 	 */
-	public Integer redRange402;	
+	public int redRange402;	
 
 	/**
 	 * 红球区间比4_2_0 
 	 */
-	public Integer redRange420;	
+	public int redRange420;	
 
 	/**
 	 * 红球区间比3_1_2 
 	 */
-	public Integer redRange312;	
+	public int redRange312;	
 
 	/**
 	 * 红球区间比2_1_3 
 	 */
-	public Integer redRange213;	
+	public int redRange213;	
 
 	/**
 	 * 红球区间比4_1_1 
 	 */
-	public Integer redRange411;	
+	public int redRange411;	
 
 	/**
 	 * 红球区间比1_1_4 
 	 */
-	public Integer redRange114;	
+	public int redRange114;	
 
 	/**
 	 * 红球区间比1_4_1 
 	 */
-	public Integer redRange141;	
+	public int redRange141;	
 
 	/**
 	 * 蓝球个数_小 
 	 */
-	public Integer blueSmall;	
+	public int blueSmall;	
 
 	/**
 	 * 蓝球个数_大 
 	 */
-	public Integer blueBig;	
+	public int blueBig;	
 
 	/**
 	 * 蓝球区域_1 
 	 */
-	public Integer blueAreaOne;	
+	public int blueAreaOne;	
 
 	/**
 	 * 蓝球区域_2 
 	 */
-	public Integer blueAreaTwo;	
+	public int blueAreaTwo;	
 
 	/**
 	 * 蓝球区域_3 
 	 */
-	public Integer blueAreaThree;	
+	public int blueAreaThree;	
 
 	/**
 	 * 蓝球区域_4 
 	 */
-	public Integer blueAreaFour;	
+	public int blueAreaFour;	
 
 	/**
 	 * 蓝球奇数个数 
 	 */
-	public Integer blueParity;	
+	public int blueParity;	
 
 	/**
 	 * 蓝球偶数个数 
 	 */
-	public Integer blueRatio;	
+	public int blueRatio;	
 
 	/**
 	 * 红球和21_60 
 	 */
-	public Integer red2160;	
+	public int red2160;	
 
 	/**
 	 * 红球和73_78 
 	 */
-	public Integer red7378;	
+	public int red7378;	
 
 	/**
 	 * 红球和61_66 
 	 */
-	public Integer red6166;	
+	public int red6166;	
 
 	/**
 	 * 红球和103_108 
 	 */
-	public Integer red103108;	
+	public int red103108;	
 
 	/**
 	 * 红球和91_96 
 	 */
-	public Integer red9196;	
+	public int red9196;	
 
 	/**
 	 * 红球和79_84 
 	 */
-	public Integer red7984;	
+	public int red7984;	
 
 	/**
 	 * 红球和67_72 
 	 */
-	public Integer red6772;	
+	public int red6772;	
 
 	/**
 	 * 红球和109_114 
 	 */
-	public Integer red109114;	
+	public int red109114;	
 
 	/**
 	 * 红球和115_120 
 	 */
-	public Integer red115120;	
+	public int red115120;	
 
 	/**
 	 * 红球和133_138 
 	 */
-	public Integer red133138;	
+	public int red133138;	
 
 	/**
 	 * 红球和97_102 
 	 */
-	public Integer red97102;	
+	public int red97102;	
 
 	/**
 	 * 红球和139_144 
 	 */
-	public Integer red139144;	
+	public int red139144;	
 
 	/**
 	 * 红球和127_132 
 	 */
-	public Integer red127132;	
+	public int red127132;	
 
 	/**
 	 * 红球和121_126 
 	 */
-	public Integer red121126;	
+	public int red121126;	
 
 	/**
 	 * 红球和145_183 
 	 */
-	public Integer red145183;	
+	public int red145183;	
 
 	/**
 	 * 连号个数 
 	 */
-	public Integer consecutiveNumbersCount0;	
+	public int consecutiveNumbersCount0;	
 
 	/**
 	 * 连号个数 
 	 */
-	public Integer consecutiveNumbersCount1;	
+	public int consecutiveNumbersCount1;	
 
 	/**
 	 * 连号个数 
 	 */
-	public Integer consecutiveNumbersCount2;	
+	public int consecutiveNumbersCount2;	
 
 	/**
 	 * 最大连号数 
 	 */
-	public Integer maxConsecutiveNumbers1;	
+	public int maxConsecutiveNumbers1;	
 
 	/**
 	 * 最大连号数 
 	 */
-	public Integer maxConsecutiveNumbers2;	
+	public int maxConsecutiveNumbers2;	
 
 	/**
 	 * 最大连号数 
 	 */
-	public Integer maxConsecutiveNumbers3;	
+	public int maxConsecutiveNumbers3;	
 
 	/**
 	 * 最大连号数 
 	 */
-	public Integer maxConsecutiveNumbers4;	
+	public int maxConsecutiveNumbers4;	
 
 	/**
 	 * 最大连号数 
 	 */
-	public Integer maxConsecutiveNumbers5;	
+	public int maxConsecutiveNumbers5;	
 
 
 

@@ -58,6 +58,14 @@ public class RuleUtils {
             "139_144","127_132","121_126","145_183"
     );
 
+    public static final List<Integer> CONSECUTIVE_NUMBERS_COUNT_LIST = Arrays.asList(
+            0,1,2
+    );
+
+    public static final List<Integer> MAXCONSECUTIVE_NUMBERS_LIST = Arrays.asList(
+            1,2,3,4,5
+    );
+
     /**
      * 是否包含当前期号的红球
      * @param list

@@ -105,6 +105,12 @@ public class LotteryController {
 		return new ResultRes(StatusCode.RESULT_SUCCESS,list);
 	}
 
+	@PostMapping("/forest/lotteryConfig")
+	public ResultRes lotteryConfig(@RequestBody LotteryParameter lotteryParameter) {
+		return  new ResultRes(StatusCode.RESULT_SUCCESS,lotteryService.lotteryConfig(lotteryParameter));
+	}
+
+
 	@GetMapping("/testStrategy")
 	public AjaxJson testStrategy(@RequestParam("consecutiveNumber") int consecutiveNumber){
 		lotteryService.getLotteryByRed(consecutiveNumber);
