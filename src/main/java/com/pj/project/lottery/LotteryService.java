@@ -23,6 +23,8 @@ import com.pj.project.lottery.unionLotto.enums.RangeEnum;
 import com.pj.project.lottery.unionLotto.utils.PersonalLawUtils;
 import com.pj.project.lottery.unionLotto.utils.RuleUtils;
 import com.pj.utils.FileGenerator;
+import com.pj.utils.MappedBiggerFileWriter;
+import com.pj.utils.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -194,7 +196,7 @@ public class LotteryService {
 		return result;
 	}
 
-	public List<String> lotteryConfig(LotteryParameter lotteryParameter){
+	public void lotteryConfig(LotteryParameter lotteryParameter){
 		//年
 		LotteryCalculateCount maxLotteryCalculateCount =
 				lotteryCalculateCountMapper.getMaxLotteryCalculateCount(lotteryParameter.getType());
@@ -204,7 +206,7 @@ public class LotteryService {
 		List<LotteryConfig> list = lotteryConfigMapper.getList(soMap);
 		if(CollectionUtils.isEmpty(list)){
 			log.warn("没有配置年份计算规则!");
-			return new ArrayList<>();
+			return;
 		}
 		LotteryConfig lotteryConfig = list.get(0);
 		//当前 年
@@ -230,11 +232,11 @@ public class LotteryService {
 				.consecutiveNumbersCountList(consecutiveNumbersCountList)
 				.maxConsecutiveNumbersCountList(maxConsecutiveNumbersCountList).build();
 		List<String> resultList = lotterySelectService.lotterySelectCodes(selectCodesDTO);
+		log.info("总数据量:"+ resultList.size());
 		// 保存文件
 		LotteryCalculatePer beforeInfo = lotteryCalculatePerMapper.getBeforeInfo();
-		FileGenerator.generateFile(beforeInfo.getCode()+"/",
+		FileGenerator.generateFile(StringUtils.nextCode(beforeInfo.getCode())+"/",
 				lotteryParameter.getType()+".txt",JSONUtil.toJsonStr(resultList));
-		return resultList;
 	}
 
 	private static List<Integer> getMaxConsecutiveNumbersCountList(LotteryCalculateCount maxLotteryCalculateCount,

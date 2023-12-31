@@ -6,6 +6,12 @@ import java.util.List;
 
 public class StringUtils {
 
+    public static String nextCode(String code){
+        if(org.springframework.util.StringUtils.isEmpty(code)){
+            return "1";
+        }
+        return (convertToInteger(code) + 1) +"";
+    }
     public static Integer convertToInteger(String name){
         if(org.springframework.util.StringUtils.hasLength(name)){
             return Integer.valueOf(name);

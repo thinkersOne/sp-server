@@ -13,7 +13,7 @@ public class FileGenerator {
         try{
             File writeName = new File(directory + fileName);
             if(!writeName.getParentFile().exists()){
-                writeName.mkdirs();
+                writeName.getParentFile().mkdirs();
             }
             if(!writeName.exists()){
                 writeName.createNewFile();
@@ -21,6 +21,7 @@ public class FileGenerator {
             BufferedWriter writer = new BufferedWriter(new FileWriter(writeName));
             writer.write(fileContent);
             System.out.println("文件生成成功！");
+            writer.close();
         } catch (IOException e) {
             System.out.println("文件生成失败：" + e.getMessage());
         }

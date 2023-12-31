@@ -107,7 +107,8 @@ public class LotteryController {
 
 	@PostMapping("/forest/lotteryConfig")
 	public ResultRes lotteryConfig(@RequestBody LotteryParameter lotteryParameter) {
-		return  new ResultRes(StatusCode.RESULT_SUCCESS,lotteryService.lotteryConfig(lotteryParameter));
+        lotteryService.lotteryConfig(lotteryParameter);
+		return  new ResultRes(StatusCode.RESULT_SUCCESS,"OK");
 	}
 
 
