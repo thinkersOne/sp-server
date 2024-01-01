@@ -20,7 +20,9 @@
 		delete from lottery_all 
 		where id = #{id}
 	</delete>
-
+	<delete id="deleteAll">
+		delete from lottery_all
+	</delete>
 	<!-- 改 [G] -->
 	<update id="update">
 		update lottery_all set
