@@ -123,7 +123,8 @@ public class LotteryForecastService {
 		// 保存文件
 		LotteryCalculatePer beforeInfo = lotteryCalculatePerMapper.getBeforeInfo();
 		FileGenerator.generateFile(StringUtils.nextCode(beforeInfo.getCode())+"/",
-				Thread.currentThread().getStackTrace()[1].getMethodName()+lotteryForestVo.getType()+".txt",
+				Thread.currentThread().getStackTrace()[1].getMethodName()
+						+"-" + resultList.size()+"-"+lotteryForestVo.getType()+".txt",
 				JSONUtil.toJsonStr(resultList));
 	}
 
