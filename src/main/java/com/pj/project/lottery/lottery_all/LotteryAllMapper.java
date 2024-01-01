@@ -51,5 +51,6 @@ public interface LotteryAllMapper {
 	List<LotteryAll> getList(SoMap so);
 
 	void batchInsertLotteryAll(List<LotteryAll> list);
+	void deleteAll();
 
 }

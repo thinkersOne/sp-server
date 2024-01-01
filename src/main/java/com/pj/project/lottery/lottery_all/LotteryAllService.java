@@ -30,7 +30,9 @@ public class LotteryAllService {
 		return lotteryAllMapper.add(l);
 	}
 
-	public void batchAdd(){
+	public void syncData(){
+		//删除数据
+		lotteryAllMapper.deleteAll();
 		String chooseLotteryRed = LotteryConstant.LOTTERY_RED;
 		List<String> list = Arrays.asList(chooseLotteryRed.split(","));
 		List<String> resList = new ArrayList<String>();

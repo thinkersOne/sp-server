@@ -31,7 +31,7 @@ public class LotteryAllController {
 	@GetMapping("batchAdd")
 	@Transactional(rollbackFor = Exception.class)
 	public AjaxJson batchAdd(){
-		lotteryAllService.batchAdd();
+		lotteryAllService.syncData();
 		return AjaxJson.getSuccess();
 	}
 

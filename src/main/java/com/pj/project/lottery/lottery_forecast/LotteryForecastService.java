@@ -1,11 +1,11 @@
 package com.pj.project.lottery.lottery_forecast;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import cn.hutool.json.JSONUtil;
 import com.google.common.collect.Lists;
+import com.pj.current.enums.LotteryForestConfigEnum;
 import com.pj.current.enums.LotteryTypeEnum;
 import com.pj.models.so.SoMap;
 import com.pj.project.lottery.LotteryMapper;
@@ -100,36 +100,20 @@ public class LotteryForecastService {
 		if(org.springframework.util.StringUtils.hasText(lotteryForestVo.getCode())){
 			this.syncData(lotteryForestVo.getCode());
 		}
-		//年
-		LotteryCalculateCount maxLotteryCalculateCount =
-				lotteryCalculateCountMapper.getMaxLotteryCalculateCount(lotteryForestVo.getType());
-		SoMap soMap = new SoMap();
-		soMap.set("type",lotteryForestVo.getType());
-		//查询配置
-		List<LotteryConfig> list = lotteryConfigMapper.getList(soMap);
-		if(CollectionUtils.isEmpty(list)){
-			log.warn("没有配置年份计算规则!");
-			return;
+		Map<String,List<?>> map = new HashMap<>();
+		if(lotteryForestVo.getType() == 0){
+			for (int i = 1; i < 4; i++) {
+				setList(i,i + 1,map);
+			}
+		}else{
+			setList(lotteryForestVo.getType(),lotteryForestVo.getOrderBy(),map);
 		}
-		LotteryConfig lotteryConfig = list.get(0);
-		//当前 年
-		soMap.set("calType",lotteryForestVo.getType());
-		soMap.set("sortType",lotteryForestVo.getOrderBy());
-		List<LotteryCalculateCount> lotteryCalculateCountList = lotteryCalculateCountMapper.getList(soMap);
-		LotteryCalculateCount lotteryCalculateCount = lotteryCalculateCountList.get(0);
-		//筛选红球
-		List<String> redList = getRedList(maxLotteryCalculateCount, lotteryConfig, lotteryCalculateCount);
-		//筛选 红球奇偶比
-		List<String> redParityRatioList = getRedParityRatioList(maxLotteryCalculateCount, lotteryConfig, lotteryCalculateCount);
-		//筛选 红球区间比
-		List<String> redRangeList = getRedRangeList(maxLotteryCalculateCount, lotteryConfig, lotteryCalculateCount);
-		//筛选 红球和值比
-		List<String> redSumList = getRedSumList(maxLotteryCalculateCount, lotteryConfig, lotteryCalculateCount);
-		//筛选 连号个数
-		List<Integer> consecutiveNumbersCountList = getConsecutiveNumbersCountList(maxLotteryCalculateCount, lotteryConfig, lotteryCalculateCount);
-		//筛选 最大连号数
-		List<Integer> maxConsecutiveNumbersCountList = getMaxConsecutiveNumbersCountList(maxLotteryCalculateCount, lotteryConfig, lotteryCalculateCount);
-
+		List<String> redList = (List<String>) map.get(LotteryForestConfigEnum.RED_LIST.getName());
+		List<String> redParityRatioList = (List<String>) map.get(LotteryForestConfigEnum.RED_PARITY_RATIO_LIST.getName());
+		List<String> redRangeList = (List<String>) map.get(LotteryForestConfigEnum.RED_RANGE_LIST.getName());
+		List<String> redSumList = (List<String>) map.get(LotteryForestConfigEnum.RED_SUM_LIST.getName());
+		List<Integer> consecutiveNumbersCountList = (List<Integer>) map.get(LotteryForestConfigEnum.CONSECUTIVE_NUMBERS_COUNT_LIST.getName());
+		List<Integer> maxConsecutiveNumbersCountList = (List<Integer>) map.get(LotteryForestConfigEnum.MAX_CONSECUTIVE_NUMBERS_COUNT_LIST.getName());
 		LotterySelectCodesDTO selectCodesDTO = LotterySelectCodesDTO.builder().redList(redList).redParityRatioList(redParityRatioList)
 				.redRangeRatioList(redRangeList).redSumList(redSumList)
 				.consecutiveNumbersCountList(consecutiveNumbersCountList)
@@ -139,13 +123,66 @@ public class LotteryForecastService {
 		// 保存文件
 		LotteryCalculatePer beforeInfo = lotteryCalculatePerMapper.getBeforeInfo();
 		FileGenerator.generateFile(StringUtils.nextCode(beforeInfo.getCode())+"/",
-				lotteryForestVo.getType()+"-"+lotteryConfig.getRedRate()+"-"+lotteryConfig.getRedParityRate()
-						+"-"+lotteryConfig.getRedRangeRate()+"-"+lotteryConfig.getRedSumRate()
-						+"-"+lotteryConfig.getMaxConsecutiveNumbersRate()+"-"+lotteryConfig.getConsecutiveNumbersCountRate()
-						+".txt", JSONUtil.toJsonStr(resultList));
+				Thread.currentThread().getStackTrace()[1].getMethodName()+lotteryForestVo.getType()+".txt",
+				JSONUtil.toJsonStr(resultList));
 	}
 
-
+	public Map<String,List<?>> setList(int type,int orderBy,Map<String,List<?>> map){
+		//年
+		LotteryCalculateCount maxLotteryCalculateCount =
+				lotteryCalculateCountMapper.getMaxLotteryCalculateCount(type);
+		SoMap soMap = new SoMap();
+		soMap.set("type",type);
+		//查询配置
+		List<LotteryConfig> list = lotteryConfigMapper.getList(soMap);
+		if(CollectionUtils.isEmpty(list)){
+			log.warn("没有配置年份计算规则!");
+			return map;
+		}
+		LotteryConfig lotteryConfig = list.get(0);
+		//当前 年
+		soMap.set("calType",type);
+		soMap.set("sortType",orderBy);
+		List<LotteryCalculateCount> lotteryCalculateCountList = lotteryCalculateCountMapper.getList(soMap);
+		LotteryCalculateCount lotteryCalculateCount = lotteryCalculateCountList.get(0);
+		//筛选红球
+		List<String> redList = getRedList(maxLotteryCalculateCount, lotteryConfig, lotteryCalculateCount);
+		if(map.get(LotteryForestConfigEnum.RED_LIST.getName()) != null){
+			redList.addAll((Collection<? extends String>) map.get(LotteryForestConfigEnum.RED_LIST.getName()));
+		}
+		map.put(LotteryForestConfigEnum.RED_LIST.getName(),redList);
+		//筛选 红球奇偶比
+		List<String> redParityRatioList = getRedParityRatioList(maxLotteryCalculateCount, lotteryConfig, lotteryCalculateCount);
+		if(map.get(LotteryForestConfigEnum.RED_PARITY_RATIO_LIST.getName()) != null){
+			redList.addAll((Collection<? extends String>) map.get(LotteryForestConfigEnum.RED_PARITY_RATIO_LIST.getName()));
+		}
+		map.put(LotteryForestConfigEnum.RED_PARITY_RATIO_LIST.getName(),redParityRatioList);
+		//筛选 红球区间比
+		List<String> redRangeList = getRedRangeList(maxLotteryCalculateCount, lotteryConfig, lotteryCalculateCount);
+		if(map.get(LotteryForestConfigEnum.RED_RANGE_LIST.getName()) != null){
+			redList.addAll((Collection<? extends String>) map.get(LotteryForestConfigEnum.RED_RANGE_LIST.getName()));
+		}
+		map.put(LotteryForestConfigEnum.RED_RANGE_LIST.getName(),redRangeList);
+		//筛选 红球和值比
+		List<String> redSumList = getRedSumList(maxLotteryCalculateCount, lotteryConfig, lotteryCalculateCount);
+		if(map.get(LotteryForestConfigEnum.RED_SUM_LIST.getName()) != null){
+			redList.addAll((Collection<? extends String>) map.get(LotteryForestConfigEnum.RED_SUM_LIST.getName()));
+		}
+		map.put(LotteryForestConfigEnum.RED_SUM_LIST.getName(),redSumList);
+		//筛选 连号个数
+		List<Integer> consecutiveNumbersCountList = getConsecutiveNumbersCountList(maxLotteryCalculateCount, lotteryConfig, lotteryCalculateCount);
+		if(map.get(LotteryForestConfigEnum.CONSECUTIVE_NUMBERS_COUNT_LIST.getName()) != null){
+			redList.addAll((Collection<? extends String>) map.get(LotteryForestConfigEnum.CONSECUTIVE_NUMBERS_COUNT_LIST.getName()));
+		}
+		map.put(LotteryForestConfigEnum.CONSECUTIVE_NUMBERS_COUNT_LIST.getName(),consecutiveNumbersCountList);
+		//筛选 最大连号数
+		List<Integer> maxConsecutiveNumbersCountList = getMaxConsecutiveNumbersCountList(maxLotteryCalculateCount, lotteryConfig, lotteryCalculateCount);
+		if(map.get(LotteryForestConfigEnum.MAX_CONSECUTIVE_NUMBERS_COUNT_LIST.getName()) != null){
+			redList.addAll((Collection<? extends String>) map.get(LotteryForestConfigEnum.MAX_CONSECUTIVE_NUMBERS_COUNT_LIST.getName()));
+		}
+		map.put(LotteryForestConfigEnum.MAX_CONSECUTIVE_NUMBERS_COUNT_LIST.getName(),maxConsecutiveNumbersCountList);
+		return map;
+	}
 
 	public void syncData(String code){
 		//全量lottery同步
@@ -161,7 +198,7 @@ public class LotteryForecastService {
 		lotteryCalculateCountService.lotteryCalculateCount();
 		lotteryCalculateNineService.lotteryCalculateNine();
 		lotteryCalculateNineCountService.lotteryCalculateNineCount();
-		lotteryAllService.batchAdd();
+		lotteryAllService.syncData();
 		lotterySelectService.lotterySelect();
 		lotteryRedProportionService.lotteryRedProportion();
 	}
