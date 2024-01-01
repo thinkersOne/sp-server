@@ -15,6 +15,4 @@ public class LotteryParameter {
     private int pageSize;
     private String name;
 
-    private int orderBy;
-
 }

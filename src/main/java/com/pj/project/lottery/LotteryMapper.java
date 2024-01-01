@@ -30,6 +30,7 @@ public interface LotteryMapper {
 	 */
 	int delete(String code);	 
 
+	void deleteAfterCode(String code);
 	/** 
 	 * 改  
 	 * @param l 实体对象 

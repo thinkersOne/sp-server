@@ -30,7 +30,7 @@ public class LotteryAllService {
 		return lotteryAllMapper.add(l);
 	}
 
-	void batchAdd(){
+	public void batchAdd(){
 		String chooseLotteryRed = LotteryConstant.LOTTERY_RED;
 		List<String> list = Arrays.asList(chooseLotteryRed.split(","));
 		List<String> resList = new ArrayList<String>();

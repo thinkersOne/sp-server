@@ -2,8 +2,11 @@ package com.pj.project.lottery.lottery_forecast;
 
 import java.util.List;
 
+import com.pj.current.global.StatusCode;
 import com.pj.models.so.SoMap;
 import com.pj.project.lottery.LOTTERY_SP;
+import com.pj.project.lottery.LotteryParameter;
+import com.pj.project.lottery.unionLotto.domain.ResultRes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -68,8 +71,18 @@ public class LotteryForecastController {
 		List<LotteryForecast> list = lotteryForecastService.getList(so.startPage());
 		return AjaxJson.getPageData(so.getDataCount(), list);
 	}
-	
 
+	@GetMapping("/syncData")
+	public AjaxJson syncData(@RequestParam("code") String code){
+		lotteryForecastService.syncData(code);
+		return AjaxJson.getSuccess();
+	}
+
+	@PostMapping("/forest/lotteryConfig")
+	public ResultRes lotteryConfig(@RequestBody LotteryForestVo lotteryForestVo) {
+		lotteryForecastService.lotteryConfig(lotteryForestVo);
+		return  new ResultRes(StatusCode.RESULT_SUCCESS,"OK");
+	}
 	
 	
 	

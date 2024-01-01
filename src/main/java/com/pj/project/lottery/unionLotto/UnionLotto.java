@@ -53,7 +53,7 @@ public class UnionLotto implements LotteryInterface<LotteryParameter, UnionLotto
 
     public Lottery getCurrentLottery() {
         LotteryParameter parameter = LotteryParameter.builder().type(LotteryTypeEnum.UNION_LOTTO.getType())
-                .pageNo(1).pageSize(1).name(LotteryTypeEnum.UNION_LOTTO.getCode()).orderBy(1).build();
+                .pageNo(1).pageSize(1).name(LotteryTypeEnum.UNION_LOTTO.getCode()).build();
         List<UnionLottoResult> unionLottoResults = syncData(parameter);
         if(CollectionUtils.isEmpty(unionLottoResults)){
             throw new RuntimeException("数据异常，请联系管理员！");

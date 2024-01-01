@@ -22,7 +22,9 @@
 		delete from lottery 
 		where code = #{code}
 	</delete>
-
+	<delete id="deleteAfterCode">
+		delete from lottery where code >=  #{code}
+	</delete>
 	<!-- 改 [G] -->
 	<update id="update">
 		update lottery set
