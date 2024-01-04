@@ -87,7 +87,8 @@
 	</select>
 	<!-- 查 - 根据id -->
 	<select id="getByCode" resultMap="model">
-		<include refid="select_sql"></include>
+		select *
+		from lottery_temp
 		where code = #{code} limit 1
 	</select>
 	<!-- 查集合 - 根据条件（参数为空时代表忽略指定条件） [G] -->

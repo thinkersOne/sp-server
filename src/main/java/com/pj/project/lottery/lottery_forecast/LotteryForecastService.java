@@ -104,12 +104,13 @@ public class LotteryForecastService {
 			this.syncData(lotteryForestVo.getCode());
 		}
 		Map<String,List<?>> map = new HashMap<>();
+		LotteryForecastTemp lotteryForecastTemp = null;
 		if(lotteryForestVo.getType() == 0){
 			for (int i = 1; i < 4; i++) {
-				setList(i,i + 1,map);
+				lotteryForecastTemp = setList(i,i + 1,map);
 			}
 		}else{
-			setList(lotteryForestVo.getType(),lotteryForestVo.getOrderBy(),map);
+			lotteryForecastTemp = setList(lotteryForestVo.getType(),lotteryForestVo.getOrderBy(),map);
 		}
 		List<String> redList = (List<String>) map.get(LotteryForestConfigEnum.RED_LIST.getName());
 		List<String> redParityRatioList = (List<String>) map.get(LotteryForestConfigEnum.RED_PARITY_RATIO_LIST.getName());
@@ -138,7 +139,7 @@ public class LotteryForecastService {
 				JSONUtil.toJsonStr(resultList));
 	}
 
-	public Map<String,List<?>> setList(int type,int orderBy,Map<String,List<?>> map){
+	public LotteryForecastTemp setList(int type,int orderBy,Map<String,List<?>> map){
 		//年
 		LotteryCalculateCount maxLotteryCalculateCount =
 				lotteryCalculateCountMapper.getMaxLotteryCalculateCount(type);
@@ -148,7 +149,7 @@ public class LotteryForecastService {
 		List<LotteryConfig> list = lotteryConfigMapper.getList(soMap);
 		if(CollectionUtils.isEmpty(list)){
 			log.warn("没有配置年份计算规则!");
-			return map;
+			return null;
 		}
 		LotteryConfig lotteryConfig = list.get(0);
 		//当前 年
@@ -192,7 +193,11 @@ public class LotteryForecastService {
 			redList.addAll((Collection<? extends String>) map.get(LotteryForestConfigEnum.MAX_CONSECUTIVE_NUMBERS_COUNT_LIST.getName()));
 		}
 		map.put(LotteryForestConfigEnum.MAX_CONSECUTIVE_NUMBERS_COUNT_LIST.getName(),maxConsecutiveNumbersCountList);
-		return map;
+		LotteryForecastTemp forecastTemp = LotteryForecastTemp.builder().build();
+		forecastTemp.appendStrategy(lotteryConfig.getRedRate()+","+lotteryConfig.getRedParityRate()
+				+","+lotteryConfig.getRedRangeRate()+","+lotteryConfig.getRedSumRate()+
+				","+lotteryConfig.getConsecutiveNumbersCountRate()+","+lotteryConfig.getMaxConsecutiveNumbersRate());
+		return forecastTemp;
 	}
 
 	public void syncData(String code){
