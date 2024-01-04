@@ -7,6 +7,7 @@ import cn.hutool.json.JSONUtil;
 import com.google.common.collect.Lists;
 import com.pj.current.enums.LotteryForestConfigEnum;
 import com.pj.current.enums.LotteryTypeEnum;
+import com.pj.current.global.LotteryConstant;
 import com.pj.models.so.SoMap;
 import com.pj.project.lottery.LotteryMapper;
 import com.pj.project.lottery.LotteryParameter;
@@ -25,10 +26,12 @@ import com.pj.project.lottery.lottery_config.LotteryConfigMapper;
 import com.pj.project.lottery.lottery_red_proportion.LotteryRedProportionService;
 import com.pj.project.lottery.lottery_select.LotterySelectCodesDTO;
 import com.pj.project.lottery.lottery_select.LotterySelectService;
+import com.pj.project.lottery.unionLotto.domain.Lottery;
 import com.pj.project.lottery.unionLotto.enums.ParityRatioEnum;
 import com.pj.project.lottery.unionLotto.enums.RangeEnum;
 import com.pj.project.lottery.unionLotto.utils.RuleUtils;
 import com.pj.utils.FileGenerator;
+import com.pj.utils.IdGeneratorUtils;
 import com.pj.utils.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -122,9 +125,16 @@ public class LotteryForecastService {
 		log.info("总数据量:"+ resultList.size());
 		// 保存文件
 		LotteryCalculatePer beforeInfo = lotteryCalculatePerMapper.getBeforeInfo();
-		FileGenerator.generateFile(StringUtils.nextCode(beforeInfo.getCode())+"/",
-				Thread.currentThread().getStackTrace()[1].getMethodName()
-						+"-" + resultList.size()+"-"+lotteryForestVo.getType()+".txt",
+		String code = StringUtils.nextCode(beforeInfo.getCode());
+		//查看是否预测准确
+		Lottery lottery = lotteryMapper.getByCode(code);
+		boolean enableCorrect = false;
+		if(lottery != null){
+			enableCorrect = resultList.contains(lottery.getRed());
+		}
+		FileGenerator.generateFile(
+				LotteryConstant.ROOT_PATH + IdGeneratorUtils.generateId() + "/" + code +"/",
+				enableCorrect + "-" + resultList.size()+"-"+lotteryForestVo.getType()+".txt",
 				JSONUtil.toJsonStr(resultList));
 	}
 

@@ -24,6 +24,7 @@ public interface LotteryMapper {
 	int add(Lottery l);
 
 	void batchInsertLottery(List<Lottery> list);
+	void batchInsertLotteryTemp(List<Lottery> list);
 	/**
 	 * 删
 	 * @return 受影响行数 
@@ -42,7 +43,8 @@ public interface LotteryMapper {
 	 * 查 - 根据id
 	 * @return 实体对象 
 	 */
-	Lottery getById(String code);	 
+	Lottery getById(String code);
+	Lottery getByCode(String code);
 
 	/**
 	 * 查集合 - 根据条件（参数为空时代表忽略指定条件）
@@ -51,7 +53,7 @@ public interface LotteryMapper {
 	List<Lottery> getList(SoMap so);
 
 	void deleteAll();
-
+	void deleteTempAll();
 	Lottery getCurrentLottery();
 
 	List<Lottery> getLotteryByRed(String red);

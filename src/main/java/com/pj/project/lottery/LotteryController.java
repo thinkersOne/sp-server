@@ -73,6 +73,11 @@ public class LotteryController {
 		lotteryService.syncLotterydata(lotteryParameter);
 		return AjaxJson.getSuccess();
 	}
+	@PostMapping("/sync/LotteryTempdata")
+	public AjaxJson syncLotteryTempdata(@RequestBody LotteryParameter lotteryParameter) {
+		lotteryService.syncLotteryTempdata(lotteryParameter);
+		return AjaxJson.getSuccess();
+	}
 
 	@GetMapping("/convertDoubleSpheres")
 	public ResultRes convertDoubleSpheres() {

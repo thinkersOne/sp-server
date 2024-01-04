@@ -17,6 +17,17 @@
 			#{lottery.threeTypeMoney}, #{lottery.poolmoney})
 		</foreach>
 	</insert>
+
+	<insert id="batchInsertLotteryTemp" parameterType="java.util.List">
+		INSERT INTO lottery_temp (code, date, red, blue, sales, one_type_num, one_type_money, two_type_num, two_type_money, three_type_num, three_type_money, poolmoney)
+		VALUES
+		<foreach collection="list" item="lottery" separator=",">
+			(#{lottery.code}, #{lottery.date}, #{lottery.red}, #{lottery.blue}, #{lottery.sales}, #{lottery.oneTypeNum},
+			#{lottery.oneTypeMoney}, #{lottery.twoTypeNum}, #{lottery.twoTypeMoney}, #{lottery.threeTypeNum},
+			#{lottery.threeTypeMoney}, #{lottery.poolmoney})
+		</foreach>
+	</insert>
+
 	<!-- 删 -->
 	<delete id="delete">
 		delete from lottery 
@@ -74,7 +85,11 @@
 		<include refid="select_sql"></include>
 		where code = #{code}
 	</select>
-	
+	<!-- 查 - 根据id -->
+	<select id="getByCode" resultMap="model">
+		<include refid="select_sql"></include>
+		where code = #{code} limit 1
+	</select>
 	<!-- 查集合 - 根据条件（参数为空时代表忽略指定条件） [G] -->
 	<select id="getList" resultMap="model">
 		<include refid="select_sql"></include>

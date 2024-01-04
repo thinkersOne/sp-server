@@ -1,6 +1,7 @@
 package com.pj.utils;
 
 import cn.hutool.core.io.resource.ClassPathResource;
+import com.pj.current.global.LotteryConstant;
 import org.springframework.util.ResourceUtils;
 
 import java.io.BufferedWriter;

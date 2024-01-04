@@ -344,5 +344,20 @@ COMMENT='配置表';
 ALTER TABLE lottery.lottery_config ADD `type` TINYINT NULL COMMENT '1:年 2:月 3:周  4:类型';
 
 
+CREATE TABLE `lottery_temp` (
+  `code` varchar(100) NOT NULL DEFAULT '' COMMENT '期号',
+  `date` varchar(50) NOT NULL DEFAULT '' COMMENT '开奖日期',
+  `red` varchar(20) NOT NULL DEFAULT '' COMMENT '中奖号码：红',
+  `blue` varchar(20) NOT NULL DEFAULT '' COMMENT '中奖号码：蓝',
+  `sales` varchar(200) NOT NULL DEFAULT '' COMMENT '总销售额',
+  `one_type_num` varchar(10) NOT NULL DEFAULT '' COMMENT '一等奖注数',
+  `one_type_money` varchar(30) NOT NULL DEFAULT '' COMMENT '一等奖中奖金额',
+  `two_type_num` varchar(10) NOT NULL DEFAULT '' COMMENT '二等奖注数',
+  `two_type_money` varchar(30) NOT NULL DEFAULT '' COMMENT '二等奖中奖金额',
+  `three_type_num` varchar(10) NOT NULL DEFAULT '' COMMENT '三等奖注数',
+  `three_type_money` varchar(30) NOT NULL DEFAULT '' COMMENT '三等奖中奖金额',
+  `poolmoney` varchar(50) NOT NULL DEFAULT '' COMMENT '奖金池',
+  PRIMARY KEY (`code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 

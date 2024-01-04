@@ -6,31 +6,17 @@ import java.util.stream.Collectors;
 import cn.hutool.json.JSONUtil;
 import com.pj.current.enums.LotteryTypeEnum;
 import com.pj.models.so.SoMap;
-import com.pj.project.lottery.lottery_all.LotteryAllService;
-import com.pj.project.lottery.lottery_calculate_count.LotteryCalculateCount;
 import com.pj.project.lottery.lottery_calculate_count.LotteryCalculateCountMapper;
-import com.pj.project.lottery.lottery_calculate_count.LotteryCalculateCountService;
-import com.pj.project.lottery.lottery_calculate_nine.LotteryCalculateNineService;
-import com.pj.project.lottery.lottery_calculate_nine_count.LotteryCalculateNineCountService;
-import com.pj.project.lottery.lottery_calculate_per.LotteryCalculatePer;
 import com.pj.project.lottery.lottery_calculate_per.LotteryCalculatePerMapper;
-import com.pj.project.lottery.lottery_calculate_per.LotteryCalculatePerService;
-import com.pj.project.lottery.lottery_config.LotteryConfig;
 import com.pj.project.lottery.lottery_config.LotteryConfigMapper;
-import com.pj.project.lottery.lottery_red_proportion.LotteryRedProportionService;
-import com.pj.project.lottery.lottery_select.LotterySelectCodesDTO;
 import com.pj.project.lottery.lottery_select.LotterySelectService;
 import com.pj.project.lottery.unionLotto.*;
 import com.pj.project.lottery.unionLotto.domain.ConvertDoubleSpheresReq;
 import com.pj.project.lottery.unionLotto.domain.Lottery;
-import com.pj.project.lottery.unionLotto.enums.CalTypeEnum;
 import com.pj.project.lottery.unionLotto.enums.ParityRatioEnum;
 import com.pj.project.lottery.unionLotto.enums.RangeEnum;
 import com.pj.project.lottery.unionLotto.utils.PersonalLawUtils;
 import com.pj.project.lottery.unionLotto.utils.RuleUtils;
-import com.pj.utils.FileGenerator;
-import com.pj.utils.MappedBiggerFileWriter;
-import com.pj.utils.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -91,6 +77,18 @@ public class LotteryService {
 			List<Lottery> lotterys = unionLotto.getLotterys(lotteryParameter);
 			log.info(JSONUtil.toJsonStr(lotterys));
 			lotteryMapper.batchInsertLottery(lotterys);
+
+		}
+	}
+
+	public void syncLotteryTempdata(LotteryParameter lotteryParameter){
+		lotteryMapper.deleteTempAll();
+		if(LotteryTypeEnum.UNION_LOTTO.getType() == lotteryParameter.getType()){
+			lotteryParameter.setName(LotteryTypeEnum.UNION_LOTTO.getCode());
+			//查询数据
+			List<Lottery> lotterys = unionLotto.getLotterys(lotteryParameter);
+			log.info(JSONUtil.toJsonStr(lotterys));
+			lotteryMapper.batchInsertLotteryTemp(lotterys);
 		}
 	}
 
