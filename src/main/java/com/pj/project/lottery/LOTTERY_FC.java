@@ -24,6 +24,8 @@ import com.pj.project.lottery.lottery_red_proportion.LotteryRedProportionMapper;
 import com.pj.project.lottery.lottery_red_proportion.LotteryRedProportionService;
 import com.pj.project.lottery.lottery_select.LotterySelectMapper;
 import com.pj.project.lottery.lottery_select.LotterySelectService;
+import com.pj.project.lottery.lottery_strategy_record.LotteryStrategyRecordMapper;
+import com.pj.project.lottery.lottery_strategy_record.LotteryStrategyRecordService;
 import com.pj.project.sp_dev.public4mapper.PublicMapper;
 import com.pj.project.sp_dev.public4mapper.PublicService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +42,7 @@ public class LOTTERY_FC {
     public static LotteryMapper lotteryMapper;		// Mapper：
     public static PublicMapper publicMapper;					// Mapper: 公共Mapper
     public static LotteryCalculatePerMapper lotteryCalculatePerMapper;		// Mapper：统计计算每期双色球表
+    public static LotteryStrategyRecordMapper lotteryStrategyRecordMapper;		// Mapper：策略记录表
     public static LotteryCalculateCountMapper lotteryCalculateCountMapper;		// Mapper：按照不同时间维度统计每个红蓝球情况
     public static LotteryCalculateNineMapper lotteryCalculateNineMapper;		// Mapper：九转连环图统计表
     public static LotteryAllMapper lotteryAllMapper;		// Mapper：所有可能得红球组合
@@ -53,6 +56,7 @@ public class LOTTERY_FC {
     public static LotteryService lotteryService;		// Service：
     public static PublicService publicService;						// Service：公共service
     public static LotteryCalculatePerService lotteryCalculatePerService;		// Service：统计计算每期双色球表
+    public static LotteryStrategyRecordService lotteryStrategyRecordService;		// Service：策略记录表
     public static LotteryCalculateCountService lotteryCalculateCountService;		// Service：按照不同时间维度统计每个红蓝球情况
     public static LotteryCalculateNineService lotteryCalculateNineService;		// Service：九转连环图统计表
     public static LotteryAllService lotteryAllService;		// Service：所有可能得红球组合
@@ -71,6 +75,7 @@ public class LOTTERY_FC {
             PublicMapper publicMapper,
             LotteryCalculatePerMapper lotteryCalculatePerMapper,
             LotteryCalculateCountMapper lotteryCalculateCountMapper,
+            LotteryStrategyRecordMapper lotteryStrategyRecordMapper,
             LotteryCalculateNineMapper lotteryCalculateNineMapper,
             LotteryAllMapper lotteryAllMapper,
             LotterySelectMapper lotterySelectMapper,
@@ -84,6 +89,7 @@ public class LOTTERY_FC {
             LotteryCalculateCountService lotteryCalculateCountService,
             LotteryCalculateNineCountService lotteryCalculateNineCountService,
             LotteryCalculateNineService lotteryCalculateNineService,
+            LotteryStrategyRecordService lotteryStrategyRecordService,
             LotteryAllService lotteryAllService,
             LotterySelectService lotterySelectService,
             LotteryForecastService lotteryForecastService,
@@ -98,6 +104,7 @@ public class LOTTERY_FC {
         LOTTERY_FC.lotteryCalculateNineMapper = lotteryCalculateNineMapper;
         LOTTERY_FC.lotteryCalculateNineCountMapper = lotteryCalculateNineCountMapper;
         LOTTERY_FC.lotteryAllMapper = lotteryAllMapper;
+        LOTTERY_FC.lotteryStrategyRecordMapper = lotteryStrategyRecordMapper;
         LOTTERY_FC.lotterySelectMapper = lotterySelectMapper;
         LOTTERY_FC.lotteryForecastMapper = lotteryForecastMapper;
         LOTTERY_FC.lotteryRedProportionMapper = lotteryRedProportionMapper;
@@ -106,6 +113,7 @@ public class LOTTERY_FC {
         LOTTERY_FC.lotteryService = lotteryService;
         LOTTERY_FC.publicService = publicService;
         LOTTERY_FC.lotteryCalculatePerService = lotteryCalculatePerService;
+        LOTTERY_FC.lotteryStrategyRecordService = lotteryStrategyRecordService;
         LOTTERY_FC.lotteryCalculateCountService = lotteryCalculateCountService;
         LOTTERY_FC.lotteryCalculateNineService = lotteryCalculateNineService;
         LOTTERY_FC.lotteryCalculateNineCountService = lotteryCalculateNineCountService;

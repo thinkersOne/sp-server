@@ -33,6 +33,7 @@ import com.pj.project.lottery.unionLotto.utils.RuleUtils;
 import com.pj.utils.FileGenerator;
 import com.pj.utils.IdGeneratorUtils;
 import com.pj.utils.StringUtils;
+import com.pj.utils.cache.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -112,6 +113,12 @@ public class LotteryForecastService {
 		}else{
 			lotteryForecastTemp = setList(lotteryForestVo.getType(),lotteryForestVo.getOrderBy(),map);
 		}
+		String groupId = IdGeneratorUtils.generateId()+"";
+		if(org.springframework.util.StringUtils.hasText(RedisUtil.get(lotteryForecastTemp.getStrategy()))){
+			groupId = RedisUtil.get(lotteryForecastTemp.getStrategy());
+		}else{
+			RedisUtil.setByForever(lotteryForecastTemp.getStrategy(),groupId);
+		}
 		List<String> redList = (List<String>) map.get(LotteryForestConfigEnum.RED_LIST.getName());
 		List<String> redParityRatioList = (List<String>) map.get(LotteryForestConfigEnum.RED_PARITY_RATIO_LIST.getName());
 		List<String> redRangeList = (List<String>) map.get(LotteryForestConfigEnum.RED_RANGE_LIST.getName());
@@ -134,7 +141,7 @@ public class LotteryForecastService {
 			enableCorrect = resultList.contains(lottery.getRed());
 		}
 		FileGenerator.generateFile(
-				LotteryConstant.ROOT_PATH + IdGeneratorUtils.generateId() + "/" + code +"/",
+				LotteryConstant.ROOT_PATH + groupId + "/" + code +"/",
 				enableCorrect + "-" + resultList.size()+"-"+lotteryForestVo.getType()+".txt",
 				JSONUtil.toJsonStr(resultList));
 	}

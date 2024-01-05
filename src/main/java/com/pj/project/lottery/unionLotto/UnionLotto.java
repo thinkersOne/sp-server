@@ -32,7 +32,7 @@ public class UnionLotto implements LotteryInterface<LotteryParameter, UnionLotto
         HttpHeaders headers = new HttpHeaders();
         headers.add("Accept","application/json, text/javascript, */*; q=0.01");
         headers.add("Content-Type","application/json");
-        headers.add("Cookie","HMF_CI=dc2ac2887916254bcc063d4830650c09cd1e514fd94050020779b01de14be16616d9f613449b3cea4dc3d0afb5f23eb6db47aa1f8f6603753d1ac93d42d3c18a28; 21_vq=16");
+        headers.add("Cookie","HMF_CI=dc2ac2887916254bcc063d4830650c09cd1e514fd94050020779b01de14be16616d9f613449b3cea4dc3d0afb5f23eb6db47aa1f8f6603753d1ac93d42d3c18a28; 21_vq=25");
         headers.add("Host","www.cwl.gov.cn");
         // 构建请求实体对象
         HttpEntity<String> requestEntity = new HttpEntity<>(headers);

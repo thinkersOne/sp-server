@@ -360,4 +360,16 @@ CREATE TABLE `lottery_temp` (
   PRIMARY KEY (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE lottery.lottery_strategy_record (
+	id BIGINT auto_increment NOT NULL COMMENT '主键id',
+	strategy_no varchar(100) NOT NULL COMMENT '策略编号-雪花',
+	total INT DEFAULT 0 NOT NULL COMMENT '统计数据量',
+	enable_contain TINYINT DEFAULT 0 NOT NULL COMMENT '是否命中',
+	strategy varchar(200) NOT NULL COMMENT '策略',
+	CONSTRAINT lottery_strategy_record_PK PRIMARY KEY (id)
+)
+ENGINE=InnoDB
+DEFAULT CHARSET=utf8
+COLLATE=utf8_general_ci
+COMMENT='策略记录表';
 

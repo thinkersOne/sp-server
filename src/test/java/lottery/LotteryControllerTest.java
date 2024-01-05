@@ -15,7 +15,7 @@ public class LotteryControllerTest {
     @Test
     public void testForestLotteryConfig(){
         LotteryForestVo lotteryForestVo = LotteryForestVo.builder()
-                .code("2023149").type(0).orderBy(0).build();
+                .code("2023148").type(0).orderBy(0).build();
         lotteryForecastService.lotteryConfig(lotteryForestVo);
     }
 
