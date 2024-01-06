@@ -5,8 +5,8 @@
 	<!-- 增 [G] -->
 	<insert id="add">
 		insert into 
-		lottery_strategy_record (id, strategy_no, total, enable_contain, strategy) 
-		values (#{id}, #{strategyNo}, #{total}, #{enableContain}, #{strategy}) 
+		lottery_strategy_record (id, strategy_no, total, enable_contain, strategy,code)
+		values (#{id}, #{strategyNo}, #{total}, #{enableContain}, #{strategy},#{code})
 	</insert>
 
 	<!-- 删 -->
@@ -22,7 +22,8 @@
 		strategy_no = #{strategyNo}, 
 		total = #{total}, 
 		enable_contain = #{enableContain}, 
-		strategy = #{strategy}
+		strategy = #{strategy},
+		code = #{code}
 		where id = #{id}
 	</update>
 
@@ -37,6 +38,7 @@
 		<result property="total" column="total" />
 		<result property="enableContain" column="enable_contain" />
 		<result property="strategy" column="strategy" />
+		<result property="code" column="code" />
 	</resultMap>
 	
 	<!-- 公共查询sql片段 -->
@@ -60,6 +62,7 @@
 			<if test=' this.has("total") '> and total = #{total} </if>
 			<if test=' this.has("enableContain") '> and enable_contain = #{enableContain} </if>
 			<if test=' this.has("strategy") '> and strategy = #{strategy} </if>
+			<if test=' this.has("code") '> and code = #{code} </if>
 		</where>
 		order by
 		<choose>
@@ -68,6 +71,7 @@
 			<when test='sortType == 3'> total desc </when>
 			<when test='sortType == 4'> enable_contain desc </when>
 			<when test='sortType == 5'> strategy desc </when>
+			<when test='sortType == 6'> code desc </when>
 			<otherwise> id desc </otherwise>
 		</choose>
 	</select>

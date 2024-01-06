@@ -32,19 +32,6 @@ public class LotteryStrategyRecordUtil {
 		AjaxError.throwByIsNull(l.enableContain, "[是否命中] 不能为空");		// 验证: 是否命中 
 		AjaxError.throwByIsNull(l.strategy, "[策略] 不能为空");		// 验证: 策略 
 	}
-
-	/** 
-	 * 获取一个LotteryStrategyRecord (方便复制代码用) [G] 
-	 */ 
-	static LotteryStrategyRecord getLotteryStrategyRecord() {
-		LotteryStrategyRecord l = new LotteryStrategyRecord();	// 声明对象 
-		l.id = 0L;		// 主键id 
-		l.strategyNo = "";		// 策略编号-雪花 
-		l.total = 0;		// 统计数据量 
-		l.enableContain = 0;		// 是否命中 
-		l.strategy = "";		// 策略 
-		return l;
-	}
 	
 	
 	

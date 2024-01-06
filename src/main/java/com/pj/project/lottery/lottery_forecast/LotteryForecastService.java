@@ -26,6 +26,8 @@ import com.pj.project.lottery.lottery_config.LotteryConfigMapper;
 import com.pj.project.lottery.lottery_red_proportion.LotteryRedProportionService;
 import com.pj.project.lottery.lottery_select.LotterySelectCodesDTO;
 import com.pj.project.lottery.lottery_select.LotterySelectService;
+import com.pj.project.lottery.lottery_strategy_record.LotteryStrategyRecord;
+import com.pj.project.lottery.lottery_strategy_record.LotteryStrategyRecordMapper;
 import com.pj.project.lottery.unionLotto.domain.Lottery;
 import com.pj.project.lottery.unionLotto.enums.ParityRatioEnum;
 import com.pj.project.lottery.unionLotto.enums.RangeEnum;
@@ -56,6 +58,8 @@ public class LotteryForecastService {
 	LotteryConfigMapper lotteryConfigMapper;
 	@Autowired
 	LotteryCalculatePerMapper lotteryCalculatePerMapper;
+	@Autowired
+	LotteryStrategyRecordMapper lotteryStrategyRecordMapper;
 	@Autowired
 	LotterySelectService lotterySelectService;
 	@Autowired
@@ -140,6 +144,10 @@ public class LotteryForecastService {
 		if(lottery != null){
 			enableCorrect = resultList.contains(lottery.getRed());
 		}
+		//保存数据
+		LotteryStrategyRecord lotteryStrategyRecord = LotteryStrategyRecord.builder().strategyNo(groupId).code(code)
+				.enableContain(enableCorrect).total(resultList.size()).strategy(lotteryForecastTemp.getStrategy()).build();
+		lotteryStrategyRecordMapper.add(lotteryStrategyRecord);
 		FileGenerator.generateFile(
 				LotteryConstant.ROOT_PATH + groupId + "/" + code +"/",
 				enableCorrect + "-" + resultList.size()+"-"+lotteryForestVo.getType()+".txt",

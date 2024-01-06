@@ -2,6 +2,7 @@ package com.pj.project.lottery.lottery_strategy_record;
 
 import java.io.Serializable;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -11,6 +12,7 @@ import lombok.experimental.Accessors;
  */
 @Data
 @Accessors(chain = true)
+@Builder
 public class LotteryStrategyRecord implements Serializable {
 
 	// ---------- 模块常量 ----------
@@ -37,7 +39,8 @@ public class LotteryStrategyRecord implements Serializable {
 	/**
 	 * 策略编号-雪花 
 	 */
-	public String strategyNo;	
+	public String strategyNo;
+	public String code;
 
 	/**
 	 * 统计数据量 
@@ -47,7 +50,7 @@ public class LotteryStrategyRecord implements Serializable {
 	/**
 	 * 是否命中 
 	 */
-	public Integer enableContain;	
+	public boolean enableContain;
 
 	/**
 	 * 策略 

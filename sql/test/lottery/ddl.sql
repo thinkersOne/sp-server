@@ -373,3 +373,4 @@ DEFAULT CHARSET=utf8
 COLLATE=utf8_general_ci
 COMMENT='策略记录表';
 
+ALTER TABLE lottery.lottery_strategy_record ADD code varchar(100) NOT NULL COMMENT '期号';
