@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pj.project.lottery.lottery_strategy_record.LotteryStrategyRecordMapper">
+
+	<!-- 增 [G] -->
+	<insert id="add">
+		insert into 
+		lottery_strategy_record (id, strategy_no, total, enable_contain, strategy,code)
+		values (#{id}, #{strategyNo}, #{total}, #{enableContain}, #{strategy},#{code})
+	</insert>
+
+	<!-- 删 -->
+	<delete id="delete">
+		delete from lottery_strategy_record 
+		where id = #{id}
+	</delete>
+
+	<!-- 改 [G] -->
+	<update id="update">
+		update lottery_strategy_record set
+		id = #{id}, 
+		strategy_no = #{strategyNo}, 
+		total = #{total}, 
+		enable_contain = #{enableContain}, 
+		strategy = #{strategy},
+		code = #{code}
+		where id = #{id}
+	</update>
+
+
+	<!-- ================================== 查询相关 ================================== -->
+	<!-- select id, strategy_no, total, enable_contain, strategy from lottery_strategy_record  -->
+	
+	<!-- 通用映射：手动模式 -->
+	<resultMap id="model" type="com.pj.project.lottery.lottery_strategy_record.LotteryStrategyRecord">
+		<result property="id" column="id" />
+		<result property="strategyNo" column="strategy_no" />
+		<result property="total" column="total" />
+		<result property="enableContain" column="enable_contain" />
+		<result property="strategy" column="strategy" />
+		<result property="code" column="code" />
+	</resultMap>
+	
+	<!-- 公共查询sql片段 -->
+	<sql id="select_sql">
+		select * 
+		from lottery_strategy_record 
+	</sql>
+	
+	<!-- 查 - 根据id -->
+	<select id="getById" resultMap="model">
+		<include refid="select_sql"></include>
+		where id = #{id}
+	</select>
+	
+	<!-- 查集合 - 根据条件（参数为空时代表忽略指定条件） [G] -->
+	<select id="getList" resultMap="model">
+		<include refid="select_sql"></include>
+		<where>
+			<if test=' this.has("id") '> and id = #{id} </if>
+			<if test=' this.has("strategyNo") '> and strategy_no = #{strategyNo} </if>
+			<if test=' this.has("total") '> and total = #{total} </if>
+			<if test=' this.has("enableContain") '> and enable_contain = #{enableContain} </if>
+			<if test=' this.has("strategy") '> and strategy = #{strategy} </if>
+			<if test=' this.has("code") '> and code = #{code} </if>
+		</where>
+		order by
+		<choose>
+			<when test='sortType == 1'> id desc </when>
+			<when test='sortType == 2'> strategy_no desc </when>
+			<when test='sortType == 3'> total desc </when>
+			<when test='sortType == 4'> enable_contain desc </when>
+			<when test='sortType == 5'> strategy desc </when>
+			<when test='sortType == 6'> code desc </when>
+			<otherwise> id desc </otherwise>
+		</choose>
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+</mapper>
