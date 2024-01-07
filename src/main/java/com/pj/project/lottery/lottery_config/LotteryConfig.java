@@ -69,7 +69,9 @@ public class LotteryConfig implements Serializable {
 	 */
 	public Integer type;	
 
-
+	public Double redNineTurn09Rate;
+	public Double redNineTurn17Rate;
+	public Double redNineTurn33Rate;
 
 
 

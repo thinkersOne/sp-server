@@ -374,3 +374,16 @@ COLLATE=utf8_general_ci
 COMMENT='策略记录表';
 
 ALTER TABLE lottery.lottery_strategy_record ADD code varchar(100) NOT NULL COMMENT '期号';
+
+ALTER TABLE lottery.lottery_config ADD red_nine_turn09_rate DECIMAL(10,2) NULL COMMENT '九转09比例';
+ALTER TABLE lottery.lottery_config ADD red_nine_turn17_rate DECIMAL(10,2) NULL COMMENT '九转17比例';
+ALTER TABLE lottery.lottery_config ADD red_nine_turn33_rate DECIMAL(10,2) NULL COMMENT '九转33比例';
+ALTER TABLE lottery.lottery_config MODIFY COLUMN red_rate decimal(10,2) DEFAULT 0 NULL COMMENT '红球比例';
+ALTER TABLE lottery.lottery_config MODIFY COLUMN red_parity_rate decimal(10,2) DEFAULT 0 NULL COMMENT '奇偶比例';
+ALTER TABLE lottery.lottery_config MODIFY COLUMN red_range_rate decimal(10,2) DEFAULT 0 NULL COMMENT '区间比例';
+ALTER TABLE lottery.lottery_config MODIFY COLUMN red_sum_rate decimal(10,2) DEFAULT 0 NULL COMMENT '和值比例';
+ALTER TABLE lottery.lottery_config MODIFY COLUMN consecutive_numbers_count_rate decimal(10,2) DEFAULT 0 NULL COMMENT '连号个数比例';
+ALTER TABLE lottery.lottery_config MODIFY COLUMN max_consecutive_numbers_rate decimal(10,2) DEFAULT 0 NULL COMMENT '最大连号数比例';
+ALTER TABLE lottery.lottery_config MODIFY COLUMN red_nine_turn09_rate decimal(10,2) DEFAULT 0 NULL COMMENT '九转09比例';
+ALTER TABLE lottery.lottery_config MODIFY COLUMN red_nine_turn17_rate decimal(10,2) DEFAULT 0 NULL COMMENT '九转17比例';
+ALTER TABLE lottery.lottery_config MODIFY COLUMN red_nine_turn33_rate decimal(10,2) DEFAULT 0 NULL COMMENT '九转33比例';

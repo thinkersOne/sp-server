@@ -16,7 +16,11 @@ import com.pj.project.lottery.lottery_all.LotteryAllService;
 import com.pj.project.lottery.lottery_calculate_count.LotteryCalculateCount;
 import com.pj.project.lottery.lottery_calculate_count.LotteryCalculateCountMapper;
 import com.pj.project.lottery.lottery_calculate_count.LotteryCalculateCountService;
+import com.pj.project.lottery.lottery_calculate_nine.LotteryCalculateNine;
+import com.pj.project.lottery.lottery_calculate_nine.LotteryCalculateNineM;
+import com.pj.project.lottery.lottery_calculate_nine.LotteryCalculateNineMapper;
 import com.pj.project.lottery.lottery_calculate_nine.LotteryCalculateNineService;
+import com.pj.project.lottery.lottery_calculate_nine_count.LotteryCalculateNineCountMapper;
 import com.pj.project.lottery.lottery_calculate_nine_count.LotteryCalculateNineCountService;
 import com.pj.project.lottery.lottery_calculate_per.LotteryCalculatePer;
 import com.pj.project.lottery.lottery_calculate_per.LotteryCalculatePerMapper;
@@ -29,6 +33,8 @@ import com.pj.project.lottery.lottery_select.LotterySelectService;
 import com.pj.project.lottery.lottery_strategy_record.LotteryStrategyRecord;
 import com.pj.project.lottery.lottery_strategy_record.LotteryStrategyRecordMapper;
 import com.pj.project.lottery.unionLotto.domain.Lottery;
+import com.pj.project.lottery.unionLotto.enums.CalTypeEnum;
+import com.pj.project.lottery.unionLotto.enums.NineTypeEnum;
 import com.pj.project.lottery.unionLotto.enums.ParityRatioEnum;
 import com.pj.project.lottery.unionLotto.enums.RangeEnum;
 import com.pj.project.lottery.unionLotto.utils.RuleUtils;
@@ -58,6 +64,8 @@ public class LotteryForecastService {
 	LotteryConfigMapper lotteryConfigMapper;
 	@Autowired
 	LotteryCalculatePerMapper lotteryCalculatePerMapper;
+	@Autowired
+	LotteryCalculateNineMapper lotteryCalculateNineMapper;
 	@Autowired
 	LotteryStrategyRecordMapper lotteryStrategyRecordMapper;
 	@Autowired
@@ -105,53 +113,64 @@ public class LotteryForecastService {
 	}
 
 	public void lotteryConfig(LotteryForestVo lotteryForestVo){
-		if(org.springframework.util.StringUtils.hasText(lotteryForestVo.getCode())){
-			this.syncData(lotteryForestVo.getCode());
-		}
-		Map<String,List<?>> map = new HashMap<>();
-		LotteryForecastTemp lotteryForecastTemp = null;
-		if(lotteryForestVo.getType() == 0){
-			for (int i = 1; i < 4; i++) {
-				lotteryForecastTemp = setList(i,i + 1,map);
+		try {
+			if (org.springframework.util.StringUtils.hasText(lotteryForestVo.getCode())) {
+				this.syncData(lotteryForestVo.getCode());
 			}
-		}else{
-			lotteryForecastTemp = setList(lotteryForestVo.getType(),lotteryForestVo.getOrderBy(),map);
+			Map<String, List<?>> map = new HashMap<>();
+			LotteryForecastTemp lotteryForecastTemp = null;
+			if (lotteryForestVo.getType() == 0) {
+				for (int i = 1; i < 4; i++) {
+					lotteryForecastTemp = setList(i, i + 1, map);
+				}
+			} else {
+				lotteryForecastTemp = setList(lotteryForestVo.getType(), lotteryForestVo.getOrderBy(), map);
+			}
+			String groupId = IdGeneratorUtils.generateId() + "";
+			if (org.springframework.util.StringUtils.hasText(RedisUtil.get(lotteryForecastTemp.getStrategy()))) {
+				groupId = RedisUtil.get(lotteryForecastTemp.getStrategy());
+			} else {
+				RedisUtil.setByForever(lotteryForecastTemp.getStrategy(), groupId);
+			}
+			List<String> redList = (List<String>) map.get(LotteryForestConfigEnum.RED_LIST.getName());
+			List<String> redParityRatioList = (List<String>) map.get(LotteryForestConfigEnum.RED_PARITY_RATIO_LIST.getName());
+			List<String> redRangeList = (List<String>) map.get(LotteryForestConfigEnum.RED_RANGE_LIST.getName());
+			List<String> redSumList = (List<String>) map.get(LotteryForestConfigEnum.RED_SUM_LIST.getName());
+			List<Integer> consecutiveNumbersCountList = (List<Integer>) map.get(LotteryForestConfigEnum.CONSECUTIVE_NUMBERS_COUNT_LIST.getName());
+			List<Integer> maxConsecutiveNumbersCountList = (List<Integer>) map.get(LotteryForestConfigEnum.MAX_CONSECUTIVE_NUMBERS_COUNT_LIST.getName());
+			List<String> nineTurn09List = (List<String>) map.get(LotteryForestConfigEnum.NINE_TURN_09_LIST.getName());
+			List<String> nineTurn17List = (List<String>) map.get(LotteryForestConfigEnum.NINE_TURN_17_LIST.getName());
+			List<String> nineTurn33List = (List<String>) map.get(LotteryForestConfigEnum.NINE_TURN_33_LIST.getName());
+			LotterySelectCodesDTO selectCodesDTO = LotterySelectCodesDTO.builder().redList(redList).redParityRatioList(redParityRatioList)
+					.redRangeRatioList(redRangeList).redSumList(redSumList)
+					.consecutiveNumbersCountList(consecutiveNumbersCountList)
+					.maxConsecutiveNumbersCountList(maxConsecutiveNumbersCountList)
+					.nineTurn09List(nineTurn09List).nineTurn17List(nineTurn17List).nineTurn33List(nineTurn33List)
+					.build();
+			List<String> resultList = lotterySelectService.lotterySelectCodes(selectCodesDTO);
+			log.info("总数据量:" + resultList.size());
+			// 保存文件
+			LotteryCalculatePer beforeInfo = lotteryCalculatePerMapper.getBeforeInfo();
+			String code = StringUtils.nextCode(beforeInfo.getCode());
+			//查看是否预测准确
+			Lottery lottery = lotteryMapper.getByCode(code);
+			boolean enableCorrect = false;
+			if (lottery != null) {
+				enableCorrect = resultList.contains(lottery.getRed());
+			}
+			//保存数据
+			LotteryStrategyRecord lotteryStrategyRecord = LotteryStrategyRecord.builder().strategyNo(groupId).code(code)
+					.enableContain(enableCorrect).total(resultList.size()).strategy(lotteryForecastTemp.getStrategy()).build();
+			lotteryStrategyRecordMapper.add(lotteryStrategyRecord);
+			FileGenerator.generateFile(
+					LotteryConstant.ROOT_PATH + groupId + "/" + code + "/",
+					enableCorrect + "-" + resultList.size() + "-" + code + ".txt",
+					JSONUtil.toJsonStr(resultList));
+		}catch (Exception e){
+			//记录错误code
+			log.error("预测期间出现异常:{},code:{}",e.getMessage(),lotteryForestVo.getCode());
+			RedisUtil.forListAdd(LotteryConstant.LOTTERY_FORECAST_ERROR_KEY,lotteryForestVo.getCode());
 		}
-		String groupId = IdGeneratorUtils.generateId()+"";
-		if(org.springframework.util.StringUtils.hasText(RedisUtil.get(lotteryForecastTemp.getStrategy()))){
-			groupId = RedisUtil.get(lotteryForecastTemp.getStrategy());
-		}else{
-			RedisUtil.setByForever(lotteryForecastTemp.getStrategy(),groupId);
-		}
-		List<String> redList = (List<String>) map.get(LotteryForestConfigEnum.RED_LIST.getName());
-		List<String> redParityRatioList = (List<String>) map.get(LotteryForestConfigEnum.RED_PARITY_RATIO_LIST.getName());
-		List<String> redRangeList = (List<String>) map.get(LotteryForestConfigEnum.RED_RANGE_LIST.getName());
-		List<String> redSumList = (List<String>) map.get(LotteryForestConfigEnum.RED_SUM_LIST.getName());
-		List<Integer> consecutiveNumbersCountList = (List<Integer>) map.get(LotteryForestConfigEnum.CONSECUTIVE_NUMBERS_COUNT_LIST.getName());
-		List<Integer> maxConsecutiveNumbersCountList = (List<Integer>) map.get(LotteryForestConfigEnum.MAX_CONSECUTIVE_NUMBERS_COUNT_LIST.getName());
-		LotterySelectCodesDTO selectCodesDTO = LotterySelectCodesDTO.builder().redList(redList).redParityRatioList(redParityRatioList)
-				.redRangeRatioList(redRangeList).redSumList(redSumList)
-				.consecutiveNumbersCountList(consecutiveNumbersCountList)
-				.maxConsecutiveNumbersCountList(maxConsecutiveNumbersCountList).build();
-		List<String> resultList = lotterySelectService.lotterySelectCodes(selectCodesDTO);
-		log.info("总数据量:"+ resultList.size());
-		// 保存文件
-		LotteryCalculatePer beforeInfo = lotteryCalculatePerMapper.getBeforeInfo();
-		String code = StringUtils.nextCode(beforeInfo.getCode());
-		//查看是否预测准确
-		Lottery lottery = lotteryMapper.getByCode(code);
-		boolean enableCorrect = false;
-		if(lottery != null){
-			enableCorrect = resultList.contains(lottery.getRed());
-		}
-		//保存数据
-		LotteryStrategyRecord lotteryStrategyRecord = LotteryStrategyRecord.builder().strategyNo(groupId).code(code)
-				.enableContain(enableCorrect).total(resultList.size()).strategy(lotteryForecastTemp.getStrategy()).build();
-		lotteryStrategyRecordMapper.add(lotteryStrategyRecord);
-		FileGenerator.generateFile(
-				LotteryConstant.ROOT_PATH + groupId + "/" + code +"/",
-				enableCorrect + "-" + resultList.size()+"-"+lotteryForestVo.getType()+".txt",
-				JSONUtil.toJsonStr(resultList));
 	}
 
 	public LotteryForecastTemp setList(int type,int orderBy,Map<String,List<?>> map){
@@ -181,38 +200,129 @@ public class LotteryForecastService {
 		//筛选 红球奇偶比
 		List<String> redParityRatioList = getRedParityRatioList(maxLotteryCalculateCount, lotteryConfig, lotteryCalculateCount);
 		if(map.get(LotteryForestConfigEnum.RED_PARITY_RATIO_LIST.getName()) != null){
-			redList.addAll((Collection<? extends String>) map.get(LotteryForestConfigEnum.RED_PARITY_RATIO_LIST.getName()));
+			redParityRatioList.addAll((Collection<? extends String>) map.get(LotteryForestConfigEnum.RED_PARITY_RATIO_LIST.getName()));
 		}
 		map.put(LotteryForestConfigEnum.RED_PARITY_RATIO_LIST.getName(),redParityRatioList);
 		//筛选 红球区间比
 		List<String> redRangeList = getRedRangeList(maxLotteryCalculateCount, lotteryConfig, lotteryCalculateCount);
 		if(map.get(LotteryForestConfigEnum.RED_RANGE_LIST.getName()) != null){
-			redList.addAll((Collection<? extends String>) map.get(LotteryForestConfigEnum.RED_RANGE_LIST.getName()));
+			redRangeList.addAll((Collection<? extends String>) map.get(LotteryForestConfigEnum.RED_RANGE_LIST.getName()));
 		}
 		map.put(LotteryForestConfigEnum.RED_RANGE_LIST.getName(),redRangeList);
 		//筛选 红球和值比
 		List<String> redSumList = getRedSumList(maxLotteryCalculateCount, lotteryConfig, lotteryCalculateCount);
 		if(map.get(LotteryForestConfigEnum.RED_SUM_LIST.getName()) != null){
-			redList.addAll((Collection<? extends String>) map.get(LotteryForestConfigEnum.RED_SUM_LIST.getName()));
+			redSumList.addAll((Collection<? extends String>) map.get(LotteryForestConfigEnum.RED_SUM_LIST.getName()));
 		}
 		map.put(LotteryForestConfigEnum.RED_SUM_LIST.getName(),redSumList);
 		//筛选 连号个数
 		List<Integer> consecutiveNumbersCountList = getConsecutiveNumbersCountList(maxLotteryCalculateCount, lotteryConfig, lotteryCalculateCount);
 		if(map.get(LotteryForestConfigEnum.CONSECUTIVE_NUMBERS_COUNT_LIST.getName()) != null){
-			redList.addAll((Collection<? extends String>) map.get(LotteryForestConfigEnum.CONSECUTIVE_NUMBERS_COUNT_LIST.getName()));
+			consecutiveNumbersCountList.addAll((Collection<? extends Integer>) map.get(LotteryForestConfigEnum.CONSECUTIVE_NUMBERS_COUNT_LIST.getName()));
 		}
 		map.put(LotteryForestConfigEnum.CONSECUTIVE_NUMBERS_COUNT_LIST.getName(),consecutiveNumbersCountList);
 		//筛选 最大连号数
 		List<Integer> maxConsecutiveNumbersCountList = getMaxConsecutiveNumbersCountList(maxLotteryCalculateCount, lotteryConfig, lotteryCalculateCount);
 		if(map.get(LotteryForestConfigEnum.MAX_CONSECUTIVE_NUMBERS_COUNT_LIST.getName()) != null){
-			redList.addAll((Collection<? extends String>) map.get(LotteryForestConfigEnum.MAX_CONSECUTIVE_NUMBERS_COUNT_LIST.getName()));
+			maxConsecutiveNumbersCountList.addAll((Collection<? extends Integer>) map.get(LotteryForestConfigEnum.MAX_CONSECUTIVE_NUMBERS_COUNT_LIST.getName()));
 		}
 		map.put(LotteryForestConfigEnum.MAX_CONSECUTIVE_NUMBERS_COUNT_LIST.getName(),maxConsecutiveNumbersCountList);
+		//筛选 九转连环09
+		List<LotteryCalculateNine> maxNineTurnCountList = lotteryCalculateNineMapper.getMaxNineTurnCount(type);
+		List<LotteryCalculateNine> currentList = getLotteryCalculateNines(type, lotteryCalculateCount);
+		List<String> nineTurn09List = getNineTurn09List(maxNineTurnCountList, currentList, lotteryConfig);
+		if(map.get(LotteryForestConfigEnum.NINE_TURN_09_LIST.getName()) != null){
+			nineTurn09List.addAll((Collection<? extends String>) map.get(LotteryForestConfigEnum.NINE_TURN_09_LIST.getName()));
+		}
+		map.put(LotteryForestConfigEnum.NINE_TURN_09_LIST.getName(),nineTurn09List);
+		List<String> nineTurn17List =getNineTurn17List(maxNineTurnCountList, currentList, lotteryConfig);
+		if(map.get(LotteryForestConfigEnum.NINE_TURN_17_LIST.getName()) != null){
+			nineTurn17List.addAll((Collection<? extends String>) map.get(LotteryForestConfigEnum.NINE_TURN_17_LIST.getName()));
+		}
+		map.put(LotteryForestConfigEnum.NINE_TURN_17_LIST.getName(),nineTurn17List);
+		List<String> nineTurn33List = getNineTurn33List(maxNineTurnCountList, currentList, lotteryConfig);
+		if(map.get(LotteryForestConfigEnum.NINE_TURN_33_LIST.getName()) != null){
+			nineTurn33List.addAll((Collection<? extends String>) map.get(LotteryForestConfigEnum.NINE_TURN_33_LIST.getName()));
+		}
+		map.put(LotteryForestConfigEnum.NINE_TURN_33_LIST.getName(),nineTurn33List);
+
 		LotteryForecastTemp forecastTemp = LotteryForecastTemp.builder().build();
 		forecastTemp.appendStrategy(lotteryConfig.getRedRate()+","+lotteryConfig.getRedParityRate()
 				+","+lotteryConfig.getRedRangeRate()+","+lotteryConfig.getRedSumRate()+
 				","+lotteryConfig.getConsecutiveNumbersCountRate()+","+lotteryConfig.getMaxConsecutiveNumbersRate());
 		return forecastTemp;
+	}
+
+	private List<String> getNineTurn33List(List<LotteryCalculateNine> maxNineTurnCountList
+			,List<LotteryCalculateNine> currentList,LotteryConfig lotteryConfig){
+		List<String> nineTurn33List = new ArrayList<>(200);
+		List<LotteryCalculateNine> lotteryCalculateNines33 = maxNineTurnCountList.stream()
+				.filter(v -> v.nineTurnType == NineTypeEnum.NINE33.getType())
+				.collect(Collectors.toList());
+		lotteryCalculateNines33.stream().forEach(v->{
+			if(!CollectionUtils.isEmpty(currentList)){
+				boolean correctCondition = currentList.stream().anyMatch(w -> w.getNineTurnType() == v.getNineTurnType()
+								&& w.getNineTurnCount() >= v.getNineTurnCount() * lotteryConfig.getRedNineTurn09Rate());
+				if(correctCondition && !nineTurn33List.contains(v.getNineTurn())){
+					nineTurn33List.add(v.getNineTurn());
+				}
+			}
+		});
+		return nineTurn33List;
+	}
+
+	private List<String> getNineTurn17List(List<LotteryCalculateNine> maxNineTurnCountList
+			,List<LotteryCalculateNine> currentList,LotteryConfig lotteryConfig){
+		List<String> nineTurn17List = new ArrayList<>(200);
+		List<LotteryCalculateNine> lotteryCalculateNines17 = maxNineTurnCountList.stream()
+				.filter(v -> v.nineTurnType == NineTypeEnum.NINE17.getType())
+				.collect(Collectors.toList());
+		lotteryCalculateNines17.stream().forEach(v->{
+			if(!CollectionUtils.isEmpty(currentList)){
+				boolean correctCondition = currentList.stream().anyMatch(w -> w.getNineTurnType() == v.getNineTurnType()
+								&& w.getNineTurnCount() >= v.getNineTurnCount() * lotteryConfig.getRedNineTurn09Rate());
+				if(correctCondition && !nineTurn17List.contains(v.getNineTurn())){
+					nineTurn17List.add(v.getNineTurn());
+				}
+			}
+		});
+		return nineTurn17List;
+	}
+
+	private List<String> getNineTurn09List(List<LotteryCalculateNine> maxNineTurnCountList
+			,List<LotteryCalculateNine> currentList,LotteryConfig lotteryConfig){
+		List<String> nineTurn09List = new ArrayList<>(200);
+		List<LotteryCalculateNine> lotteryCalculateNines09 = maxNineTurnCountList.stream()
+				.filter(v -> v.nineTurnType == NineTypeEnum.NINE09.getType())
+				.collect(Collectors.toList());
+		lotteryCalculateNines09.stream().forEach(v->{
+			if(!CollectionUtils.isEmpty(currentList)){
+				boolean correctCondition = currentList.stream().anyMatch(w -> w.getNineTurnType() == v.getNineTurnType()
+								&& w.getNineTurnCount() <= v.getNineTurnCount() * lotteryConfig.getRedNineTurn09Rate());
+				if(correctCondition && !nineTurn09List.contains(v.getNineTurn())){
+					nineTurn09List.add(v.getNineTurn());
+				}
+			}
+		});
+		return nineTurn09List;
+	}
+
+	private List<LotteryCalculateNine> getLotteryCalculateNines(int type, LotteryCalculateCount lotteryCalculateCount) {
+		SoMap currentMap = new SoMap();
+		currentMap.set("calType", type);
+		if(CalTypeEnum.YEAR.getCalType() == type){
+			currentMap.set("year", lotteryCalculateCount.getYear());
+		}else if (CalTypeEnum.MONTH.getCalType() == type){
+			currentMap.set("year", lotteryCalculateCount.getYear());
+			currentMap.set("month", lotteryCalculateCount.getMonth());
+		}else if (CalTypeEnum.WEEK.getCalType() == type){
+			currentMap.set("year", lotteryCalculateCount.getYear());
+			currentMap.set("week", lotteryCalculateCount.getWeek());
+		}else if (CalTypeEnum.CODE.getCalType() == type){
+			currentMap.set("codes", lotteryCalculateCount.getCodes());
+		}
+		List<LotteryCalculateNine> currentList = lotteryCalculateNineMapper.getCurrentList(currentMap);
+		return currentList;
 	}
 
 	public void syncData(String code){

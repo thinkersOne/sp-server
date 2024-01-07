@@ -55,5 +55,7 @@ public interface LotteryCalculateNineMapper {
 	void deleteAll();
 
 	List<LotteryCalculateNineM> getMinAndMax();
+	List<LotteryCalculateNine> getMaxNineTurnCount(int calType);
 
+	List<LotteryCalculateNine> getCurrentList(SoMap so);
 }

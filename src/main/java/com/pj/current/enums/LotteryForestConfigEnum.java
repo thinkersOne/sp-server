@@ -1,5 +1,7 @@
 package com.pj.current.enums;
 
+import java.util.List;
+
 public enum LotteryForestConfigEnum {
     RED_LIST(1,"redList"),
     RED_PARITY_RATIO_LIST(2,"redParityRatioList"),
@@ -7,6 +9,9 @@ public enum LotteryForestConfigEnum {
     RED_SUM_LIST(4,"redSumList"),
     CONSECUTIVE_NUMBERS_COUNT_LIST(5,"consecutiveNumbersCountList"),
     MAX_CONSECUTIVE_NUMBERS_COUNT_LIST(6,"maxConsecutiveNumbersCountList"),
+    NINE_TURN_09_LIST(7,"nineTurn09List"),
+    NINE_TURN_17_LIST(8,"nineTurn17List"),
+    NINE_TURN_33_LIST(9,"nineTurn33List"),
     ;
     private int code;
     private String name;

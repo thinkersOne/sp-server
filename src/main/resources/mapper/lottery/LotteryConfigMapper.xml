@@ -5,8 +5,10 @@
 	<!-- 增 [G] -->
 	<insert id="add">
 		insert into 
-		lottery_config (id, red_rate, red_parity_rate, red_range_rate, red_sum_rate, consecutive_numbers_count_rate, max_consecutive_numbers_rate, type) 
-		values (#{id}, #{redRate}, #{redParityRate}, #{redRangeRate}, #{redSumRate}, #{consecutiveNumbersCountRate}, #{maxConsecutiveNumbersRate}, #{type}) 
+		lottery_config (id, red_rate, red_parity_rate, red_range_rate, red_sum_rate, consecutive_numbers_count_rate, max_consecutive_numbers_rate,
+		type,red_nine_turn09_rate,red_nine_turn17_rate,red_nine_turn33_rate)
+		values (#{id}, #{redRate}, #{redParityRate}, #{redRangeRate}, #{redSumRate}, #{consecutiveNumbersCountRate}, #{maxConsecutiveNumbersRate},
+		#{type},#{redNineTurn09Rate},#{redNineTurn17Rate},#{redNineTurn33Rate})
 	</insert>
 
 	<!-- 删 -->
@@ -43,6 +45,9 @@
 		<result property="consecutiveNumbersCountRate" column="consecutive_numbers_count_rate" />
 		<result property="maxConsecutiveNumbersRate" column="max_consecutive_numbers_rate" />
 		<result property="type" column="type" />
+		<result property="redNineTurn09Rate" column="red_nine_turn09_rate" />
+		<result property="redNineTurn17Rate" column="red_nine_turn17_rate" />
+		<result property="redNineTurn33Rate" column="red_nine_turn33_rate" />
 	</resultMap>
 	
 	<!-- 公共查询sql片段 -->

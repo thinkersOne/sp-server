@@ -1,20 +1,27 @@
 package com.pj.task;
 
+import com.pj.current.global.LotteryConstant;
 import com.pj.project.lottery.LotteryParameter;
 import com.pj.project.lottery.lottery_calculate_count.LotteryCalculateCountService;
 import com.pj.project.lottery.lottery_calculate_nine.LotteryCalculateNineService;
 import com.pj.project.lottery.lottery_calculate_per.LotteryCalculatePerMapper;
 import com.pj.project.lottery.lottery_calculate_per.LotteryCalculatePerService;
+import com.pj.project.lottery.lottery_forecast.LotteryForecastService;
+import com.pj.project.lottery.lottery_forecast.LotteryForestVo;
 import com.pj.project.lottery.lottery_select.LotterySelectService;
 import com.pj.project.lottery.unionLotto.domain.Lottery;
 import com.pj.project.lottery.LotteryMapper;
 import com.pj.project.lottery.LotteryService;
 import com.pj.project.lottery.unionLotto.UnionLotto;
+import com.pj.utils.cache.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
+
+import java.util.List;
 
 @Slf4j
 @Component
@@ -33,6 +40,9 @@ public class LotteryTask {
     private LotterySelectService lotterySelectService;
     @Autowired
     UnionLotto unionLotto;
+    @Autowired
+    private LotteryForecastService lotteryForecastService;
+
 
     @Scheduled(cron = "0 0 23 * * ?")
     @Transactional(rollbackFor = Exception.class)
@@ -73,6 +83,25 @@ public class LotteryTask {
         }catch (Exception e){
             log.error("同步最新期号失败", e);
             throw new RuntimeException("同步最新期号失败");
+        }
+    }
+
+    /**
+     * 定时 将预测策略 失败的数据重新进行预测
+     */
+    @Scheduled(cron = "0 0 0,1,5,6,7,11,12,13,19,20,23 * * ?")
+    @Transactional(rollbackFor = Exception.class)
+    public void reLotteryConfig() {
+        List<Object> objects = RedisUtil.forListGet(LotteryConstant.LOTTERY_FORECAST_ERROR_KEY);
+        if(!CollectionUtils.isEmpty(objects)){
+            //先删除 再针对错误的code重新执行
+            RedisUtil.forListRemove(LotteryConstant.LOTTERY_FORECAST_ERROR_KEY);
+            objects.stream().forEach(v->{
+                LotteryForestVo lotteryForestVo = LotteryForestVo.builder()
+                        .code((String) v).type(0).orderBy(0).build();
+                lotteryForecastService.lotteryConfig(lotteryForestVo);
+            });
+            log.info("重新预测完成！");
         }
     }
 

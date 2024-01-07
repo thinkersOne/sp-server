@@ -104,6 +104,18 @@
 		from lottery_calculate_nine group by nine_turn_type
 	</select>
 	
-	
+	<select id="getMaxNineTurnCount" resultMap="model">
+		select nine_turn,max(nine_turn_count) as nine_turn_count,nine_turn_type
+		from lottery_calculate_nine where cal_type  = #{calType}
+		group by nine_turn,nine_turn_type order by nine_turn_type
+	</select>
+
+	<select id="getCurrentList" resultMap="model">
+		select *
+		from lottery_calculate_nine where cal_type  = #{calType}
+		<if test='year > 0'> and year = #{year} </if>
+		<if test='month > 0'> and month = #{month} </if>
+		<if test=' this.has("codes") '> and codes = #{codes} </if>
+	</select>
 
 </mapper>

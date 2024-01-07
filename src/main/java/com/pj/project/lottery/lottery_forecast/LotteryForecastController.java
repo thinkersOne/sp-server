@@ -2,6 +2,7 @@ package com.pj.project.lottery.lottery_forecast;
 
 import java.util.List;
 
+import com.pj.current.global.LotteryConstant;
 import com.pj.current.global.StatusCode;
 import com.pj.models.so.SoMap;
 import com.pj.project.lottery.LOTTERY_SP;
@@ -83,8 +84,26 @@ public class LotteryForecastController {
 		lotteryForecastService.lotteryConfig(lotteryForestVo);
 		return  new ResultRes(StatusCode.RESULT_SUCCESS,"OK");
 	}
-	
-	
-	
+
+	@PostMapping("/forest/lotteryConfigAll")
+	public ResultRes lotteryConfigAll(@RequestBody LotteryForestStrategyCodeVo lotteryForestStrategyCodeVo) {
+		if(lotteryForestStrategyCodeVo.getBeginCode() == 0 || lotteryForestStrategyCodeVo.getEndCode() == 0){
+			LotteryConstant.lotteryForestStrategyCodeVoList.stream().forEach(v->{
+				lotterySection(v);
+			});
+		}else{
+			lotterySection(lotteryForestStrategyCodeVo);
+		}
+		return  new ResultRes(StatusCode.RESULT_SUCCESS,"OK");
+	}
+
+	private void lotterySection(LotteryForestStrategyCodeVo lotteryForestStrategyCodeVo) {
+		for (int i = lotteryForestStrategyCodeVo.getBeginCode(); i < lotteryForestStrategyCodeVo.getEndCode(); i++) {
+			LotteryForestVo lotteryForestVo = LotteryForestVo.builder()
+					.code(i+"").type(0).orderBy(0).build();
+			lotteryForecastService.lotteryConfig(lotteryForestVo);
+		}
+	}
+
 
 }
