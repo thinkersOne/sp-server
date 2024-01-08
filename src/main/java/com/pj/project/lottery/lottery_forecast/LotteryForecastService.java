@@ -327,7 +327,7 @@ public class LotteryForecastService {
 		return currentList;
 	}
 
-	public void syncData(String code){
+	public synchronized void syncData(String code){
 		//全量lottery同步
 		LotteryParameter lotteryParameter = LotteryParameter.builder()
 				.type(LotteryTypeEnum.UNION_LOTTO.getType()).pageNo(1).pageSize(10000).build();
