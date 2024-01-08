@@ -249,7 +249,9 @@ public class LotteryForecastService {
 		LotteryForecastTemp forecastTemp = LotteryForecastTemp.builder().build();
 		forecastTemp.appendStrategy(lotteryConfig.getRedRate()+","+lotteryConfig.getRedParityRate()
 				+","+lotteryConfig.getRedRangeRate()+","+lotteryConfig.getRedSumRate()+
-				","+lotteryConfig.getConsecutiveNumbersCountRate()+","+lotteryConfig.getMaxConsecutiveNumbersRate());
+				","+lotteryConfig.getConsecutiveNumbersCountRate()+","+lotteryConfig.getMaxConsecutiveNumbersRate()
+				+","+ lotteryConfig.getRedNineTurn09Rate() +","+ lotteryConfig.getRedNineTurn17Rate()
+				+","+lotteryConfig.getRedNineTurn33Rate());
 		return forecastTemp;
 	}
 
