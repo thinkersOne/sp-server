@@ -89,7 +89,7 @@ public class LotteryTask {
     /**
      * 定时 将预测策略 失败的数据重新进行预测
      */
-    @Scheduled(cron = "0 0 0,1,5,6,7,11,12,13,19,20,23 * * ?")
+    @Scheduled(cron = "0 0 0,23 * * ?")
     @Transactional(rollbackFor = Exception.class)
     public void reLotteryConfig() {
         List<Object> objects = RedisUtil.forListGet(LotteryConstant.LOTTERY_FORECAST_ERROR_KEY);
