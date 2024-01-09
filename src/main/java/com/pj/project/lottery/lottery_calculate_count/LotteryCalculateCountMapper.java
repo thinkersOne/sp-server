@@ -58,5 +58,6 @@ public interface LotteryCalculateCountMapper {
 	void deleteAll();
 
 	LotteryCalculateCount getMaxLotteryCalculateCount(int calType);
+	List<LotteryCalculateCount> getMaxLotteryCalculateCounts();
 
 }

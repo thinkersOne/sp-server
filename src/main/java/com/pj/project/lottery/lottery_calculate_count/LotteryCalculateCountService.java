@@ -88,12 +88,18 @@ public class LotteryCalculateCountService {
 		if(CollectionUtils.isEmpty(lotteryCalculatePerMapperList)){
 			throw new RuntimeException("没有数据!");
 		}
+		lotteryCalculatePerMapperList.sort((a,b)-> a.getCode().compareTo(b.getCode()));
+
+		batchInsertLotteryCalculateCount(lotteryCalculatePerMapperList);
+		System.out.println("----------------");
+	}
+
+	public void batchInsertLotteryCalculateCount(List<LotteryCalculatePer> lotteryCalculatePerMapperList) {
 		//按照code XXX0-XXX9分组
 		Map<String,List<LotteryCalculatePer>> codeMap = new HashMap<>(100);
 		List<LotteryCalculatePer> list = new ArrayList<>(10);
 		StringBuffer sb = new StringBuffer();
 		Map<String,LotteryCalculatePer> beforeMap = new HashMap<>(100);
-		lotteryCalculatePerMapperList.sort((a,b)-> a.getCode().compareTo(b.getCode()));
 		Stream.iterate(0, n -> n + 1).limit(lotteryCalculatePerMapperList.size()).forEach(i ->{
 			LotteryCalculatePer lotteryCalculatePer = lotteryCalculatePerMapperList.get(i);
 			String code = lotteryCalculatePer.getCode();
@@ -143,7 +149,6 @@ public class LotteryCalculateCountService {
 		listList.stream().forEach(v->{
 			lotteryCalculateCountMapper.batchInsertLotteryCalculateCount(v);
 		});
-		System.out.println("----------------");
 	}
 
 	public <T> List<LotteryCalculateCount> getList(Map<T, List<LotteryCalculatePer>> map,int calType){

@@ -64,28 +64,6 @@ public class LotteryTask {
         }
     }
 
-//    @Scheduled(cron = "0 0 21 ? * 1,3,5")
-    @Transactional(rollbackFor = Exception.class)
-    public void syncCurrentLottery() {
-        try{
-            //获取数据库最新期号
-            Lottery lottery = lotteryMapper.getCurrentLottery();
-
-            //获取官网最新期号
-            Lottery currentLottery = unionLotto.getCurrentLottery();
-
-            if(lottery == null || currentLottery == null || lottery.getCode().equals(currentLottery.getCode())){
-                return;
-            }
-            lotteryMapper.add(currentLottery);
-            lotteryCalculatePerService.add(currentLottery);
-            log.info("同步完成！");
-        }catch (Exception e){
-            log.error("同步最新期号失败", e);
-            throw new RuntimeException("同步最新期号失败");
-        }
-    }
-
     /**
      * 定时 将预测策略 失败的数据重新进行预测
      */

@@ -387,3 +387,5 @@ ALTER TABLE lottery.lottery_config MODIFY COLUMN max_consecutive_numbers_rate de
 ALTER TABLE lottery.lottery_config MODIFY COLUMN red_nine_turn09_rate decimal(10,2) DEFAULT 0 NULL COMMENT '九转09比例';
 ALTER TABLE lottery.lottery_config MODIFY COLUMN red_nine_turn17_rate decimal(10,2) DEFAULT 0 NULL COMMENT '九转17比例';
 ALTER TABLE lottery.lottery_config MODIFY COLUMN red_nine_turn33_rate decimal(10,2) DEFAULT 0 NULL COMMENT '九转33比例';
+
+ALTER TABLE lottery.lottery_config ADD CONSTRAINT lottery_config_UN UNIQUE KEY (`type`);

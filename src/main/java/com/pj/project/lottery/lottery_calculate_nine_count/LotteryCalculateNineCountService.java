@@ -54,12 +54,15 @@ public class LotteryCalculateNineCountService {
 		//删除数据
 		lotteryCalculateNineCountMapper.deleteAll();
 
+		batchInsertLotteryCalculateNineCounts();
+	}
+
+	public void batchInsertLotteryCalculateNineCounts() {
 		//全量同步
 		List<LotteryCalculateNineCount> nineCountList = lotteryCalculatePerMapper.getNineCountList();
 		if(CollectionUtils.isEmpty(nineCountList)){
 			throw new RuntimeException("未查到数据!");
 		}
-
 		List<List<LotteryCalculateNineCount>> listList = Lists.partition(nineCountList, 1000);
 		listList.stream().forEach(v->{
 			lotteryCalculateNineCountMapper.batchInsertLotteryCalculateNineCount(v);

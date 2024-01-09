@@ -57,4 +57,5 @@ public interface LotteryMapper {
 	Lottery getCurrentLottery();
 
 	List<Lottery> getLotteryByRed(String red);
+	List<Lottery> getLotterysBeforeCode(String code);
 }

@@ -77,7 +77,6 @@ public class LotteryService {
 			List<Lottery> lotterys = unionLotto.getLotterys(lotteryParameter);
 			log.info(JSONUtil.toJsonStr(lotterys));
 			lotteryMapper.batchInsertLottery(lotterys);
-
 		}
 	}
 

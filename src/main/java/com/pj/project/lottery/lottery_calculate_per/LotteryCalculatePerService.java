@@ -70,33 +70,38 @@ public class LotteryCalculatePerService {
 		List<LotteryCalculatePer> lotteryCalculatePers = new ArrayList<>(10000);
 		Map<String, Map<String,String>> map = new HashMap<>(100);
 		for (int i = 0; i < list.size(); i++) {
-			LotteryCalculatePer lotteryCalculatePer = getLotteryCalculatePer(list.get(i));
-			if(i>0){
-				Lottery lottery = list.get(i - 1);
-				int beforeCodeCount = StringUtils.arraysContainerStr(list.get(i).getRed().split(","), lottery.getRed());
-				lotteryCalculatePer.setBeforeCodeCount(beforeCodeCount);
-			}
-			//按照年-期号分组
-			String year = lotteryCalculatePer.getCode().substring(0, 4);
-			String number = lotteryCalculatePer.getCode().substring(4, 7);
-			Map<String,String> currentMap = map.get(year);
-			if(currentMap == null){
-				currentMap = new HashMap<>(200);
-			}
-			if(Integer.valueOf(number) > 10){
-				String red = currentMap.get(StringUtils.intToStr(Integer.valueOf(number) - 10));
-				int beforeCommonCodeCount = StringUtils.arraysContainerStr(list.get(i).getRed().split(","), red);
-				lotteryCalculatePer.setBeforeCommonCodeCount(beforeCommonCodeCount);
-			}
-			currentMap.put(number,lotteryCalculatePer.getRed());
-			map.put(year, currentMap);
-			lotteryCalculatePers.add(lotteryCalculatePer);
+			lotteryCalculatePers.add(getLotteryCalculatePer(list, map, i));
 		}
 		Collections.reverse(lotteryCalculatePers);
 		List<List<LotteryCalculatePer>> listList = Lists.partition(lotteryCalculatePers, 1000);
 		listList.stream().forEach(v->{
 			lotteryCalculatePerMapper.batchInsertLotteryCalculatePer(v);
 		});
+	}
+
+	@NotNull
+	public LotteryCalculatePer getLotteryCalculatePer(List<Lottery> list, Map<String, Map<String, String>> map, int i) {
+		LotteryCalculatePer lotteryCalculatePer = getLotteryCalculatePer(list.get(i));
+		if(i >0){
+			Lottery lottery = list.get(i - 1);
+			int beforeCodeCount = StringUtils.arraysContainerStr(list.get(i).getRed().split(","), lottery.getRed());
+			lotteryCalculatePer.setBeforeCodeCount(beforeCodeCount);
+		}
+		//按照年-期号分组
+		String year = lotteryCalculatePer.getCode().substring(0, 4);
+		String number = lotteryCalculatePer.getCode().substring(4, 7);
+		Map<String,String> currentMap = map.get(year);
+		if(currentMap == null){
+			currentMap = new HashMap<>(200);
+		}
+		if(Integer.valueOf(number) > 10){
+			String red = currentMap.get(StringUtils.intToStr(Integer.valueOf(number) - 10));
+			int beforeCommonCodeCount = StringUtils.arraysContainerStr(list.get(i).getRed().split(","), red);
+			lotteryCalculatePer.setBeforeCommonCodeCount(beforeCommonCodeCount);
+		}
+		currentMap.put(number,lotteryCalculatePer.getRed());
+		map.put(year, currentMap);
+		return lotteryCalculatePer;
 	}
 
 	@NotNull

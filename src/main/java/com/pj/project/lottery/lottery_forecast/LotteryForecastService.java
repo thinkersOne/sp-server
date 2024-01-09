@@ -12,6 +12,7 @@ import com.pj.models.so.SoMap;
 import com.pj.project.lottery.LotteryMapper;
 import com.pj.project.lottery.LotteryParameter;
 import com.pj.project.lottery.LotteryService;
+import com.pj.project.lottery.lottery_all.LotteryAllMapper;
 import com.pj.project.lottery.lottery_all.LotteryAllService;
 import com.pj.project.lottery.lottery_calculate_count.LotteryCalculateCount;
 import com.pj.project.lottery.lottery_calculate_count.LotteryCalculateCountMapper;
@@ -27,8 +28,10 @@ import com.pj.project.lottery.lottery_calculate_per.LotteryCalculatePerMapper;
 import com.pj.project.lottery.lottery_calculate_per.LotteryCalculatePerService;
 import com.pj.project.lottery.lottery_config.LotteryConfig;
 import com.pj.project.lottery.lottery_config.LotteryConfigMapper;
+import com.pj.project.lottery.lottery_red_proportion.LotteryRedProportionMapper;
 import com.pj.project.lottery.lottery_red_proportion.LotteryRedProportionService;
 import com.pj.project.lottery.lottery_select.LotterySelectCodesDTO;
+import com.pj.project.lottery.lottery_select.LotterySelectMapper;
 import com.pj.project.lottery.lottery_select.LotterySelectService;
 import com.pj.project.lottery.lottery_strategy_record.LotteryStrategyRecord;
 import com.pj.project.lottery.lottery_strategy_record.LotteryStrategyRecordMapper;
@@ -40,12 +43,16 @@ import com.pj.project.lottery.unionLotto.enums.RangeEnum;
 import com.pj.project.lottery.unionLotto.utils.RuleUtils;
 import com.pj.utils.FileGenerator;
 import com.pj.utils.IdGeneratorUtils;
+import com.pj.utils.ListUtils;
 import com.pj.utils.StringUtils;
 import com.pj.utils.cache.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
+
+import javax.persistence.RollbackException;
 
 /**
  * Service: lottery_forecast -- 号码预测
@@ -66,6 +73,14 @@ public class LotteryForecastService {
 	LotteryCalculatePerMapper lotteryCalculatePerMapper;
 	@Autowired
 	LotteryCalculateNineMapper lotteryCalculateNineMapper;
+	@Autowired
+	LotteryCalculateNineCountMapper lotteryCalculateNineCountMapper;
+	@Autowired
+	LotteryAllMapper lotteryAllMapper;
+	@Autowired
+	LotterySelectMapper lotterySelectMapper;
+	@Autowired
+	LotteryRedProportionMapper lotteryRedProportionMapper;
 	@Autowired
 	LotteryStrategyRecordMapper lotteryStrategyRecordMapper;
 	@Autowired
@@ -110,6 +125,17 @@ public class LotteryForecastService {
 		String collect = forcastRedList.stream().collect(Collectors.joining(";"));
 		l.setForecastRed(collect);
 		return lotteryForecastMapper.add(l);
+	}
+
+	public void lotteryConfigNew(LotteryForestVo lotteryForestVo){
+		//查询所需要的数据
+		List<LotteryCalculateCount> maxLotteryCalculateCounts = lotteryCalculateCountMapper.getMaxLotteryCalculateCounts();
+		List<LotteryConfig> list = lotteryConfigMapper.getList(new SoMap());
+
+		LotteryCalculatePer beforeInfo = lotteryCalculatePerMapper.getBeforeInfo();
+		String code = StringUtils.nextCode(beforeInfo.getCode());
+
+
 	}
 
 	public void lotteryConfig(LotteryForestVo lotteryForestVo){
@@ -191,60 +217,61 @@ public class LotteryForecastService {
 		soMap.set("sortType",orderBy);
 		List<LotteryCalculateCount> lotteryCalculateCountList = lotteryCalculateCountMapper.getList(soMap);
 		LotteryCalculateCount lotteryCalculateCount = lotteryCalculateCountList.get(0);
+
 		//筛选红球
-		List<String> redList = getRedList(maxLotteryCalculateCount, lotteryConfig, lotteryCalculateCount);
-		if(map.get(LotteryForestConfigEnum.RED_LIST.getName()) != null){
-			redList.addAll((Collection<? extends String>) map.get(LotteryForestConfigEnum.RED_LIST.getName()));
-		}
-		map.put(LotteryForestConfigEnum.RED_LIST.getName(),redList);
+		map.put(LotteryForestConfigEnum.RED_LIST.getName(),
+				ListUtils.intersectionForList_3(
+						getRedList(maxLotteryCalculateCount, lotteryConfig, lotteryCalculateCount)
+						, map.get(LotteryForestConfigEnum.RED_LIST.getName()))
+				);
 		//筛选 红球奇偶比
-		List<String> redParityRatioList = getRedParityRatioList(maxLotteryCalculateCount, lotteryConfig, lotteryCalculateCount);
-		if(map.get(LotteryForestConfigEnum.RED_PARITY_RATIO_LIST.getName()) != null){
-			redParityRatioList.addAll((Collection<? extends String>) map.get(LotteryForestConfigEnum.RED_PARITY_RATIO_LIST.getName()));
-		}
-		map.put(LotteryForestConfigEnum.RED_PARITY_RATIO_LIST.getName(),redParityRatioList);
+		map.put(LotteryForestConfigEnum.RED_PARITY_RATIO_LIST.getName(),
+				ListUtils.intersectionForList_3(
+						getRedParityRatioList(maxLotteryCalculateCount, lotteryConfig, lotteryCalculateCount)
+						, map.get(LotteryForestConfigEnum.RED_PARITY_RATIO_LIST.getName()))
+				);
 		//筛选 红球区间比
-		List<String> redRangeList = getRedRangeList(maxLotteryCalculateCount, lotteryConfig, lotteryCalculateCount);
-		if(map.get(LotteryForestConfigEnum.RED_RANGE_LIST.getName()) != null){
-			redRangeList.addAll((Collection<? extends String>) map.get(LotteryForestConfigEnum.RED_RANGE_LIST.getName()));
-		}
-		map.put(LotteryForestConfigEnum.RED_RANGE_LIST.getName(),redRangeList);
+		map.put(LotteryForestConfigEnum.RED_RANGE_LIST.getName(),
+				ListUtils.intersectionForList_3(
+						getRedRangeList(maxLotteryCalculateCount, lotteryConfig, lotteryCalculateCount)
+						, map.get(LotteryForestConfigEnum.RED_RANGE_LIST.getName()))
+				);
 		//筛选 红球和值比
-		List<String> redSumList = getRedSumList(maxLotteryCalculateCount, lotteryConfig, lotteryCalculateCount);
-		if(map.get(LotteryForestConfigEnum.RED_SUM_LIST.getName()) != null){
-			redSumList.addAll((Collection<? extends String>) map.get(LotteryForestConfigEnum.RED_SUM_LIST.getName()));
-		}
-		map.put(LotteryForestConfigEnum.RED_SUM_LIST.getName(),redSumList);
+		map.put(LotteryForestConfigEnum.RED_SUM_LIST.getName(),
+				ListUtils.intersectionForList_3(
+						getRedSumList(maxLotteryCalculateCount, lotteryConfig, lotteryCalculateCount)
+						, map.get(LotteryForestConfigEnum.RED_SUM_LIST.getName()))
+				);
 		//筛选 连号个数
-		List<Integer> consecutiveNumbersCountList = getConsecutiveNumbersCountList(maxLotteryCalculateCount, lotteryConfig, lotteryCalculateCount);
-		if(map.get(LotteryForestConfigEnum.CONSECUTIVE_NUMBERS_COUNT_LIST.getName()) != null){
-			consecutiveNumbersCountList.addAll((Collection<? extends Integer>) map.get(LotteryForestConfigEnum.CONSECUTIVE_NUMBERS_COUNT_LIST.getName()));
-		}
-		map.put(LotteryForestConfigEnum.CONSECUTIVE_NUMBERS_COUNT_LIST.getName(),consecutiveNumbersCountList);
+		map.put(LotteryForestConfigEnum.CONSECUTIVE_NUMBERS_COUNT_LIST.getName(),
+				ListUtils.intersectionForList_3(
+						getConsecutiveNumbersCountList(maxLotteryCalculateCount, lotteryConfig, lotteryCalculateCount)
+						, map.get(LotteryForestConfigEnum.CONSECUTIVE_NUMBERS_COUNT_LIST.getName()))
+				);
 		//筛选 最大连号数
-		List<Integer> maxConsecutiveNumbersCountList = getMaxConsecutiveNumbersCountList(maxLotteryCalculateCount, lotteryConfig, lotteryCalculateCount);
-		if(map.get(LotteryForestConfigEnum.MAX_CONSECUTIVE_NUMBERS_COUNT_LIST.getName()) != null){
-			maxConsecutiveNumbersCountList.addAll((Collection<? extends Integer>) map.get(LotteryForestConfigEnum.MAX_CONSECUTIVE_NUMBERS_COUNT_LIST.getName()));
-		}
-		map.put(LotteryForestConfigEnum.MAX_CONSECUTIVE_NUMBERS_COUNT_LIST.getName(),maxConsecutiveNumbersCountList);
+		map.put(LotteryForestConfigEnum.MAX_CONSECUTIVE_NUMBERS_COUNT_LIST.getName(),
+				ListUtils.intersectionForList_3(
+						getMaxConsecutiveNumbersCountList(maxLotteryCalculateCount, lotteryConfig, lotteryCalculateCount)
+						, map.get(LotteryForestConfigEnum.MAX_CONSECUTIVE_NUMBERS_COUNT_LIST.getName()))
+				);
 		//筛选 九转连环09
 		List<LotteryCalculateNine> maxNineTurnCountList = lotteryCalculateNineMapper.getMaxNineTurnCount(type);
 		List<LotteryCalculateNine> currentList = getLotteryCalculateNines(type, lotteryCalculateCount);
-		List<String> nineTurn09List = getNineTurn09List(maxNineTurnCountList, currentList, lotteryConfig);
-		if(map.get(LotteryForestConfigEnum.NINE_TURN_09_LIST.getName()) != null){
-			nineTurn09List.addAll((Collection<? extends String>) map.get(LotteryForestConfigEnum.NINE_TURN_09_LIST.getName()));
-		}
-		map.put(LotteryForestConfigEnum.NINE_TURN_09_LIST.getName(),nineTurn09List);
-		List<String> nineTurn17List =getNineTurn17List(maxNineTurnCountList, currentList, lotteryConfig);
-		if(map.get(LotteryForestConfigEnum.NINE_TURN_17_LIST.getName()) != null){
-			nineTurn17List.addAll((Collection<? extends String>) map.get(LotteryForestConfigEnum.NINE_TURN_17_LIST.getName()));
-		}
-		map.put(LotteryForestConfigEnum.NINE_TURN_17_LIST.getName(),nineTurn17List);
-		List<String> nineTurn33List = getNineTurn33List(maxNineTurnCountList, currentList, lotteryConfig);
-		if(map.get(LotteryForestConfigEnum.NINE_TURN_33_LIST.getName()) != null){
-			nineTurn33List.addAll((Collection<? extends String>) map.get(LotteryForestConfigEnum.NINE_TURN_33_LIST.getName()));
-		}
-		map.put(LotteryForestConfigEnum.NINE_TURN_33_LIST.getName(),nineTurn33List);
+		map.put(LotteryForestConfigEnum.NINE_TURN_09_LIST.getName(),
+				ListUtils.intersectionForList_3(
+						getNineTurn09List(maxNineTurnCountList, currentList, lotteryConfig)
+						, map.get(LotteryForestConfigEnum.NINE_TURN_09_LIST.getName()))
+				);
+		map.put(LotteryForestConfigEnum.NINE_TURN_17_LIST.getName(),
+				ListUtils.intersectionForList_3(
+						getNineTurn17List(maxNineTurnCountList, currentList, lotteryConfig)
+						, map.get(LotteryForestConfigEnum.NINE_TURN_17_LIST.getName()))
+				);
+		map.put(LotteryForestConfigEnum.NINE_TURN_33_LIST.getName(),
+				ListUtils.intersectionForList_3(
+						getNineTurn33List(maxNineTurnCountList, currentList, lotteryConfig)
+						, map.get(LotteryForestConfigEnum.NINE_TURN_33_LIST.getName()))
+				);
 
 		LotteryForecastTemp forecastTemp = LotteryForecastTemp.builder().build();
 		forecastTemp.appendStrategy(lotteryConfig.getRedRate()+","+lotteryConfig.getRedParityRate()
@@ -345,6 +372,33 @@ public class LotteryForecastService {
 		lotterySelectService.lotterySelect();
 		lotteryRedProportionService.lotteryRedProportion();
 	}
+//
+//	@Transactional(rollbackFor = Exception.class)
+//	public synchronized void syncDataNew(String code){
+//		//删除数据
+//		lotteryMapper.deleteAll();
+//		lotteryCalculatePerMapper.deleteAll();
+//		lotteryCalculateCountMapper.deleteAll();
+//		lotteryCalculateNineMapper.deleteAll();
+//		lotteryCalculateNineCountMapper.deleteAll();
+////		lotteryAllMapper.deleteAll();
+//		lotterySelectMapper.deleteAll();
+//		lotteryRedProportionMapper.deleteAll();
+//
+//		//全量同步
+//		List<Lottery> lotteryList = lotteryMapper.getLotterysBeforeCode(code);
+//		lotteryMapper.batchInsertLottery(lotteryList);
+//		List<LotteryCalculatePer> lotteryCalculatePers = new ArrayList<>(10000);
+//		Map<String, Map<String,String>> map = new HashMap<>(100);
+//		for (int i = 0; i < lotteryList.size(); i++) {
+//			LotteryCalculatePer lotteryCalculatePer = lotteryCalculatePerService.getLotteryCalculatePer(lotteryList, map, i);
+//			lotteryCalculatePers.add(lotteryCalculatePer);
+//		}
+//		lotteryCalculateCountService.batchInsertLotteryCalculateCount(lotteryCalculatePers);
+//		lotteryCalculateNineService.batchInsertCodesLotteryCalculateNineList(lotteryCalculatePers);
+//		lotteryCalculateNineCountService.batchInsertLotteryCalculateNineCounts();
+//		lotteryAllService.syncData();
+//	}
 
 
 	private static List<Integer> getMaxConsecutiveNumbersCountList(LotteryCalculateCount maxLotteryCalculateCount,
