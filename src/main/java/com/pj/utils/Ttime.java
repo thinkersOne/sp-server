@@ -1,7 +1,10 @@
 package com.pj.utils;
 
 
+import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.Nullable;
+import org.springframework.util.StringUtils;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
@@ -20,6 +23,7 @@ import java.util.Date;
  * @author kong
  *
  */
+@Slf4j
 public class Ttime {
 
 	private long start=0;	//开始时间
@@ -168,15 +172,51 @@ public class Ttime {
 		return split;
 	}
 
-	public static void main(String[] args) {
-		String date = "2023-01-01(二)";
-//		System.out.println(getYear(date));
-//		System.out.println(getMonth(date));
-//		System.out.println(getWeek(date));
+	/**
+	 * 根据期号计算日期
+	 * @param code
+	 * @return
+	 */
+	public static String getDate(String code){
+		if(StringUtils.isEmpty(code)){
+			throw new RuntimeException("期号不能为空!");
+		}
+		String year = code.substring(0, 4);
 
-//		String dateString = "2023-10-09"; // 输入日期，格式为YYYY-MM-DD
-		String weekOfYear = getWeekOfYear(getYearMonthDay(date));
-		System.out.println(getYearMonthDay(date) + " 是 " + weekOfYear + " 周");
+
+		return null;
+	}
+
+	public static String addDay(String dateStr,int day){
+		SimpleDateFormat df=new SimpleDateFormat(DATE_TIME_FORMAT_8);
+		try {
+			Date d = df.parse(dateStr);
+			return df.format(new Date(d.getTime() + day * 24 * 60 * 60 * 1000));
+		} catch (ParseException e) {
+			log.error(e.getMessage());
+			throw new RuntimeException(e);
+		}
+	}
+
+	public static String devideDay(String dateStr,int day){
+		SimpleDateFormat df=new SimpleDateFormat(DATE_TIME_FORMAT_8);
+		try {
+			Date d = df.parse(dateStr);
+			return df.format(new Date(d.getTime() - day * 24 * 60 * 60 * 1000));
+		} catch (ParseException e) {
+			log.error(e.getMessage());
+			throw new RuntimeException(e);
+		}
+	}
+
+
+	public static void main(String[] args) throws ParseException {
+		SimpleDateFormat df=new SimpleDateFormat(DATE_TIME_FORMAT_8);
+		String dateStr = "2019-01-01";
+		Date d = df.parse(dateStr);
+		System.out.println("今天的日期："+df.format(d));
+		System.out.println("两天前的日期：" + devideDay(dateStr, 2));
+		System.out.println("三天后的日期：" + addDay(dateStr, 3));
 	}
 
 
