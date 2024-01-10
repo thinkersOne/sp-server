@@ -172,21 +172,6 @@ public class Ttime {
 		return split;
 	}
 
-	/**
-	 * 根据期号计算日期
-	 * @param code
-	 * @return
-	 */
-	public static String getDate(String code){
-		if(StringUtils.isEmpty(code)){
-			throw new RuntimeException("期号不能为空!");
-		}
-		String year = code.substring(0, 4);
-
-
-		return null;
-	}
-
 	public static String addDay(String dateStr,int day){
 		SimpleDateFormat df=new SimpleDateFormat(DATE_TIME_FORMAT_8);
 		try {
@@ -207,16 +192,6 @@ public class Ttime {
 			log.error(e.getMessage());
 			throw new RuntimeException(e);
 		}
-	}
-
-
-	public static void main(String[] args) throws ParseException {
-		SimpleDateFormat df=new SimpleDateFormat(DATE_TIME_FORMAT_8);
-		String dateStr = "2019-01-01";
-		Date d = df.parse(dateStr);
-		System.out.println("今天的日期："+df.format(d));
-		System.out.println("两天前的日期：" + devideDay(dateStr, 2));
-		System.out.println("三天后的日期：" + addDay(dateStr, 3));
 	}
 
 

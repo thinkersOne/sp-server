@@ -534,5 +534,30 @@
 		from lottery_calculate_count WHERE cal_type = #{calType}
 	</select>
 
+	<select id="getMaxLotteryCalculateCounts" resultMap="model">
+		select cal_type,max(red1) red1,max(red2) red2,max(red3) red3,max(red4) red4,max(red5) red5,max(red6) red6,max(red7) red7,
+		max(red8) red8,max(red9) red9,max(red10) red10,max(red11) red11,max(red12) red12,max(red13) red13,max(red14) red14,
+		max(red15) red15,max(red16) red16,max(red17) red17,max(red18) red18,max(red19) red19,max(red20) red20,max(red21) red21,
+		max(red22) red22,max(red23) red23,max(red24) red24,max(red25) red25,max(red26) red26,max(red27) red27,max(red28) red28,
+		max(red29) red29,max(red30) red30,max(red31) red31,max(red32) red32,max(red33) red33,
+		max(red_parity_ratio_2_4) red_parity_ratio_2_4,max(red_parity_ratio_4_2) red_parity_ratio_4_2,
+		max(red_parity_ratio_5_1) red_parity_ratio_5_1,max(red_parity_ratio_1_5) red_parity_ratio_1_5,
+		max(red_parity_ratio_3_3) red_parity_ratio_3_3,max(red_parity_ratio_6_0) red_parity_ratio_6_0,
+		max(red_parity_ratio_0_6) red_parity_ratio_0_6,max(red_range_2_3_1) red_range_2_3_1,max(red_range_2_2_2) red_range_2_2_2,
+		max(red_range_3_2_1) red_range_3_2_1,max(red_range_1_2_3) red_range_1_2_3,max(red_range_2_0_4) red_range_2_0_4,
+		max(red_range_2_4_0) red_range_2_4_0,max(red_range_4_0_2) red_range_4_0_2,max(red_range_4_2_0) red_range_4_2_0,
+		max(red_range_3_1_2) red_range_3_1_2,max(red_range_2_1_3) red_range_2_1_3,max(red_range_4_1_1) red_range_4_1_1,
+		max(red_range_1_1_4) red_range_1_1_4,max(red_range_1_4_1) red_range_1_4_1,
+		max(red_21_60) red_21_60,max(red_73_78) red_73_78,max(red_61_66) red_61_66,max(red_103_108) red_103_108,
+		max(red_91_96) red_91_96,max(red_79_84) red_79_84,max(red_67_72) red_67_72,max(red_109_114) red_109_114,
+		max(red_115_120) red_115_120,max(red_133_138) red_133_138,max(red_97_102) red_97_102,max(red_139_144) red_139_144,
+		max(red_127_132) red_127_132,max(red_121_126) red_121_126,max(red_145_183) red_145_183,
+		max(consecutive_numbers_count_0) consecutive_numbers_count_0,max(consecutive_numbers_count_1) consecutive_numbers_count_1,
+		max(consecutive_numbers_count_2) consecutive_numbers_count_2,max(max_consecutive_numbers_1) max_consecutive_numbers_1,
+		max(max_consecutive_numbers_2) max_consecutive_numbers_2,max(max_consecutive_numbers_3) max_consecutive_numbers_3,
+		max(max_consecutive_numbers_4) max_consecutive_numbers_4,max(max_consecutive_numbers_5) max_consecutive_numbers_5
+		from lottery_calculate_count
+		group by cal_type
+	</select>
 
 </mapper>
