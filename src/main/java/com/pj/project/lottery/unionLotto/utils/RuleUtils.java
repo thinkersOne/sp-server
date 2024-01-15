@@ -54,7 +54,7 @@ public class RuleUtils {
     );
 
     public static final List<String> RED_SUM_LIST = Arrays.asList(
-           "21_60","73_78","61_66","103_108","91_96","79_84","67_72","109_114","115_120","133_138","97_102",
+           "21_60","73_78","61_66","103_108","91_96","79_84","85_90","67_72","109_114","115_120","133_138","97_102",
             "139_144","127_132","121_126","145_183"
     );
 
@@ -632,6 +632,23 @@ public class RuleUtils {
             sum += com.pj.utils.StringUtils.convertToInteger(str);
         }
         return sum;
+    }
+
+    /**
+     * 计算出某个号码是在哪个和值区间
+     * @param currentLotteryRed
+     * @return
+     */
+    public static String calRedSumRange(String currentLotteryRed){
+        int redSum = calRedSum(currentLotteryRed);
+        for (int i = 0; i < RED_SUM_LIST.size(); i++) {
+            String v = RED_SUM_LIST.get(i);
+            String[] split = v.split("_");
+            if(Integer.valueOf(split[0]) <= redSum && redSum <= Integer.valueOf(split[1])){
+                return v;
+            }
+        }
+        return "";
     }
 
     /**

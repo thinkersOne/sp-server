@@ -77,7 +77,24 @@
 		<include refid="select_sql"></include>
 		where id = #{id}
 	</select>
-
+	<select id="lotterySelectCompose" resultType="com.pj.project.lottery.lottery_calculate_per.LotterySelectCompose">
+		select red_parity_ratio,red_range_ratio,red_sum,sum(red_count) red_count from (
+		select t.red_parity_ratio,t.red_range_ratio,(case when (t.red_sum &gt;= 21 and  t.red_sum &lt;= 60) then '21_60'
+		when (t.red_sum &gt;= 73 and  t.red_sum &lt;= 78) then '73_78' when (t.red_sum &gt;= 61 and  t.red_sum &lt;= 66) then '61_66'
+		when (t.red_sum &gt;= 103 and  t.red_sum &lt;= 108) then '103_108' when (t.red_sum &gt;= 91 and  t.red_sum &lt;= 96) then '91_96'
+		when (t.red_sum &gt;= 79 and  t.red_sum &lt;= 84) then '79_84' when (t.red_sum &gt;= 67 and  t.red_sum &lt;= 72) then '67_72'
+		when (t.red_sum &gt;= 109 and  t.red_sum &lt;= 114) then '109_114' when (t.red_sum &gt;= 115 and  t.red_sum &lt;= 120) then '115_120'
+		when (t.red_sum &gt;= 133 and  t.red_sum &lt;= 138) then '133_138' when (t.red_sum &gt;= 97 and  t.red_sum &lt;= 102) then '97_102'
+		when (t.red_sum &gt;= 139 and  t.red_sum &lt;= 144) then '139_144' when (t.red_sum &gt;= 127 and  t.red_sum &lt;= 132) then '127_132'
+		when (t.red_sum &gt;= 121 and  t.red_sum &lt;= 126) then '121_126' when (t.red_sum &gt;= 145 and  t.red_sum &lt;= 183) then '145_183'
+		when (t.red_sum &gt;= 85 and  t.red_sum &lt;= 90) then '85_90' else  '0' end) red_sum,t.red_count
+		from(
+		select red_parity_ratio,red_range_ratio,red_sum,count(*) red_count
+		from lottery_calculate_per
+		group by red_parity_ratio,red_range_ratio,red_sum
+		) t where red_count > 1 order by red_count desc
+		)a group by red_parity_ratio,red_range_ratio,red_sum order by red_count desc
+	</select>
 	<select id="getBeforeInfo" resultMap="model">
 		<include refid="select_sql"></include>
 		order by code  DESC limit 1

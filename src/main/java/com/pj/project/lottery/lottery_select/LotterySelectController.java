@@ -75,6 +75,18 @@ public class LotterySelectController {
 		lotterySelectService.lotterySelect();
 		return AjaxJson.getSuccess();
 	}
+
+	/**
+	 * 从lottery_all表筛选出 经过统计出来的组合比率较大的组合-》LotterySelect
+	 * @return
+	 */
+	@GetMapping("/sync/lotterySelectCompose")
+	public AjaxJson lotterySelectCompose() {
+		lotterySelectService.lotterySelectCompose();
+		return AjaxJson.getSuccess();
+	}
+
+
 	
 	@PostMapping("/forecast/lotterySelectCodes")
 	public AjaxJson lotterySelectCodes(@RequestBody LotterySelectCodesDTO lotterySelectCodesDTO){

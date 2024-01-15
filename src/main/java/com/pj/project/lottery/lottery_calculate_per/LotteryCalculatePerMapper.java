@@ -60,4 +60,5 @@ public interface LotteryCalculatePerMapper {
 
 	List<LotteryCalculateNineCount> getNineCountList();
 
+	List<LotterySelectCompose> lotterySelectCompose();
 }

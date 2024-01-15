@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import cn.hutool.core.collection.ListUtil;
 import com.google.common.collect.Lists;
 import com.pj.current.global.RuleConstants;
 import com.pj.models.so.SoMap;
@@ -13,17 +12,15 @@ import com.pj.project.lottery.lottery_all.LotteryAll;
 import com.pj.project.lottery.lottery_all.LotteryAllMapper;
 import com.pj.project.lottery.lottery_calculate_nine.LotteryCalculateNineM;
 import com.pj.project.lottery.lottery_calculate_nine.LotteryCalculateNineMapper;
-import com.pj.project.lottery.lottery_calculate_nine_count.LotteryCalculateNineCount;
 import com.pj.project.lottery.lottery_calculate_nine_count.LotteryCalculateNineCountMapper;
 import com.pj.project.lottery.lottery_calculate_nine_count.NineMinAndMaxDTO;
 import com.pj.project.lottery.lottery_calculate_per.LotteryCalculatePer;
 import com.pj.project.lottery.lottery_calculate_per.LotteryCalculatePerM;
 import com.pj.project.lottery.lottery_calculate_per.LotteryCalculatePerMapper;
+import com.pj.project.lottery.lottery_calculate_per.LotterySelectCompose;
 import com.pj.project.lottery.unionLotto.enums.NineTypeEnum;
 import com.pj.project.lottery.unionLotto.utils.PersonalLawUtils;
 import com.pj.project.lottery.unionLotto.utils.RuleUtils;
-import com.pj.utils.IntegerUtils;
-import org.apache.tomcat.util.digester.Rule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -72,6 +69,40 @@ public class LotterySelectService {
 		return lotterySelectMapper.getList(so);	
 	}
 
+	public void lotterySelectCompose(){
+		//删除数据
+		lotterySelectMapper.deleteAll();
+		List<LotterySelect> resultList = new ArrayList<LotterySelect>(1110000);
+		//查询全量表并进行过滤
+		List<LotteryAll> lotteryAllList = lotteryAllMapper.getList(new SoMap());
+		List<LotterySelectCompose> lotterySelectComposes = lotteryCalculatePerMapper.lotterySelectCompose();
+		Map<String,Integer> map = new HashMap<>(250);
+		lotterySelectComposes.stream().forEach(v->{
+			map.put(v.getRedParityRatio()+"-"+v.getRedRangeRatio()+"-"+v.getRedSum(), v.getRedCount());
+		});
+		lotteryAllList.stream().forEach(v->{
+			//计算奇偶
+			String parityRatio = RuleUtils.calParityRatio(v.getRed());
+			//计算区间
+			String range = RuleUtils.calRange(v.getRed());
+			//计算和值区间
+			String sumRange = RuleUtils.calRedSumRange(v.getRed());
+			//匹配筛选
+			String key = parityRatio+"-"+range+"-"+sumRange;
+			if(!map.containsKey(key)){
+				return;
+			}
+			LotterySelect lotterySelect = new LotterySelect();
+			lotterySelect.setRed(v.getRed());
+			resultList.add(lotterySelect);
+		});
+		if(!CollectionUtils.isEmpty(resultList)){
+			List<List<LotterySelect>> listList = Lists.partition(resultList, 1000);
+			listList.stream().forEach(v->{
+				lotterySelectMapper.batchInsertLotterySelect(v);
+			});
+		}
+	}
 	public void lotterySelect(){
 		//删除数据
 		lotterySelectMapper.deleteAll();
